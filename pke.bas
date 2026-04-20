@@ -67,31 +67,18 @@ end
    $D4, $D4, $D6, $D6, $D8, $DA, $DC, $DE, $0E
 end
 
-   data MelodyPitch
-   0, 14, 0, 14, 11, 14, 12, 16, 0, 14, 0, 14, 0, 14, 0, 14, 16, 14, 0
-end
-
-   data MelodyVol
-   0, 4, 0, 4, 4, 4, 4, 4, 0, 4, 0, 4, 0, 4, 0, 4, 4, 4, 0
-end
-
-   data MelodyDur
-   18, 8, 1, 9, 18, 18, 18, 18, 36, 8, 1, 8, 1, 8, 1, 9, 18, 18, 36
-end
-
    pfheights:
-    2
-    15
-    2
-    15
-    2
-    16
-    2
-    15
-    2
-    15
-    2
-    
+    4
+    17
+    4
+    9
+    8
+    4
+    8
+    9
+    4
+    17
+    4
 end
 
    ;***************************************************************
@@ -136,7 +123,7 @@ __Start_Turn
    _Map_Position_x = 5
    _Map_Position_y = 9
    _Buster_Room = 95
-   gosub __Set_Room_Layout bank2
+   gosub __Set_Room_Layout bank3
    player1x = 78
    player1y = 83
    _Buster_Direction = 0
@@ -148,7 +135,7 @@ __Start_Turn
    _Bit3_Stunned_Ghost{3} = 0
    _Bit4_Trap_Active{4} = 0
    _Bit5_Music_Done{5} = 0
-   gosub __Ghost_Sprite
+   gosub __Ghost_Sprite bank2
 
    _Ghost3_Room = 85
 
@@ -170,7 +157,7 @@ __Main_Loop
    COLUPF = $F0
    COLUBK = $02
    NUSIZ0 = $30
-   gosub __Buster_Sprite
+   gosub __Buster_Sprite bank2
 
    ;***************************************************************
    ;   Buster Movement
@@ -209,10 +196,10 @@ __Heat_Logic
    ;   PKE Sound check
    ;***************************************************************
 
-   if _Distance_to_Ghost = 0 then gosub __PKE_Chirp
-   if _Distance_to_Ghost = 1 then gosub __PKE_Drone
-   if _Distance_to_Ghost = 2 then gosub __PKE_Hum
-   if _Distance_to_Ghost > 2 then gosub __PKE_Off
+   if _Distance_to_Ghost = 0 then gosub __PKE_Chirp bank2
+   if _Distance_to_Ghost = 1 then gosub __PKE_Drone bank2
+   if _Distance_to_Ghost = 2 then gosub __PKE_Hum bank2
+   if _Distance_to_Ghost > 2 then gosub __PKE_Off bank2
 
    ;***************************************************************
    ;   Overheat Check
@@ -277,134 +264,6 @@ __Skip_Collision_Logic
    goto __Start_Restart
 
    ;***************************************************************
-   ;   Subroutines - Sprites
-   ;***************************************************************
-   
-__Buster_Sprite
-   REFP1 = _Buster_Direction
-   if f >= 10 && f < 15 then player1:
-    %00111100
-    %00101000
-    %00101000
-    %00111000
-    %01000100
-    %01111100
-    %01111100
-    %00111000
-    %00010000
-    %00011000
-    %00011000
-    %00001000
-end
-   player1color:
-    $00;
-    $00;
-    $F8;
-    $F8;
-    $3E;
-    $F8;
-    $F8;
-    $F8;
-    $3E;
-    $3E;
-    $3E;
-    $C2;
-end
-   if f >= 15 && f < 20 then player1:
-    %00110000
-    %00101100
-    %00101000
-    %00111000
-    %01000100
-    %01111100
-    %01111100
-    %00111000
-    %00010000
-    %00011000
-    %00011000
-    %00001000
-end
-   if f >= 20 && f < 25 then player1:
-    %00111100
-    %00101000
-    %00101000
-    %00111000
-    %01000100
-    %01111100
-    %01111100
-    %00111000
-    %00010000
-    %00011000
-    %00011000
-    %00001000
-end
-   if f >= 25 then player1:
-    %00001100
-    %00111000
-    %00101000
-    %00111000
-    %01000100
-    %01111100
-    %01111100
-    %00111000
-    %00010000
-    %00011000
-    %00011000
-    %00001000
-end
-   if f >= 30 then f = 10
-   return
-   
-__Ghost_Sprite
-   player0:
-    %10101010
-    %11111111
-    %11111111
-    %11111111
-    %11011011
-    %01111110
-    %00111100
-end
-   return
-
-   ;***************************************************************
-   ;   Subroutines - Audio
-   ;***************************************************************
-
-__PKE_Chirp
-   if (_Game_Timer & 7) = 0 then AUDV0 = 3 : AUDF0 = 20 : AUDC0 = 12
-   if (_Game_Timer & 7) = 3 then AUDV0 = 0
-   return
-   
-__PKE_Drone
-   if (_Game_Timer & 31) = 0 then AUDV0 = 2 : AUDF0 = 20 : AUDC0 = 12
-   if (_Game_Timer & 31) = 5 then AUDV0 = 0
-   return
-   
-__PKE_Hum
-   if !switchrightb then AUDV0 = 0 : return
-   if (_Game_Timer & 63) = 0 then AUDV0 = 1 : AUDF0 = 20 : AUDC0 = 12
-   if (_Game_Timer & 63) = 15 then AUDV0 = 0
-   return
-
-__PKE_Off
-   AUDV0 = 0
-   return
-
-__Play_Tune
-   if _Bit5_Music_Done{5} then AUDV0 = 0 : AUDV1 = 0 : return
-   if _Mel_Timer > 0 then goto __Mel_Tick
-   AUDC0 = 4
-   AUDF0 = MelodyPitch[_Mel_Idx]
-   AUDV0 = MelodyVol[_Mel_Idx]
-   _Mel_Timer = MelodyDur[_Mel_Idx]
-   _Mel_Idx = _Mel_Idx + 1
-   if _Mel_Idx >= 20 then _Bit5_Music_Done{5} = 1 : AUDV0 = 0 : AUDV1 = 0 : return
-__Mel_Tick
-   _Mel_Timer = _Mel_Timer - 1
-   return
-
-   ;***************************************************************
    ;   Subroutines - Moving Rooms
    ;***************************************************************
 
@@ -413,7 +272,7 @@ __Move_Right
    gosub __Transition_Out
    _Map_Position_x = _Map_Position_x + 1
    player1x = 18
-   gosub __Set_Room_Layout bank2
+   gosub __Set_Room_Layout bank3
    return
    
 __Move_Left
@@ -421,7 +280,7 @@ __Move_Left
    gosub __Transition_Out
    _Map_Position_x = _Map_Position_x - 1
    player1x = 137
-   gosub __Set_Room_Layout bank2
+   gosub __Set_Room_Layout bank3
    return
 
 __Move_Up
@@ -429,7 +288,7 @@ __Move_Up
    gosub __Transition_Out
    _Map_Position_y = _Map_Position_y - 1
    player1y = 89
-   gosub __Set_Room_Layout bank2
+   gosub __Set_Room_Layout bank3
    return
    
 __Move_Down
@@ -437,7 +296,7 @@ __Move_Down
    gosub __Transition_Out
    _Map_Position_y = _Map_Position_y + 1
    player1y = 11
-   gosub __Set_Room_Layout bank2
+   gosub __Set_Room_Layout bank3
    return
    
 __Transition_Out
@@ -478,7 +337,7 @@ __Missile_Moving
    _Previous_Missile_x = missile0x
    if _Buster_Direction = 0 then missile0x = missile0x + 8
    if _Buster_Direction = 8 then missile0x = missile0x - 8
-   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 100 : scorecolor = $42 : _Score_Timer = _Game_Timer + 60
+   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 500 : scorecolor = $42 : _Score_Timer = _Game_Timer + 60
    if (_Stream_Counter & 1) = 0 then missile0y = missile0y + 1 else missile0y = missile0y - 1
    if missile0x < 15 then _Bit1_Missile_Flag{1} = 0
    if missile0x > 140 then _Bit1_Missile_Flag{1} = 0
@@ -531,9 +390,13 @@ __Ghost_Caught
    _Bit5_Music_Done{5} = 0
    _Mel_Idx = 0
    _Transition_Quick_Count = 240
+   COLUBK = $0E
+   COLUPF = $0E
 Trap_Loop
-   if !_Bit5_Music_Done{5} then gosub __Play_Tune
+   if !_Bit5_Music_Done{5} then gosub __Play_Tune bank2
    drawscreen
+   COLUBK = $02
+   COLUPF = $F0
    _Transition_Quick_Count = _Transition_Quick_Count - 1
    if _Transition_Quick_Count > 0 then goto Trap_Loop
    player0y = 0
@@ -542,7 +405,7 @@ Trap_Loop
    score = score + 5000 : scorecolor = $C4 : _Score_Timer = _Game_Timer + 60
    _Hit_Count = 0
    gosub __Spawn_Ghosts
-   gosub __Set_Room_Layout bank2
+   gosub __Set_Room_Layout bank3
    return
 
    ;***************************************************************
@@ -752,10 +615,160 @@ __Roll_Ghost3
    if _Ghost3_Room = _Ghost1_Room then goto __Roll_Ghost3
    if _Ghost3_Room = _Ghost2_Room then goto __Roll_Ghost3
    return
-   
+
    ;***************************************************************
    ;***************************************************************     
    bank 2
+   ;***************************************************************
+   ;***************************************************************
+
+   ;***************************************************************
+   ;   Subroutines - Sprites
+   ;***************************************************************
+   
+__Buster_Sprite
+   REFP1 = _Buster_Direction
+   if f >= 10 && f < 15 then player1:
+    %00111100
+    %00101000
+    %00101000
+    %00111000
+    %01000100
+    %01111100
+    %01111100
+    %00111000
+    %00010000
+    %00011000
+    %00011000
+    %00001000
+end
+   player1color:
+    $00;
+    $00;
+    $F8;
+    $F8;
+    $3E;
+    $F8;
+    $F8;
+    $F8;
+    $3E;
+    $3E;
+    $3E;
+    $C2;
+end
+   if f >= 15 && f < 20 then player1:
+    %00110000
+    %00101100
+    %00101000
+    %00111000
+    %01000100
+    %01111100
+    %01111100
+    %00111000
+    %00010000
+    %00011000
+    %00011000
+    %00001000
+end
+   if f >= 20 && f < 25 then player1:
+    %00111100
+    %00101000
+    %00101000
+    %00111000
+    %01000100
+    %01111100
+    %01111100
+    %00111000
+    %00010000
+    %00011000
+    %00011000
+    %00001000
+end
+   if f >= 25 then player1:
+    %00001100
+    %00111000
+    %00101000
+    %00111000
+    %01000100
+    %01111100
+    %01111100
+    %00111000
+    %00010000
+    %00011000
+    %00011000
+    %00001000
+end
+   if f >= 30 then f = 10
+   return
+   
+__Ghost_Sprite
+   player0:
+    %10101010
+    %11111111
+    %11111111
+    %11111111
+    %11011011
+    %01111110
+    %00111100
+end
+   return
+
+   ;***************************************************************
+   ;   Subroutines - Audio
+   ;***************************************************************
+
+__PKE_Chirp
+   if (_Game_Timer & 7) = 0 then AUDV0 = 3 : AUDF0 = 20 : AUDC0 = 12
+   if (_Game_Timer & 7) = 3 then AUDV0 = 0
+   return
+   
+__PKE_Drone
+   if (_Game_Timer & 31) = 0 then AUDV0 = 2 : AUDF0 = 20 : AUDC0 = 12
+   if (_Game_Timer & 31) = 5 then AUDV0 = 0
+   return
+   
+__PKE_Hum
+   if !switchrightb then AUDV0 = 0 : return
+   if (_Game_Timer & 63) = 0 then AUDV0 = 1 : AUDF0 = 20 : AUDC0 = 12
+   if (_Game_Timer & 63) = 15 then AUDV0 = 0
+   return
+
+__PKE_Off
+   AUDV0 = 0
+   return
+
+   data GB_Note
+   0, 14, 0, 14, 11, 14, 12, 16, 0, 14, 0, 14, 0, 14, 0, 14, 16, 14, 0
+end
+
+   data GB_Volume
+   0, 4, 0, 4, 4, 4, 4, 4, 0, 4, 0, 4, 0, 4, 0, 4, 4, 4, 0
+end
+
+   data GB_Duration
+   18, 8, 1, 9, 18, 18, 18, 18, 36, 8, 1, 8, 1, 8, 1, 9, 18, 18, 36
+end
+
+__Play_Tune
+   if _Bit5_Music_Done{5} then AUDV0 = 0 : AUDV1 = 0 : return
+   if _Mel_Timer > 0 then goto __Mel_Tick
+   AUDC0 = 4
+   AUDF0 = GB_Note[_Mel_Idx]
+   AUDV0 = GB_Volume[_Mel_Idx]
+   _Mel_Timer = GB_Duration[_Mel_Idx]
+   _Mel_Idx = _Mel_Idx + 1
+   if _Mel_Idx >= 20 then _Bit5_Music_Done{5} = 1 : AUDV0 = 0 : AUDV1 = 0 : return
+__Mel_Tick
+   _Mel_Timer = _Mel_Timer - 1
+   return
+
+
+
+
+
+   ;***************************************************************
+   ;***************************************************************     
+   bank 3
    ;***************************************************************
    ;***************************************************************
 
@@ -851,9 +864,9 @@ __Layout_Room_1
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    X...............................
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
@@ -867,9 +880,9 @@ __Layout_Room_2
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    X...............................
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
@@ -883,9 +896,9 @@ __Layout_Room_3
     X...............................
     X.................XXXXXXXXXXXXXX
     X...............................
-    X.................XXXXXXXXXXXXXX
     X...............................
     X.................XXXXXXXXXXXXXX
+    X...............................
     X...............................
     X.................XXXXXXXXXXXXXX
     X...............................
@@ -899,9 +912,9 @@ __Layout_Room_4
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
-   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+   ...............................X
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
@@ -915,9 +928,9 @@ __Layout_Room_5
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
-   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+   ...............................X
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
@@ -931,9 +944,9 @@ __Layout_Room_6
     ...............................X
     XXXXXXXXXXXXXX.................X
     ...............................X
-    XXXXXXXXXXXXXX.................X
     ...............................X
     XXXXXXXXXXXXXX.................X
+    ...............................X
     ...............................X
     XXXXXXXXXXXXXX.................X
     ...............................X
@@ -947,9 +960,9 @@ __Layout_Room_7
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
@@ -963,9 +976,9 @@ __Layout_Room_8
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
@@ -976,15 +989,15 @@ end
 __Layout_Room_9
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ..X..........................X..
-    XXX..........................XXX
-    ..X.....XXXXXXXXXXXXXXXX.....X..
-    XXX.....,....................XXX
-    ..X..........................X..
-    XXX..........................XXX
-    ..X.....XXXXXXXXXXXXXXXX.....X..
-    XXX..........................XXX
-    ..X..........................X..
+    ....X......................X....
+    XXXXX......................XXXXX
+    ....X....X............X....X....
+    ....X....X............X....X....
+    XXXXX.....XXXXXXXXXXXX.....XXXXX
+    ....X......................X....
+    ....X......................X....
+    XXXXX......................XXXXX
+    ....X......................X....
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 end
    goto __Check_Room_For_Ghosts 
@@ -995,9 +1008,9 @@ __Layout_Room_10
     ................................
     X..............................X
     ................................
-    X..............................X
     ................................
     X..............................X
+    ................................
     ................................
     X..............................X
     ................................
@@ -1011,14 +1024,13 @@ __Layout_Room_11
     ................................
     XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
     ................................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    ................................
     ................................
     XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
    
@@ -1028,9 +1040,9 @@ __Layout_Room_12
     ................................
     XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
     ................................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    ................................
     ................................
     XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
     ................................
@@ -1043,13 +1055,13 @@ __Layout_Room_13
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
     ................................
-    XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
+    ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
