@@ -34,6 +34,7 @@
    
    dim _Mel_Idx = var1    ; - melody note index
    dim _Mel_Timer = var2  ; - melody note countdown
+   dim _Score_Timer = var3
 
    ;***************************************************************
    ;  set bit variables
@@ -45,6 +46,14 @@
    dim _Bit3_Stunned_Ghost = var0    ; 0 = not stunned, 1 = stunned
    dim _Bit4_Trap_Active = var0      ; 0 = not deployed, 1 = deployed
    dim _Bit5_Music_Done = var0       ; 0 = ready to play, 1 = finished
+
+   ;***************************************************************
+   ;  Converts 6 digit score to 3 sets of two digits.
+   ;***************************************************************
+
+   dim _sc1 = score     ;  The 100 thousands and 10 thousands digits are held by _sc1.
+   dim _sc2 = score+1   ;  The thousands and hundreds digits are held by _sc2.
+   dim _sc3 = score+2   ;  The tens and ones digits are held by _sc3.
 
    ;***************************************************************
    ;   Data tables and defaults
@@ -71,17 +80,18 @@ end
 end
 
    pfheights:
-    4
-    11
-    12
-    4
-    11
-    12
-    4
-    11
-    12
-    4
-    3
+    2
+    15
+    2
+    15
+    2
+    16
+    2
+    15
+    2
+    15
+    2
+    
 end
 
    ;***************************************************************
@@ -94,7 +104,7 @@ __Start_Restart
    ;  Reset all variables
    ;***************************************************************
 
-   score = 0
+   score = 5000
 
    b = 0 : c = 0 : d = 0 : e = 0 : f = 0 : g = 0 : h = 0 : i = 0
    j = 0 : k = 0 : l = 0 : m = 0 : n = 0 : o = 0 : p = 0 : q = 0
@@ -128,7 +138,7 @@ __Start_Turn
    _Buster_Room = 95
    gosub __Set_Room_Layout bank2
    player1x = 78
-   player1y = 85
+   player1y = 83
    _Buster_Direction = 0
    f = 10
    _Wand_Temperature = 0
@@ -140,7 +150,7 @@ __Start_Turn
    _Bit5_Music_Done{5} = 0
    gosub __Ghost_Sprite
 
-   ;_Ghost3_Room = 85
+   _Ghost3_Room = 85
 
    ;***************************************************************
    ;  MAIN LOOP
@@ -149,6 +159,10 @@ __Start_Turn
 __Main_Loop
    _Game_Timer = _Game_Timer + 1
    
+   if _Score_Timer = _Game_Timer then scorecolor = $00
+   
+   if _sc1 = $00 && _sc2 = $00 && _sc3 < $01 then goto __Game_Over_Loop
+
    ;***************************************************************
    ;   Colors, Missiles, Ball and Sprite Setup
    ;***************************************************************
@@ -252,8 +266,8 @@ __Skip_Collision_Logic
    if player1x > 140 then gosub __Move_Right
    if player1x < 15 then gosub __Move_Left
    if player1y < 10 then gosub __Move_Up
-   if player1y > 85 then gosub __Move_Down
-   
+   if player1y > 90 then gosub __Move_Down
+
    ;***************************************************************
    ;  Reset switch check/end of main loop
    ;***************************************************************
@@ -398,7 +412,7 @@ __Move_Right
    if _Map_Position_x = 9 then return
    gosub __Transition_Out
    _Map_Position_x = _Map_Position_x + 1
-   player1x = 20
+   player1x = 18
    gosub __Set_Room_Layout bank2
    return
    
@@ -406,7 +420,7 @@ __Move_Left
    if _Map_Position_x = 0 then return
    gosub __Transition_Out
    _Map_Position_x = _Map_Position_x - 1
-   player1x = 135 
+   player1x = 137
    gosub __Set_Room_Layout bank2
    return
 
@@ -414,15 +428,15 @@ __Move_Up
    if _Map_Position_y = 0 then return
    gosub __Transition_Out
    _Map_Position_y = _Map_Position_y - 1
-   player1y = 85
+   player1y = 89
    gosub __Set_Room_Layout bank2
    return
    
 __Move_Down
-   if _Map_Position_y = 9 then player1y = 85 : return
+   if _Map_Position_y = 9 then return
    gosub __Transition_Out
    _Map_Position_y = _Map_Position_y + 1
-   player1y = 10
+   player1y = 11
    gosub __Set_Room_Layout bank2
    return
    
@@ -464,7 +478,7 @@ __Missile_Moving
    _Previous_Missile_x = missile0x
    if _Buster_Direction = 0 then missile0x = missile0x + 8
    if _Buster_Direction = 8 then missile0x = missile0x - 8
-   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x
+   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 100 : scorecolor = $42 : _Score_Timer = _Game_Timer + 60
    if (_Stream_Counter & 1) = 0 then missile0y = missile0y + 1 else missile0y = missile0y - 1
    if missile0x < 15 then _Bit1_Missile_Flag{1} = 0
    if missile0x > 140 then _Bit1_Missile_Flag{1} = 0
@@ -487,7 +501,7 @@ __Trap_The_Ghost
    if _Bit4_Trap_Active{4} then return ; Prevent firing again if already sliding
    
    CTRLPF = $31
-   ballheight = 1
+   ballheight = 2
    
    if _Buster_Direction = 0 then ballx = player1x + 4
    if _Buster_Direction = 8 then ballx = player1x - 4
@@ -525,7 +539,7 @@ Trap_Loop
    player0y = 0
    bally = 0
    _Bit4_Trap_Active{4} = 0
-   score = score + 500
+   score = score + 5000 : scorecolor = $C4 : _Score_Timer = _Game_Timer + 60
    _Hit_Count = 0
    gosub __Spawn_Ghosts
    gosub __Set_Room_Layout bank2
@@ -835,15 +849,15 @@ __Layout_Room_1
    playfield:
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     X...............................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
-    X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
    
@@ -851,15 +865,15 @@ __Layout_Room_2
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
-    X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
 
@@ -867,15 +881,15 @@ __Layout_Room_3
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
+    X.................XXXXXXXXXXXXXX
     X...............................
     X.................XXXXXXXXXXXXXX
     X...............................
-    X...............................
     X.................XXXXXXXXXXXXXX
     X...............................
+    X.................XXXXXXXXXXXXXX
     X...............................
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
    
@@ -883,31 +897,31 @@ __Layout_Room_4
    playfield:
    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ...............................X
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
-   ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
    
 __Layout_Room_5
    playfield:
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ...............................X
-    ...............................X
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ...............................X
-    ...............................X
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ...............................X
-    ...............................X
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+   ...............................X
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+   ...............................X
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+   ...............................X
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+   ...............................X
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+   ...............................X
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
    goto __Check_Room_For_Ghosts
    
@@ -915,15 +929,15 @@ __Layout_Room_6
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ...............................X
+    XXXXXXXXXXXXXX.................X
     ...............................X
     XXXXXXXXXXXXXX.................X
     ...............................X
-    ...............................X
     XXXXXXXXXXXXXX.................X
     ...............................X
+    XXXXXXXXXXXXXX.................X
     ...............................X
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
 
@@ -931,15 +945,15 @@ __Layout_Room_7
    playfield:
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
 
@@ -947,31 +961,31 @@ __Layout_Room_8
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
 
 __Layout_Room_9
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ...X........................X...
-    ...X........................X...
-    XXXX......XXXXX..XXXXX......XXXX
-    ...X.....X............X.....X...
-    ...X.....X............X.....X...
-    XXXX......XXXXXXXXXXXX......XXXX
-    ...X........................X...
-    ...X........................X...
-    XXXX....X....X....X....X....XXXX
-    ................................
+    ..X..........................X..
+    XXX..........................XXX
+    ..X.....XXXXXXXXXXXXXXXX.....X..
+    XXX.....,....................XXX
+    ..X..........................X..
+    XXX..........................XXX
+    ..X.....XXXXXXXXXXXXXXXX.....X..
+    XXX..........................XXX
+    ..X..........................X..
+    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 end
    goto __Check_Room_For_Ghosts 
    
@@ -979,15 +993,15 @@ __Layout_Room_10
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    X..............................X
     ................................
-    XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
-    ...............XX...............
-    ...............XX...............
-    XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
+    X..............................X
     ................................
+    X..............................X
+    ................................
+    X..............................X
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
 
@@ -995,12 +1009,13 @@ __Layout_Room_11
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
@@ -1011,12 +1026,13 @@ __Layout_Room_12
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    ................................
     XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
-    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
@@ -1027,14 +1043,14 @@ __Layout_Room_13
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    ................................
     XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
-    ................................
     ................................
     XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
+    ................................
+    XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
 end
    goto __Check_Room_For_Ghosts
