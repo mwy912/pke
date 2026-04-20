@@ -2,7 +2,9 @@
    set kernel_options player1colors pfheights
    
    ;***************************************************************
-   ;  set Variables
+   ;   Variable Declarations
+   ;***************************************************************
+
    dim rand16 = a
    dim _Buster_Room = b
    dim _Ghost1_Room = c
@@ -35,8 +37,9 @@
 
    ;***************************************************************
    ;  set bit variables
+   ;***************************************************************
 
-   dim _Bit0_Reset_Restrainer = var0
+   dim _Bit0_Reset_Restrainer = var0 ; Restrains the reset switch for the main loop.
    dim _Bit1_Missile_Flag = var0     ; 0 = stream starting over, 1 = stream already flying
    dim _Bit2_Wand_Lock = var0        ; 0 = not locked, 1 = locked out
    dim _Bit3_Stunned_Ghost = var0    ; 0 = not stunned, 1 = stunned
@@ -45,6 +48,7 @@
 
    ;***************************************************************
    ;   Data tables and defaults
+   ;***************************************************************
 
    data _Heat_Bar_Table
    %00000000, %00000001, %00000011, %00000111, %00001111, %00011111, %00111111, %01111111, %11111111
@@ -53,6 +57,19 @@ end
    data _Ghost_Damage_Colors
    $D4, $D4, $D6, $D6, $D8, $DA, $DC, $DE, $0E
 end
+
+   data MelodyPitch
+   0, 14, 0, 14, 11, 14, 12, 16, 0, 14, 0, 14, 0, 14, 0, 14, 16, 14, 0
+end
+
+   data MelodyVol
+   0, 4, 0, 4, 4, 4, 4, 4, 0, 4, 0, 4, 0, 4, 0, 4, 4, 4, 0
+end
+
+   data MelodyDur
+   18, 8, 1, 9, 18, 18, 18, 18, 36, 8, 1, 8, 1, 8, 1, 9, 18, 18, 36
+end
+
    pfheights:
     4
     11
@@ -68,17 +85,15 @@ end
 end
 
    ;***************************************************************
-   ;***************************************************************
    ;  PROGRAM START/RESTART
+   ;***************************************************************
 
 __Start_Restart
 
    ;***************************************************************
-   ;  Mutes volume of both sound channels.
-   AUDV0 = 0 : AUDV1 = 0
-
-   ;***************************************************************
    ;  Reset all variables
+   ;***************************************************************
+
    score = 0
 
    b = 0 : c = 0 : d = 0 : e = 0 : f = 0 : g = 0 : h = 0 : i = 0
@@ -96,12 +111,10 @@ __Start_Restart
    var42 = 0 : var43 = 0 : var44 = 0 : var45 = 0 : var46 = 0 : var47 = 0
    
    ;***************************************************************
-   ;  Restrains the reset switch for the main loop.
-
-
-   ;***************************************************************
    ;   Initial Startup Value Settings
+   ;***************************************************************
 
+   AUDV0 = 0 : AUDV1 = 0
    const pfscore = 1
    pfscorecolor = $D4
    missile0height = 0
@@ -130,14 +143,15 @@ __Start_Turn
    ;_Ghost3_Room = 85
 
    ;***************************************************************
-   ;***************************************************************
    ;  MAIN LOOP
+   ;***************************************************************
 
 __Main_Loop
    _Game_Timer = _Game_Timer + 1
    
    ;***************************************************************
    ;   Colors, Missiles, Ball and Sprite Setup
+   ;***************************************************************
    
    COLUPF = $F0
    COLUBK = $02
@@ -146,6 +160,7 @@ __Main_Loop
 
    ;***************************************************************
    ;   Buster Movement
+   ;***************************************************************
 
    _Previous_x = player1x : _Previous_y = player1y
    
@@ -162,6 +177,7 @@ __Main_Loop
    
    ;***************************************************************
    ;   Proton Stream Control
+   ;***************************************************************
 
 __Move_While_Streaming
    if joy0right then player1x = player1x + 1 : f = f + 1
@@ -177,6 +193,8 @@ __Heat_Logic
 
    ;***************************************************************
    ;   PKE Sound check
+   ;***************************************************************
+
    if _Distance_to_Ghost = 0 then gosub __PKE_Chirp
    if _Distance_to_Ghost = 1 then gosub __PKE_Drone
    if _Distance_to_Ghost = 2 then gosub __PKE_Hum
@@ -184,6 +202,8 @@ __Heat_Logic
 
    ;***************************************************************
    ;   Overheat Check
+   ;***************************************************************
+
    if _Wand_Temperature > 64 then _Bit2_Wand_Lock{2} = 1
    if _Wand_Temperature = 0 then _Bit2_Wand_Lock{2} = 0
    if _Bit2_Wand_Lock{2} then pfscorecolor = $46
@@ -192,6 +212,7 @@ __Heat_Logic
 
    ;***************************************************************
    ;   Ghost Movement
+   ;***************************************************************
 
    gosub __Move_Ghost
    
@@ -206,8 +227,9 @@ __Heat_Logic
 __Skip_Collision_Logic
 
    ;***************************************************************
-   ;   Ghost Color Update (Replaces Hit Counter)
-   
+   ;   Ghost Color Update
+   ;***************************************************************
+
    _Ghost_Color = _Hit_Count / 4
    COLUP0 = _Ghost_Damage_Colors[_Ghost_Color]
 
@@ -216,11 +238,14 @@ __Skip_Collision_Logic
 
    ;***************************************************************
    ;   Draw Screen
-
+   ;***************************************************************
+   
    drawscreen
    
    ;***************************************************************
    ;   Collision Check
+   ;***************************************************************
+
    if collision(player1, playfield) then player1x = _Previous_x : player1y = _Previous_y
    
    ; REM Room Movement
@@ -230,7 +255,8 @@ __Skip_Collision_Logic
    if player1y > 85 then gosub __Move_Down
    
    ;***************************************************************
-   ;  Reset switch check/end of main loop.
+   ;  Reset switch check/end of main loop
+   ;***************************************************************
 
    if !switchreset then _Bit0_Reset_Restrainer{0} = 0 : goto __Main_Loop
    if _Bit0_Reset_Restrainer{0} then goto __Main_Loop
@@ -238,6 +264,7 @@ __Skip_Collision_Logic
 
    ;***************************************************************
    ;   Subroutines - Sprites
+   ;***************************************************************
    
 __Buster_Sprite
    REFP1 = _Buster_Direction
@@ -328,6 +355,7 @@ end
 
    ;***************************************************************
    ;   Subroutines - Audio
+   ;***************************************************************
 
 __PKE_Chirp
    if (_Game_Timer & 7) = 0 then AUDV0 = 3 : AUDF0 = 20 : AUDC0 = 12
@@ -349,8 +377,22 @@ __PKE_Off
    AUDV0 = 0
    return
 
+__Play_Tune
+   if _Bit5_Music_Done{5} then AUDV0 = 0 : AUDV1 = 0 : return
+   if _Mel_Timer > 0 then goto __Mel_Tick
+   AUDC0 = 4
+   AUDF0 = MelodyPitch[_Mel_Idx]
+   AUDV0 = MelodyVol[_Mel_Idx]
+   _Mel_Timer = MelodyDur[_Mel_Idx]
+   _Mel_Idx = _Mel_Idx + 1
+   if _Mel_Idx >= 20 then _Bit5_Music_Done{5} = 1 : AUDV0 = 0 : AUDV1 = 0 : return
+__Mel_Tick
+   _Mel_Timer = _Mel_Timer - 1
+   return
+
    ;***************************************************************
    ;   Subroutines - Moving Rooms
+   ;***************************************************************
 
 __Move_Right
    if _Map_Position_x = 9 then return
@@ -398,7 +440,8 @@ __Fade_Loop
    return
 
    ;***************************************************************
-   ;   Subroutines - Firing the Stream
+   ;   Subroutines - Firing the Wand
+   ;***************************************************************
    
 __Fire_The_Wand
    _Wand_Temperature_Subpixel = _Wand_Temperature_Subpixel + 1
@@ -435,9 +478,9 @@ __Cool_The_Wand
    _Wand_Temperature_Subpixel = _Wand_Temperature_Subpixel - 1
    return
    
-   
    ;***************************************************************
    ;   Subroutines - Trapping the Ghost
+   ;***************************************************************   
 
 __Trap_The_Ghost
    _Bit3_Stunned_Ghost{3} = 1
@@ -465,16 +508,6 @@ __Trap_Logic
    if collision(ball, player0) then gosub __Ghost_Caught
    return
 
- data MelodyPitch
-   0, 14, 0, 14, 11, 14, 12, 16, 0, 14, 0, 14, 0, 14, 0, 14, 16, 14, 0
-end
-   data MelodyVol
-   0, 4, 0, 4, 4, 4, 4, 4, 0, 4, 0, 4, 0, 4, 0, 4, 4, 4, 0
-end
-   data MelodyDur
-   18, 8, 1, 9, 18, 18, 18, 18, 36, 8, 1, 8, 1, 8, 1, 9, 18, 18, 36
-end
-
 __Ghost_Caught
    _Ghost1_Room = 100
    _Ghost2_Room = 100
@@ -498,18 +531,9 @@ Trap_Loop
    gosub __Set_Room_Layout bank2
    return
 
-__Play_Tune
-   if _Bit5_Music_Done{5} then AUDV0 = 0 : AUDV1 = 0 : return
-   if _Mel_Timer > 0 then goto __Mel_Tick
-   AUDC0 = 4
-   AUDF0 = MelodyPitch[_Mel_Idx]
-   AUDV0 = MelodyVol[_Mel_Idx]
-   _Mel_Timer = MelodyDur[_Mel_Idx]
-   _Mel_Idx = _Mel_Idx + 1
-   if _Mel_Idx >= 20 then _Bit5_Music_Done{5} = 1 : AUDV0 = 0 : AUDV1 = 0 : return
-__Mel_Tick
-   _Mel_Timer = _Mel_Timer - 1
-   return
+   ;***************************************************************
+   ;   Subroutines - Ghost Movement in Room
+   ;***************************************************************
 
 __Move_Ghost
    if _Ghost1_Room <> _Buster_Room && _Ghost2_Room <> _Buster_Room && _Ghost3_Room <> _Buster_Room then return
@@ -613,7 +637,8 @@ __Bounce_Out_Of_Corner
    
    ;***************************************************************
    ;   Subroutines - Life Management
-
+   ;***************************************************************
+   
 __Lose_A_Life
    player0y = 0
    pfscore1 = pfscore1 / 4
@@ -691,7 +716,8 @@ _Random_Keep_Moving
    return
 
    ;***************************************************************
-   ;   Subroutines - Spawning Ghosts and Moving Ghosts
+   ;   Subroutines - Spawning Ghosts
+   ;***************************************************************
 
 __Spawn_Ghosts
    _Hit_Count = 0
@@ -713,15 +739,15 @@ __Roll_Ghost3
    if _Ghost3_Room = _Ghost2_Room then goto __Roll_Ghost3
    return
    
-
-
    ;***************************************************************
    ;***************************************************************     
    bank 2
    ;***************************************************************
+   ;***************************************************************
 
    ;***************************************************************
-   ;   Room Setup/Layout
+   ;   Subroutines - Room Setup/Layout
+   ;***************************************************************
 
    data my_world_map
      1,  7,  7,  7,  7,  7,  7,  7,  7, 4
@@ -803,6 +829,7 @@ __Continue_Draw_Ghost
 
    ;***************************************************************
    ;   Subroutines - Playfield Layouts
+   ;***************************************************************
 
 __Layout_Room_1
    playfield:
