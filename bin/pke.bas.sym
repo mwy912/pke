@@ -38,7 +38,7 @@
 0.__Layout_Room_9        d4fc              (R )
 0.__Lose_A_Life          9be9              (R )
 0.__Main_Loop            926b              (R )
-0.__Mel_Tick             b2e2              (R )
+0.__Mel_Tick             b2d5              (R )
 0.__Missile_Moving       967c              (R )
 0.__Missile_Start        9644              (R )
 0.__Move_Down            956c              (R )
@@ -52,8 +52,8 @@
 0.__PKE_Chirp            b196              (R )
 0.__PKE_Drone            b1c3              (R )
 0.__PKE_Hum              b1f0              (R )
-0.__PKE_Off              b233              (R )
-0.__Play_Tune            b286              (R )
+0.__PKE_Off              b21d              (R )
+0.__Play_Tune            b276              (R )
 0.__Random_Ghost_Move    9cd7              (R )
 0.__Roll_Ghost1          9dcc              (R )
 0.__Roll_Ghost2          9df8              (R )
@@ -134,39 +134,38 @@
 0.condpart155            b1b2                  
 0.condpart156            b1cb                  
 0.condpart157            b1df                  
-0.condpart158            b1f5                  
-0.condpart159            b20e                  
+0.condpart158            b1f8                  
+0.condpart159            b20c                  
 0.condpart16             9351                  
-0.condpart160            b222                  
-0.condpart161            b28c                  
-0.condpart162            b2a5                  
-0.condpart163            b2c9                  
-0.condpart164            d181                  
-0.condpart165            d18a                  
-0.condpart166            d193                  
-0.condpart167            d19c                  
-0.condpart168            d1a5                  
-0.condpart169            d1ae                  
+0.condpart160            b27c                  
+0.condpart161            b295                  
+0.condpart162            b2bc                  
+0.condpart163            d181                  
+0.condpart164            d18a                  
+0.condpart165            d193                  
+0.condpart166            d19c                  
+0.condpart167            d1a5                  
+0.condpart168            d1ae                  
+0.condpart169            d1b7                  
 0.condpart17             936f                  
-0.condpart170            d1b7                  
-0.condpart171            d1c0                  
-0.condpart172            d1c9                  
-0.condpart173            d1d2                  
-0.condpart174            d1db                  
-0.condpart175            d1e4                  
-0.condpart176            d1ed                  
-0.condpart177            d1fa                  
-0.condpart178            d203                  
-0.condpart179            d20c                  
+0.condpart170            d1c0                  
+0.condpart171            d1c9                  
+0.condpart172            d1d2                  
+0.condpart173            d1db                  
+0.condpart174            d1e4                  
+0.condpart175            d1ed                  
+0.condpart176            d1fa                  
+0.condpart177            d203                  
+0.condpart178            d20c                  
+0.condpart179            d220                  
 0.condpart18             938d                  
-0.condpart180            d220                  
-0.condpart181            d231                  
-0.condpart182            d242                  
-0.condpart183            d261                  
-0.condpart184            d276                  
-0.condpart185            d28d                  
-0.condpart186            d2a8                  
-0.condpart187            d2bf                  
+0.condpart180            d231                  
+0.condpart181            d242                  
+0.condpart182            d261                  
+0.condpart183            d276                  
+0.condpart184            d28d                  
+0.condpart185            d2a8                  
+0.condpart186            d2bf                  
 0.condpart19             93ab                  
 0.condpart2              9283                  
 0.condpart20             93c9                  
@@ -558,27 +557,27 @@
 0.L0361                  b1d7                  
 0.L0362                  b1e3                  
 0.L0363                  b1f0                  
-0.L0364                  b206                  
-0.L0365                  b21a                  
-0.L0366                  b226                  
-0.L0367                  b233                  
-0.L0368                  b237                  
-0.L0369                  b244                  
+0.L0364                  b204                  
+0.L0365                  b210                  
+0.L0366                  b21d                  
+0.L0367                  b221                  
+0.L0368                  b22e                  
+0.L0369                  b240                  
 0.L037                   9100                  
-0.L0370                  b25a                  
-0.L0371                  b270                  
-0.L0372                  b286                  
-0.L0373                  b29f                  
-0.L0374                  b2a8                  
-0.L0375                  b2ac                  
-0.L0376                  b2b3                  
-0.L0377                  b2ba                  
-0.L0378                  b2c1                  
-0.L0379                  b2c3                  
+0.L0370                  b252                  
+0.L0371                  b264                  
+0.L0372                  b276                  
+0.L0373                  b28f                  
+0.L0374                  b298                  
+0.L0375                  b29f                  
+0.L0376                  b2a6                  
+0.L0377                  b2ad                  
+0.L0378                  b2b4                  
+0.L0379                  b2b6                  
 0.L038                   9100                  
-0.L0380                  b2e2                  
-0.L0381                  b2e4                  
-0.L0382                  b2f1                  
+0.L0380                  b2d5                  
+0.L0381                  b2d7                  
+0.L0382                  b2e4                  
 0.L0383                  d100                  
 0.L0384                  d167                  
 0.L0385                  d174                  
@@ -879,15 +878,15 @@
 0.skipL0358              b1b6              (R )
 0.skipL0360              b1d7              (R )
 0.skipL0361              b1e3              (R )
-0.skipL0363              b206              (R )
-0.skipL0364              b21a              (R )
-0.skipL0365              b226              (R )
-0.skipL0369              b25a              (R )
-0.skipL0370              b270              (R )
-0.skipL0371              b286              (R )
-0.skipL0372              b29f              (R )
-0.skipL0373              b2a8              (R )
-0.skipL0379              b2e2              (R )
+0.skipL0363              b204              (R )
+0.skipL0364              b210              (R )
+0.skipL0368              b240              (R )
+0.skipL0369              b252              (R )
+0.skipL0370              b264              (R )
+0.skipL0371              b276              (R )
+0.skipL0372              b28f              (R )
+0.skipL0373              b298              (R )
+0.skipL0379              b2d5              (R )
 0.skipL0383              d167              (R )
 0.skipL0386              d184              (R )
 0.skipL0387              d18d              (R )
@@ -1054,12 +1053,14 @@ font                     0000 ????         (R )
 g                        00da              (R )
 G                        00da                  
 game                     9100              (R )
-GB_Duration              b273              (R )
-GB_Duration_length       0013                  
-GB_Note                  b247              (R )
-GB_Note_length           0013                  
-GB_Volume                b25d              (R )
-GB_Volume_length         0013                  
+GB_C                     b243              (R )
+GB_C_length              000f                  
+GB_D                     b267              (R )
+GB_D_length              000f                  
+GB_F                     b231              (R )
+GB_F_length              000f                  
+GB_V                     b255              (R )
+GB_V_length              000f                  
 goback                   f176              (R )
 GRP0                     001b              (R )
 GRP1                     001c              (R )
@@ -1089,8 +1090,8 @@ INPT7                    000f
 interlaced               0000 ????         (R )
 interrupted              0004                  
 INTIM                    0284              (R )
-J                        00dd                  
 j                        00dd              (R )
+J                        00dd                  
 K                        00de                  
 k                        00de              (R )
 keepgoing                f3f2              (R )
@@ -1106,8 +1107,8 @@ lifecolor                00f4
 lifepointer              00f2                  
 lives                    00f3                  
 loop2                    f300              (R )
-M                        00e0                  
 m                        00e0              (R )
+M                        00e0                  
 MachineIs2600            f363              (R )
 mincycles                0000 ????         (R )
 minikernel               0000 ????         (R )
@@ -1468,8 +1469,8 @@ TIM64T                   0296              (R )
 TIM8T                    0295                  
 TIMINT                   0285                  
 tiny                     0007                  
-U                        00e8                  
 u                        00e8              (R )
+U                        00e8                  
 up2                      f4e6              (R )
 v                        00e9              (R )
 V                        00e9                  
@@ -1667,10 +1668,10 @@ whimsey                  0006
 wRAM                     f000                  
 write_RAM                f000                  
 WSYNC                    0002              (R )
-X                        00eb                  
 x                        00eb              (R )
+X                        00eb                  
 y                        00ec              (R )
 Y                        00ec                  
-z                        00ed              (R )
 Z                        00ed                  
+z                        00ed              (R )
 --- End of Symbol List.

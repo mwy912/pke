@@ -337,7 +337,7 @@ __Missile_Moving
    _Previous_Missile_x = missile0x
    if _Buster_Direction = 0 then missile0x = missile0x + 8
    if _Buster_Direction = 8 then missile0x = missile0x - 8
-   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 500 : scorecolor = $42 : _Score_Timer = _Game_Timer + 60
+   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 200 : scorecolor = $42 : _Score_Timer = _Game_Timer + 60
    if (_Stream_Counter & 1) = 0 then missile0y = missile0y + 1 else missile0y = missile0y - 1
    if missile0x < 15 then _Bit1_Missile_Flag{1} = 0
    if missile0x > 140 then _Bit1_Missile_Flag{1} = 0
@@ -728,7 +728,6 @@ __PKE_Drone
    return
    
 __PKE_Hum
-   if !switchrightb then AUDV0 = 0 : return
    if (_Game_Timer & 63) = 0 then AUDV0 = 1 : AUDF0 = 20 : AUDC0 = 12
    if (_Game_Timer & 63) = 15 then AUDV0 = 0
    return
@@ -737,33 +736,34 @@ __PKE_Off
    AUDV0 = 0
    return
 
-   data GB_Note
-   0, 14, 0, 14, 11, 14, 12, 16, 0, 14, 0, 14, 0, 14, 0, 14, 16, 14, 0
+    data GB_F
+   14,0,14,12, 14,12,0,0, 14,16,14,0, 14,0,14  ; ,0,11,14,0,14,0,14,0,14,0,10,0,10,0,10,0,0,0
 end
 
-   data GB_Volume
-   0, 4, 0, 4, 4, 4, 4, 4, 0, 4, 0, 4, 0, 4, 0, 4, 4, 4, 0
+   data GB_C
+   4,0,4,4, 4,4,4,4, 4,4,4,0, 4,0,4            ; ,4, 4,4,0,4,0,4,0,4,0,4,0,4,0,4,4,4,4
 end
 
-   data GB_Duration
-   18, 8, 1, 9, 18, 18, 18, 18, 36, 8, 1, 8, 1, 8, 1, 9, 18, 18, 36
+   data GB_V
+   4,0,4,4, 4,4,0,0, 4,4,4,0, 4,0,4            ;,0,4,4,0,4,0,4,0,4,4,4,0,4,0,4,4,4,4
+end
+
+   data GB_D
+   7,1,8,15, 15,30,30,15, 8,8,14,1, 14,1,30         ;,60,8,7,1,7,1,7,1,30,30,29,1,29,1,15,30,30,15
 end
 
 __Play_Tune
    if _Bit5_Music_Done{5} then AUDV0 = 0 : AUDV1 = 0 : return
    if _Mel_Timer > 0 then goto __Mel_Tick
-   AUDC0 = 4
-   AUDF0 = GB_Note[_Mel_Idx]
-   AUDV0 = GB_Volume[_Mel_Idx]
-   _Mel_Timer = GB_Duration[_Mel_Idx]
+   AUDC0 = GB_C[_Mel_Idx]
+   AUDF0 = GB_F[_Mel_Idx]
+   AUDV0 = GB_V[_Mel_Idx]
+   _Mel_Timer = GB_D[_Mel_Idx]
    _Mel_Idx = _Mel_Idx + 1
-   if _Mel_Idx >= 20 then _Bit5_Music_Done{5} = 1 : AUDV0 = 0 : AUDV1 = 0 : return
+   if _Mel_Idx >= 16 then _Bit5_Music_Done{5} = 1 : AUDV0 = 0 : AUDV1 = 0 : return
 __Mel_Tick
    _Mel_Timer = _Mel_Timer - 1
    return
-
-
-
 
 
    ;***************************************************************
