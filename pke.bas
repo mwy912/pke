@@ -6,35 +6,44 @@
    ;***************************************************************
 
    dim rand16 = a
-   dim _Buster_Room = b
-   dim _Ghost1_Room = c
-   dim _Ghost2_Room = d
-   dim _Ghost3_Room = e
+   ; b and c reserved for GB Theme
+   dim _Buster_Room = d
+   dim _Ghost1_Room = e
    ; f reserved for player1 frame count
-   dim _Map_Position_x = g
-   dim _Map_Position_y = h
-   dim _Previous_x = i
-   dim _Previous_y = j
-   dim _Ghost_x = k
-   dim _Ghost_y = l
-   dim _Buster_Direction = m
-   dim _Ghost_Direction = n
-   dim _Ghost_Timer = o
-   dim _Game_Timer = p
-   dim _Distance_to_Ghost = q
-   dim _Wand_Temperature = r
-   dim _Wand_Temperature_Subpixel = s
-   dim _Transition_Quick_Count = t
-   dim _Stun_Timer = u
-   dim _Hit_Count = v
-   dim _Beam_Color = w
-   dim _Previous_Missile_x = x
-   dim _Stream_Counter = y
-   dim _Ghost_Color = z
+   dim _Ghost2_Room = g
+   dim _Ghost3_Room = h
+   dim _Map_Position_x = i
+   dim _Map_Position_y = j
+   dim _Previous_x = k
+   dim _Previous_y = l
+   dim _Ghost_x = m
+   dim _Ghost_y = n
+   dim _Buster_Direction = o
+   dim _Ghost_Direction = p
+   dim _Ghost_Timer = q
+   dim _Game_Timer = r
+   dim _Distance_to_Ghost = s
+   dim _Wand_Temperature = t
+   dim _Wand_Temperature_Subpixel = u
+   dim _Transition_Quick_Count = v
+   dim _GB_Vol = w
+   dim _GB_Ch = x
+   dim _GB_Frq = y
+   dim _GB_Dur = z
    
-   dim _Mel_Idx = var1    ; - melody note index
-   dim _Mel_Timer = var2  ; - melody note countdown
-   dim _Score_Timer = var3
+   dim _Stun_Timer = var1
+   dim _Hit_Count = var2
+   dim _Beam_Color = var3
+   dim _Previous_Missile_x = var4
+   dim _Stream_Counter = var5
+   dim _Ghost_Color = var6
+   dim _Score_Timer = var7
+   dim _SFX_Vol = var8
+   dim _SFX_Ch = var9
+   dim _SFX_Frq = var10
+   dim _SFX_Dur = var11
+   dim _SFX_Index = var12
+   
 
    ;***************************************************************
    ;  set bit variables
@@ -45,7 +54,6 @@
    dim _Bit2_Wand_Lock = var0        ; 0 = not locked, 1 = locked out
    dim _Bit3_Stunned_Ghost = var0    ; 0 = not stunned, 1 = stunned
    dim _Bit4_Trap_Active = var0      ; 0 = not deployed, 1 = deployed
-   dim _Bit5_Music_Done = var0       ; 0 = ready to play, 1 = finished
 
    ;***************************************************************
    ;  Converts 6 digit score to 3 sets of two digits.
@@ -91,7 +99,7 @@ __Start_Restart
    ;  Reset all variables
    ;***************************************************************
 
-   score = 5000
+   score = 1000
 
    b = 0 : c = 0 : d = 0 : e = 0 : f = 0 : g = 0 : h = 0 : i = 0
    j = 0 : k = 0 : l = 0 : m = 0 : n = 0 : o = 0 : p = 0 : q = 0
@@ -116,6 +124,12 @@ __Start_Restart
    pfscorecolor = $D4
    missile0height = 0
    pfscore1 = %00101010 ; 3 lives
+   _SFX_Dur = 1
+   _SFX_Index = 0
+   _GB_Dur = 1
+   gosub __Ghost_Sprite bank2
+
+   goto __Theme_Setup bank4
 
 __Start_Turn
    COLUBK = $02
@@ -134,8 +148,6 @@ __Start_Turn
    _Bit2_Wand_Lock{2} = 0
    _Bit3_Stunned_Ghost{3} = 0
    _Bit4_Trap_Active{4} = 0
-   _Bit5_Music_Done{5} = 0
-   gosub __Ghost_Sprite bank2
 
    _Ghost3_Room = 85
 
@@ -149,6 +161,8 @@ __Main_Loop
    if _Score_Timer = _Game_Timer then scorecolor = $00
    
    if _sc1 = $00 && _sc2 = $00 && _sc3 < $01 then goto __Game_Over_Loop
+
+   if _Bit2_Wand_Lock{2} then gosub __Play_Alarm bank2 else AUDV1 = 0
 
    ;***************************************************************
    ;   Colors, Missiles, Ball and Sprite Setup
@@ -337,7 +351,7 @@ __Missile_Moving
    _Previous_Missile_x = missile0x
    if _Buster_Direction = 0 then missile0x = missile0x + 8
    if _Buster_Direction = 8 then missile0x = missile0x - 8
-   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 200 : scorecolor = $42 : _Score_Timer = _Game_Timer + 60
+   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 10 : scorecolor = $42 : _Score_Timer = _Game_Timer + 60
    if (_Stream_Counter & 1) = 0 then missile0y = missile0y + 1 else missile0y = missile0y - 1
    if missile0x < 15 then _Bit1_Missile_Flag{1} = 0
    if missile0x > 140 then _Bit1_Missile_Flag{1} = 0
@@ -345,7 +359,6 @@ __Missile_Moving
  
 __Cool_The_Wand
    missile0y = 0 ; Hide the beam
-   AUDV1 = 0
    if _Wand_Temperature = 0 then return
    if _Wand_Temperature_Subpixel = 0 then _Wand_Temperature_Subpixel = 5 : _Wand_Temperature = _Wand_Temperature - 1
    _Wand_Temperature_Subpixel = _Wand_Temperature_Subpixel - 1
@@ -387,13 +400,10 @@ __Ghost_Caught
    _Ghost3_Room = 100
    missile0y = 0
    AUDV0 = 0 : AUDV1 = 0
-   _Bit5_Music_Done{5} = 0
-   _Mel_Idx = 0
-   _Transition_Quick_Count = 240
+   _Transition_Quick_Count = 60
    COLUBK = $0E
    COLUPF = $0E
 Trap_Loop
-   if !_Bit5_Music_Done{5} then gosub __Play_Tune bank2
    drawscreen
    COLUBK = $02
    COLUPF = $F0
@@ -736,35 +746,37 @@ __PKE_Off
    AUDV0 = 0
    return
 
-    data GB_F
-   14,0,14,12, 14,12,0,0, 14,16,14,0, 14,0,14  ; ,0,11,14,0,14,0,14,0,14,0,10,0,10,0,10,0,0,0
+ data alarm_sfx
+   14,4,22,2
+   14,4,21,2
+   14,4,21,2
+   14,4,18,2
+   14,4,14,2
+   14,4,12,2
+   14,4,14,2
+   14,4,18,2
+   10,4,21,2
+   8,4,21,2
+   255
 end
 
-   data GB_C
-   4,0,4,4, 4,4,4,4, 4,4,4,0, 4,0,4            ; ,4, 4,4,0,4,0,4,0,4,0,4,0,4,0,4,4,4,4
-end
+__Play_Alarm
+   _SFX_Dur = _SFX_Dur - 1
+   if _SFX_Dur > 0 then return
 
-   data GB_V
-   4,0,4,4, 4,4,0,0, 4,4,4,0, 4,0,4            ;,0,4,4,0,4,0,4,0,4,4,4,0,4,0,4,4,4,4
-end
+   _SFX_Vol = alarm_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   if _SFX_Vol = 255 then _SFX_Dur = 1 : _SFX_Index = 0 : AUDV0 = 0 : return
 
-   data GB_D
-   7,1,8,15, 15,30,30,15, 8,8,14,1, 14,1,30         ;,60,8,7,1,7,1,7,1,30,30,29,1,29,1,15,30,30,15
-end
+   _SFX_Ch = alarm_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   _SFX_Frq = alarm_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
 
-__Play_Tune
-   if _Bit5_Music_Done{5} then AUDV0 = 0 : AUDV1 = 0 : return
-   if _Mel_Timer > 0 then goto __Mel_Tick
-   AUDC0 = GB_C[_Mel_Idx]
-   AUDF0 = GB_F[_Mel_Idx]
-   AUDV0 = GB_V[_Mel_Idx]
-   _Mel_Timer = GB_D[_Mel_Idx]
-   _Mel_Idx = _Mel_Idx + 1
-   if _Mel_Idx >= 16 then _Bit5_Music_Done{5} = 1 : AUDV0 = 0 : AUDV1 = 0 : return
-__Mel_Tick
-   _Mel_Timer = _Mel_Timer - 1
+   AUDV1 = _SFX_Vol
+   AUDC1 = _SFX_Ch
+   AUDF1 = _SFX_Frq
+
+   _SFX_Dur = alarm_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   
    return
-
 
    ;***************************************************************
    ;***************************************************************     
@@ -1066,3 +1078,127 @@ __Layout_Room_13
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
    goto __Check_Room_For_Ghosts
+
+
+   ;***************************************************************
+   ;***************************************************************     
+   bank 4
+   ;***************************************************************
+   ;***************************************************************
+
+   ;***************************************************************
+   ;   Subroutines - Startup Screen
+   ;***************************************************************
+
+__Theme_Setup
+   sdata GhostbustersTheme = b
+    4,4,14,7
+    0,0,0,1
+    4,4,14,8
+    4,4,12,15
+    4,4,14,15
+    4,4,12,30
+    4,6,18,30
+    4,6,22,30
+    4,4,14,8
+    4,4,16,8
+    4,4,14,14
+    0,0,0,1
+    4,4,14,14
+    0,0,0,1
+    4,4,14,30
+    4,6,18,30
+    4,6,22,30
+    4,4,11,8
+    4,4,14,7
+    0,0,0,1
+    4,4,14,7
+    0,0,0,1
+    4,4,14,7
+    0,0,0,1
+    4,4,14,30
+    4,6,18,30
+    4,4,10,29
+    0,0,0,1
+    4,4,10,29
+    0,0,0,1
+    4,4,10,15
+    4,4,0,30
+    4,4,0,30
+    4,4,0,15
+    4,4,14,7  ;repeat
+    0,0,0,1
+    4,4,14,8
+    4,4,12,15
+    4,4,14,15
+    4,4,12,30
+    4,6,18,30
+    4,6,22,30
+    4,4,14,8
+    4,4,16,8
+    4,4,14,14
+    0,0,0,1
+    4,4,14,14
+    0,0,0,1
+    4,4,14,30
+    4,6,18,30
+    4,6,22,30
+    4,4,11,8
+    4,4,14,7
+    0,0,0,1
+    4,4,14,7
+    0,0,0,1
+    4,4,14,7
+    0,0,0,1
+    4,4,14,30
+    4,6,18,30
+    4,4,10,29
+    0,0,0,1
+    4,4,10,29
+    0,0,0,1
+    4,4,10,15
+    4,4,0,30
+    4,4,0,30
+    4,4,0,15
+    255
+end
+
+__Startup_Loop
+   playfield:
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    ....X......................X....
+    XXXXX......................XXXXX
+    ....X....X............X....X....
+    ....X....X............X....X....
+    XXXXX.....XXXXXXXXXXXX.....XXXXX
+    ....X......................X....
+    ....X......................X....
+    XXXXX......................XXXXX
+    ....X......................X....
+    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+end
+   COLUBK = $02
+   COLUPF = $F0
+
+   gosub __Play_Theme
+   drawscreen
+
+   if !switchreset then _Bit0_Reset_Restrainer{0} = 0 : goto __Startup_Loop
+   if _Bit0_Reset_Restrainer{0} then goto __Startup_Loop
+   goto __Start_Restart
+
+__Play_Theme
+   _GB_Dur = _GB_Dur - 1
+   if _GB_Dur > 0 then return
+
+   _GB_Vol = sread(GhostbustersTheme)
+   if _GB_Vol = 255 then AUDV0 = 0 : goto __Start_Turn bank1
+   _GB_Ch = sread(GhostbustersTheme)
+   _GB_Frq = sread(GhostbustersTheme)
+
+   AUDV0 = _GB_Vol
+   AUDC0 = _GB_Ch
+   AUDF0 = _GB_Frq
+
+   _GB_Dur = sread(GhostbustersTheme)   
+   return
