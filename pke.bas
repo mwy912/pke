@@ -54,6 +54,7 @@
    dim _Bit2_Wand_Lock = var0        ; 0 = not locked, 1 = locked out
    dim _Bit3_Stunned_Ghost = var0    ; 0 = not stunned, 1 = stunned
    dim _Bit4_Trap_Active = var0      ; 0 = not deployed, 1 = deployed
+   dim _Bit6_SFX_Flag = var0         ; 0 = not played, 1 = played
 
    ;***************************************************************
    ;  Converts 6 digit score to 3 sets of two digits.
@@ -157,6 +158,8 @@ __Start_Turn
    _Bit2_Wand_Lock{2} = 0
    _Bit3_Stunned_Ghost{3} = 0
    _Bit4_Trap_Active{4} = 0
+   
+   _Bit6_SFX_Flag{6} = 0
 
    _Ghost3_Room = 85
 
@@ -422,7 +425,9 @@ __Ghost_Caught
    _Transition_Quick_Count = 60
    COLUBK = $0E
    COLUPF = $0E
+   _Bit6_SFX_Flag{6} = 0
 Trap_Loop
+   gosub __Play_Trap_SFX bank2
    drawscreen
    COLUBK = $02
    COLUPF = $F0
@@ -796,6 +801,53 @@ __Play_Alarm
    _SFX_Dur = alarm_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
    
    return
+
+   data trap_sfx
+   8,8,4,2
+   7,8,5,2
+   7,8,4,2
+   7,8,5,2
+   7,8,6,2
+   6,8,7,2
+   6,8,6,2
+   6,8,7,2
+   6,8,8,2
+   6,8,9,2
+   6,8,8,2
+   6,8,9,2
+   4,8,10,2
+   4,8,9,2
+   4,8,10,2
+   4,8,11,2
+   4,8,10,2
+   4,8,11,2
+   4,8,12,2
+   2,8,11,2
+   2,8,12,2
+   2,8,13,2
+   255
+end
+
+__Play_Trap_SFX
+   if _Bit6_SFX_Flag{6} then return
+   _SFX_Dur = _SFX_Dur - 1
+   if _SFX_Dur > 0 then return
+
+   _SFX_Vol = trap_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   if _SFX_Vol = 255 then _Bit6_SFX_Flag{6} = 1 : _SFX_Dur = 1 : _SFX_Index = 0 : AUDV0 = 0 : return
+
+   _SFX_Ch = trap_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   _SFX_Frq = trap_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+
+   AUDV1 = _SFX_Vol
+   AUDC1 = _SFX_Ch
+   AUDF1 = _SFX_Frq
+
+   _SFX_Dur = trap_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   
+   return
+
+
 
    ;***************************************************************
    ;***************************************************************     
