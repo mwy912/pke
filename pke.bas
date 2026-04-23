@@ -54,7 +54,6 @@
    dim _Bit2_Wand_Lock = var0        ; 0 = not locked, 1 = locked out
    dim _Bit3_Stunned_Ghost = var0    ; 0 = not stunned, 1 = stunned
    dim _Bit4_Trap_Active = var0      ; 0 = not deployed, 1 = deployed
-   dim _Bit6_SFX_Flag = var0         ; 0 = not played, 1 = played
 
    ;***************************************************************
    ;  Converts 6 digit score to 3 sets of two digits.
@@ -159,8 +158,6 @@ __Start_Turn
    _Bit3_Stunned_Ghost{3} = 0
    _Bit4_Trap_Active{4} = 0
    
-   _Bit6_SFX_Flag{6} = 0
-
    _Ghost3_Room = 85
 
    _Game_Timer = 0
@@ -184,7 +181,7 @@ __Main_Loop
    
    if _sc1 = $00 && _sc2 = $00 && _sc3 < $01 then goto __Game_Over_Loop
 
-   if _Bit2_Wand_Lock{2} then gosub __Play_Alarm bank2 else AUDV1 = 0
+   if _Bit2_Wand_Lock{2} then gosub __Play_Overheat_SFX bank2 else AUDV1 = 0
 
    ;***************************************************************
    ;   Colors, Missiles, Ball and Sprite Setup
@@ -425,7 +422,8 @@ __Ghost_Caught
    _Transition_Quick_Count = 60
    COLUBK = $0E
    COLUPF = $0E
-   _Bit6_SFX_Flag{6} = 0
+   _SFX_Dur = 1
+   _SFX_Index = 0
 Trap_Loop
    gosub __Play_Trap_SFX bank2
    drawscreen
@@ -770,7 +768,7 @@ __PKE_Off
    AUDV0 = 0
    return
 
- data alarm_sfx
+ data trap_sfx
    14,4,22,2
    14,4,21,2
    14,4,21,2
@@ -784,57 +782,12 @@ __PKE_Off
    255
 end
 
-__Play_Alarm
-   _SFX_Dur = _SFX_Dur - 1
-   if _SFX_Dur > 0 then return
-
-   _SFX_Vol = alarm_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
-   if _SFX_Vol = 255 then _SFX_Dur = 1 : _SFX_Index = 0 : AUDV0 = 0 : return
-
-   _SFX_Ch = alarm_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
-   _SFX_Frq = alarm_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
-
-   AUDV1 = _SFX_Vol
-   AUDC1 = _SFX_Ch
-   AUDF1 = _SFX_Frq
-
-   _SFX_Dur = alarm_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
-   
-   return
-
-   data trap_sfx
-   8,8,4,2
-   7,8,5,2
-   7,8,4,2
-   7,8,5,2
-   7,8,6,2
-   6,8,7,2
-   6,8,6,2
-   6,8,7,2
-   6,8,8,2
-   6,8,9,2
-   6,8,8,2
-   6,8,9,2
-   4,8,10,2
-   4,8,9,2
-   4,8,10,2
-   4,8,11,2
-   4,8,10,2
-   4,8,11,2
-   4,8,12,2
-   2,8,11,2
-   2,8,12,2
-   2,8,13,2
-   255
-end
-
 __Play_Trap_SFX
-   if _Bit6_SFX_Flag{6} then return
    _SFX_Dur = _SFX_Dur - 1
    if _SFX_Dur > 0 then return
 
    _SFX_Vol = trap_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
-   if _SFX_Vol = 255 then _Bit6_SFX_Flag{6} = 1 : _SFX_Dur = 1 : _SFX_Index = 0 : AUDV0 = 0 : return
+   if _SFX_Vol = 255 then _SFX_Dur = 1 : _SFX_Index = 0 : AUDV0 = 0 : return
 
    _SFX_Ch = trap_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
    _SFX_Frq = trap_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
@@ -847,7 +800,81 @@ __Play_Trap_SFX
    
    return
 
+ data overheat_sfx
+   4,4,27
+   1
+   10,4,28
+   1
+   15,4,28
+   1
+   15,4,27
+   1
+   15,4,28
+   1
+   15,4,28
+   1
+   15,4,25
+   1
+   15,4,28
+   1
+   15,4,28
+   1
+   15,4,28
+   1
+   9,4,28
+   1
+   15,4,28
+   1
+   15,4,28
+   1
+   15,4,28
+   1
+   9,4,28
+   1
+   15,4,28
+   1
+   15,4,28
+   1
+   15,4,28
+   1
+   9,4,28
+   1
+   15,4,28
+   1
+   15,4,28
+   1
+   8,4,29
+   1
+   2,4,29
+   1
+   1,4,29
+   1
+   0,4,29
+   1
+   2,4,29
+   1
+   1,4,29
+   1
+   255
+end
 
+__Play_Overheat_SFX
+   _SFX_Dur = _SFX_Dur - 1
+   if _SFX_Dur > 0 then return
+
+   _SFX_Vol = overheat_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   if _SFX_Vol = 255 then _SFX_Dur = 1 : _SFX_Index = 0 : AUDV0 = 0 : return
+
+   _SFX_Ch = overheat_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   _SFX_Frq = overheat_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+
+   AUDV1 = _SFX_Vol
+   AUDC1 = _SFX_Ch
+   AUDF1 = _SFX_Frq
+
+   _SFX_Dur = overheat_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   
+   return
 
    ;***************************************************************
    ;***************************************************************     
@@ -920,11 +947,9 @@ __Extract_Loop
    goto __Extract_Loop
 
 __Absolute_Difference
-   ; temp2 is now dx, temp3 is now dy
    if _Map_Position_x > temp2 then temp2 = _Map_Position_x - temp2 else temp2 = temp2 - _Map_Position_x
    if _Map_Position_y > temp3 then temp3 = _Map_Position_y - temp3 else temp3 = temp3 - _Map_Position_y
    
-   ; temp4 = Chebyshev Distance
    temp4 = temp2
    if temp3 > temp2 then temp4 = temp3
    return
