@@ -77,15 +77,15 @@ end
 
    pfheights:
     4
-    17
-    4
-    9
-    8
-    4
     8
     9
     4
     17
+    4
+    17
+    4
+    9
+    8
     4
 end
 
@@ -98,8 +98,6 @@ __Start_Restart
    ;***************************************************************
    ;  Reset all variables
    ;***************************************************************
-
-   score = 1000
 
    b = 0 : c = 0 : d = 0 : e = 0 : f = 0 : g = 0 : h = 0 : i = 0
    j = 0 : k = 0 : l = 0 : m = 0 : n = 0 : o = 0 : p = 0 : q = 0
@@ -114,24 +112,35 @@ __Start_Restart
    var30 = 0 : var31 = 0 : var32 = 0 : var33 = 0 : var34 = 0 : var35 = 0
    var36 = 0 : var37 = 0 : var38 = 0 : var39 = 0 : var40 = 0 : var41 = 0
    var42 = 0 : var43 = 0 : var44 = 0 : var45 = 0 : var46 = 0 : var47 = 0
+
+   player0y = 0
+   player1y = 0
+   missile0y = 0
+   bally = 0
+   score = 0
+   pfscore1 = 0
    
    ;***************************************************************
    ;   Initial Startup Value Settings
    ;***************************************************************
-
-   AUDV0 = 0 : AUDV1 = 0
+   
    const pfscore = 1
-   pfscorecolor = $D4
-   missile0height = 0
-   pfscore1 = %00101010 ; 3 lives
+   AUDV0 = 0 : AUDV1 = 0
    _SFX_Dur = 1
    _SFX_Index = 0
    _GB_Dur = 1
-   gosub __Ghost_Sprite bank2
-
+   pfscore1 = %00101010 ; 3 lives
+   pfscorecolor = $D4
+   missile0height = 0
    goto __Theme_Setup bank4
 
+__End_Theme
+   AUDV0 = 0
+   AUDV1 = 0
+   score = 1000
+
 __Start_Turn
+   gosub __Ghost_Sprite bank2
    COLUBK = $02
    gosub __Spawn_Ghosts
    _Map_Position_x = 5
@@ -150,6 +159,16 @@ __Start_Turn
    _Bit4_Trap_Active{4} = 0
 
    _Ghost3_Room = 85
+
+   _Game_Timer = 0
+
+__One_Second_Pause
+   _Game_Timer = _Game_Timer + 1
+   COLUPF = $F0
+   COLUBK = $02
+   drawscreen
+   if _Game_Timer < 60 then goto __One_Second_Pause
+   
 
    ;***************************************************************
    ;  MAIN LOOP
@@ -874,13 +893,13 @@ __Layout_Room_1
    playfield:
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     X...............................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    X...............................
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    X...............................
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
@@ -890,13 +909,13 @@ __Layout_Room_2
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    X...............................
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    X...............................
     X...............................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
@@ -906,13 +925,13 @@ __Layout_Room_3
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     X...............................
-    X.................XXXXXXXXXXXXXX
-    X...............................
     X...............................
     X.................XXXXXXXXXXXXXX
     X...............................
+    X.................XXXXXXXXXXXXXX
     X...............................
     X.................XXXXXXXXXXXXXX
+    X...............................
     X...............................
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 end
@@ -922,13 +941,13 @@ __Layout_Room_4
    playfield:
    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ...............................X
-   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-   ...............................X
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+   ...............................X
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
@@ -938,13 +957,13 @@ __Layout_Room_5
    playfield:
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
-   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-   ...............................X
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
+   XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+   ...............................X
    ...............................X
    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
@@ -954,13 +973,13 @@ __Layout_Room_6
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ...............................X
-    XXXXXXXXXXXXXX.................X
-    ...............................X
     ...............................X
     XXXXXXXXXXXXXX.................X
     ...............................X
+    XXXXXXXXXXXXXX.................X
     ...............................X
     XXXXXXXXXXXXXX.................X
+    ...............................X
     ...............................X
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 end
@@ -970,13 +989,13 @@ __Layout_Room_7
    playfield:
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     ................................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
@@ -986,13 +1005,13 @@ __Layout_Room_8
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    ................................
     ................................
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 end
@@ -1002,13 +1021,13 @@ __Layout_Room_9
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ....X......................X....
+    ....X......................X....
     XXXXX......................XXXXX
-    ....X....X............X....X....
     ....X....X............X....X....
     XXXXX.....XXXXXXXXXXXX.....XXXXX
     ....X......................X....
-    ....X......................X....
     XXXXX......................XXXXX
+    ....X......................X....
     ....X......................X....
     XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 end
@@ -1018,13 +1037,13 @@ __Layout_Room_10
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    X..............................X
-    ................................
     ................................
     X..............................X
     ................................
+    X..............................X
     ................................
     X..............................X
+    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
@@ -1034,13 +1053,13 @@ __Layout_Room_11
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
     ................................
+    XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    ................................
     XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
+    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
@@ -1050,16 +1069,15 @@ __Layout_Room_12
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    ................................
     XXXX....XXXXXXXXXXXXXXXXXXXXXXXX
     ................................
-    ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
     ................................
     XXXXXXXXXXXXXXXXXXXXXXXX....XXXX
     ................................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
    goto __Check_Room_For_Ghosts
 
@@ -1067,13 +1085,13 @@ __Layout_Room_13
    playfield:
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
+    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
+    ................................
     ................................
     XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
 end
@@ -1164,35 +1182,62 @@ __Theme_Setup
 end
 
 __Startup_Loop
-   playfield:
-    XXXXXXXXXXXXXX....XXXXXXXXXXXXXX
-    ....X......................X....
-    XXXXX......................XXXXX
-    ....X....X............X....X....
-    ....X....X............X....X....
-    XXXXX.....XXXXXXXXXXXX.....XXXXX
-    ....X......................X....
-    ....X......................X....
-    XXXXX......................XXXXX
-    ....X......................X....
-    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-end
-   COLUBK = $02
-   COLUPF = $F0
+   _Game_Timer = _Game_Timer + 1
+
+   if _Game_Timer < 5 then gosub __Title_Screen_1
+   if _Game_Timer >= 5 then gosub __Title_Screen_2
+   if _Game_Timer >= 10 then _Game_Timer = 0
 
    gosub __Play_Theme
    drawscreen
 
-   if !switchreset then _Bit0_Reset_Restrainer{0} = 0 : goto __Startup_Loop
-   if _Bit0_Reset_Restrainer{0} then goto __Startup_Loop
-   goto __Start_Restart
+   if joy0fire then goto __End_Title
+   if _GB_Vol = 255 then goto __End_Title
+
+   goto __Startup_Loop
+
+__Title_Screen_1
+   playfield:
+    X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
+    ................................
+    ...XXXX.....X...X.....XXXXXX....
+    ...X...X....X...X.....X.........
+    ...X...X....X..X......X.........
+    ...XXXX.....XXX.......XXXXX.....
+    ...X........X..X......X.........
+    ...X........X...X.....X.........
+    ...X....X...X....X.X..XXXXXX.X..
+    ................................
+    X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
+end
+   COLUBK = $02
+   COLUPF = $1E
+   return
+
+__Title_Screen_2
+   playfield:
+    .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
+    ................................
+    ...XXXX.....X...X.....XXXXXX....
+    ...X...X....X...X.....X.........
+    ...X...X....X..X......X.........
+    ...XXXX.....XXX.......XXXXX.....
+    ...X........X..X......X.........
+    ...X........X...X.....X.........
+    ...X....X...X....X.X..XXXXXX.X..
+    ................................
+    .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
+end
+   COLUBK = $02
+   COLUPF = $1E
+   return
 
 __Play_Theme
    _GB_Dur = _GB_Dur - 1
    if _GB_Dur > 0 then return
 
    _GB_Vol = sread(GhostbustersTheme)
-   if _GB_Vol = 255 then AUDV0 = 0 : goto __Start_Turn bank1
+   if _GB_Vol = 255 then return
    _GB_Ch = sread(GhostbustersTheme)
    _GB_Frq = sread(GhostbustersTheme)
 
@@ -1202,3 +1247,8 @@ __Play_Theme
 
    _GB_Dur = sread(GhostbustersTheme)   
    return
+
+__End_Title
+   AUDV0 = 0
+   score = 1000
+   goto __End_Theme bank1
