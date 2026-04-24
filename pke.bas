@@ -1219,6 +1219,7 @@ end
 
 __Theme_Setup
    sdata GhostbustersTheme = b
+    0,0,0,30
     4,4,14,7
     0,0,0,1
     4,4,14,8
@@ -1394,8 +1395,38 @@ __Theme_Setup
     255
 end
 
-__Startup_Loop
+__Game_Credits
+      pfheights:
+    8
+    8
+    8
+    8
+    8
+    8
+    8
+    8
+    8
+    8
+    8
+end
+   pfscorecolor = $00
+   scorecolor = $00
 
+   _Game_Timer = _Game_Timer + 1
+   if _Game_Timer > 100 then goto __Startup_Loop
+   
+   gosub __Credits_Screen_1
+   gosub __Play_Theme
+   
+   drawscreen
+
+   if joy0fire then goto __End_Title
+   if _GB_Vol = 255 then goto __End_Title
+
+   goto __Game_Credits
+
+
+__Startup_Loop
       pfheights:
     4
     4
@@ -1409,6 +1440,8 @@ __Startup_Loop
     4
     4
 end
+   pfscorecolor = $0E
+   scorecolor = $0E
 
    _Game_Timer = _Game_Timer + 1
 
@@ -1416,8 +1449,6 @@ end
    if !_Game_Timer & 8 then gosub __Title_Screen_2
 
    gosub __Play_Theme
-
-   gosub __Buster_Sprite bank2
 
    drawscreen
 
@@ -1482,3 +1513,22 @@ __End_Title
    AUDV0 = 0
    score = 1000
    goto __End_Theme bank1
+
+
+__Credits_Screen_1
+      playfield:
+    ................................
+    .........XX.XX..X.X..X..........
+    ........X...XXX.X.X.X.X.........
+    ........X.X.X.X.X.X.XXX.........
+    .........XX.XXX..X..X.X.........
+    ................................
+    .XX......................X......
+    .X.X.XX.XXX..XX.XXX.XX..XXX..XX.
+    .XX..X..XX...X..XX..X.X..X...X..
+    .X...X..XXX.XX..XXX.X.X..X..XX..
+    ................................
+end     
+   COLUBK = $00
+   COLUPF = $86
+   return
