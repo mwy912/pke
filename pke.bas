@@ -54,7 +54,8 @@
    dim _Bit2_Wand_Lock = var0        ; 0 = not locked, 1 = locked out
    dim _Bit3_Stunned_Ghost = var0    ; 0 = not stunned, 1 = stunned
    dim _Bit4_Trap_Active = var0      ; 0 = not deployed, 1 = deployed
-
+   dim _Bit5_Left_DifficultyB = var0  ; 0 = A - PKE only 1 room away, 1 = B - PKE up to 2 rooms away
+   dim _Bit6_Right_DifficultyB = var0 ; 0 = A, 1 = B
    ;***************************************************************
    ;  Converts 6 digit score to 3 sets of two digits.
    ;***************************************************************
@@ -73,20 +74,6 @@ end
 
    data _Ghost_Damage_Colors
    $D4, $D4, $D6, $D6, $D8, $DA, $DC, $DE, $0E
-end
-
-   pfheights:
-    4
-    8
-    9
-    4
-    17
-    4
-    17
-    4
-    9
-    8
-    4
 end
 
    ;***************************************************************
@@ -123,21 +110,42 @@ __Start_Restart
    ;***************************************************************
    ;   Initial Startup Value Settings
    ;***************************************************************
-   
+
+   if switchleftb then _Bit5_Left_DifficultyB{5} = 1 else _Bit5_Left_DifficultyB{5} = 0
+   if switchrightb then _Bit6_Right_DifficultyB{6} = 1 else _Bit6_Right_DifficultyB{6} = 0
+
    const pfscore = 1
    AUDV0 = 0 : AUDV1 = 0
    _SFX_Dur = 1
    _SFX_Index = 0
    _GB_Dur = 1
    pfscore1 = %00101010 ; 3 lives
-   pfscorecolor = $D4
+   pfscorecolor = $0E
+   scorecolor = $0E
    missile0height = 0
+   f = 10
    goto __Theme_Setup bank4
 
 __End_Theme
    AUDV0 = 0
    AUDV1 = 0
    score = 1000
+   pfscorecolor = $D4
+   scorecolor = $00
+
+      pfheights:
+    4
+    8
+    9
+    4
+    17
+    4
+    17
+    4
+    9
+    8
+    4
+end
 
 __Start_Turn
    gosub __Ghost_Sprite bank2
@@ -157,10 +165,26 @@ __Start_Turn
    _Bit2_Wand_Lock{2} = 0
    _Bit3_Stunned_Ghost{3} = 0
    _Bit4_Trap_Active{4} = 0
-   
-   _Ghost3_Room = 85
 
    _Game_Timer = 0
+
+      player1color:
+      $00;
+    $00;
+    $F8;
+    $F8;
+    $3E;
+    $F8;
+    $F8;
+    $F8;
+    $3E;
+    $3E;
+    $3E;
+    $F0;
+    $C2;
+end
+
+   _Ghost1_Room = 85
 
 __One_Second_Pause
    _Game_Timer = _Game_Timer + 1
@@ -169,15 +193,15 @@ __One_Second_Pause
    drawscreen
    if _Game_Timer < 60 then goto __One_Second_Pause
    
-
    ;***************************************************************
    ;  MAIN LOOP
    ;***************************************************************
 
 __Main_Loop
    _Game_Timer = _Game_Timer + 1
+   _Score_Timer = _Score_Timer - 1
    
-   if _Score_Timer = _Game_Timer then scorecolor = $00
+   if _Score_Timer < 1 then scorecolor = $00
    
    if _sc1 = $00 && _sc2 = $00 && _sc3 < $01 then goto __Game_Over_Loop
 
@@ -370,7 +394,7 @@ __Missile_Moving
    _Previous_Missile_x = missile0x
    if _Buster_Direction = 0 then missile0x = missile0x + 8
    if _Buster_Direction = 8 then missile0x = missile0x - 8
-   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 10 : scorecolor = $42 : _Score_Timer = _Game_Timer + 60
+   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 100 : scorecolor = $42 : _Score_Timer = 60
    if (_Stream_Counter & 1) = 0 then missile0y = missile0y + 1 else missile0y = missile0y - 1
    if missile0x < 15 then _Bit1_Missile_Flag{1} = 0
    if missile0x > 140 then _Bit1_Missile_Flag{1} = 0
@@ -424,6 +448,7 @@ __Ghost_Caught
    COLUPF = $0E
    _SFX_Dur = 1
    _SFX_Index = 0
+   score = score + 5000 : scorecolor = $C4 : _Score_Timer = 60
 Trap_Loop
    gosub __Play_Trap_SFX bank2
    drawscreen
@@ -434,7 +459,7 @@ Trap_Loop
    player0y = 0
    bally = 0
    _Bit4_Trap_Active{4} = 0
-   score = score + 5000 : scorecolor = $C4 : _Score_Timer = _Game_Timer + 60
+   
    _Hit_Count = 0
    gosub __Spawn_Ghosts
    gosub __Set_Room_Layout bank3
@@ -564,6 +589,7 @@ __Lose_A_Life
     $DE;
     $DE;
     $DE;
+    $D0
     $D2;
 end
    _Transition_Quick_Count = 60
@@ -672,6 +698,7 @@ __Buster_Sprite
     %00010000
     %00011000
     %00011000
+    %00011000
     %00001000
 end
    player1color:
@@ -686,6 +713,7 @@ end
     $3E;
     $3E;
     $3E;
+    $F0;
     $C2;
 end
    if f >= 15 && f < 20 then player1:
@@ -698,6 +726,7 @@ end
     %01111100
     %00111000
     %00010000
+    %00011000
     %00011000
     %00011000
     %00001000
@@ -714,6 +743,7 @@ end
     %00010000
     %00011000
     %00011000
+    %00011000
     %00001000
 end
    if f >= 25 then player1:
@@ -726,6 +756,7 @@ end
     %01111100
     %00111000
     %00010000
+    %00011000
     %00011000
     %00011000
     %00001000
@@ -760,6 +791,7 @@ __PKE_Drone
    return
    
 __PKE_Hum
+   if !_Bit5_Left_DifficultyB{5} then return
    if (_Game_Timer & 63) = 0 then AUDV0 = 1 : AUDF0 = 20 : AUDC0 = 12
    if (_Game_Timer & 63) = 15 then AUDV0 = 0
    return
@@ -1190,11 +1222,48 @@ __Theme_Setup
     4,4,14,7
     0,0,0,1
     4,4,14,8
+    4,4,11,15
+    4,4,14,15
+    4,4,12,15
+    4,4,16,15
+    0,0,0,30
+    4,4,14,7
+    0,0,0,1
+    4,4,14,7
+    0,0,0,1
+    4,4,14,7
+    0,0,0,1
+    4,4,14,8
+    4,4,16,15
+    4,4,14,15
+    0,0,0,30
+    4,4,14,7
+    0,0,0,1
+    4,4,14,8
+    4,4,11,15
+    4,4,14,15
+    4,4,12,15
+    4,4,16,15
+    0,0,0,30
+    4,4,14,7
+    0,0,0,1
+    4,4,14,7
+    0,0,0,1
+    4,4,14,7
+    0,0,0,1
+    4,4,14,8
+    4,4,16,15
+    4,4,13,15
+    4,4,14,15  
+    0,0,0,15
+    4,4,14,7   ; If there's something strange...
+    0,0,0,1
+    4,4,14,8
     4,4,12,15
     4,4,14,15
     4,4,12,30
-    4,6,18,30
-    4,6,22,30
+    0,0,0,30
+    0,0,0,30
     4,4,14,8
     4,4,16,8
     4,4,14,14
@@ -1202,8 +1271,8 @@ __Theme_Setup
     4,4,14,14
     0,0,0,1
     4,4,14,30
-    4,6,18,30
-    4,6,22,30
+    0,0,0,30
+    0,0,0,30
     4,4,11,8
     4,4,14,7
     0,0,0,1
@@ -1212,7 +1281,7 @@ __Theme_Setup
     4,4,14,7
     0,0,0,1
     4,4,14,30
-    4,6,18,30
+    0,0,0,30
     4,4,10,29
     0,0,0,1
     4,4,10,29
@@ -1221,14 +1290,14 @@ __Theme_Setup
     4,4,0,30
     4,4,0,30
     4,4,0,15
-    4,4,14,7  ;repeat
+    4,4,14,7       ; If there's something weird
     0,0,0,1
     4,4,14,8
     4,4,12,15
     4,4,14,15
     4,4,12,30
-    4,6,18,30
-    4,6,22,30
+    0,0,0,30
+    0,0,0,30
     4,4,14,8
     4,4,16,8
     4,4,14,14
@@ -1236,8 +1305,8 @@ __Theme_Setup
     4,4,14,14
     0,0,0,1
     4,4,14,30
-    4,6,18,30
-    4,6,22,30
+    0,0,0,30
+    0,0,0,30
     4,4,11,8
     4,4,14,7
     0,0,0,1
@@ -1246,7 +1315,7 @@ __Theme_Setup
     4,4,14,7
     0,0,0,1
     4,4,14,30
-    4,6,18,30
+    0,0,0,30
     4,4,10,29
     0,0,0,1
     4,4,10,29
@@ -1254,18 +1323,102 @@ __Theme_Setup
     4,4,10,15
     4,4,0,30
     4,4,0,30
-    4,4,0,15
+    4,4,0,15    
+    4,4,12,15  ; doo-do
+    4,4,14,15
+    0,0,0,15
+    4,4,12,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,15
+    4,4,14,15
+    0,0,0,15
+    4,4,12,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,8
+    4,4,13,8
+    4,4,14,15
+    0,0,0,1
+    4,4,12,15  ; doo-do 2
+    4,4,14,15
+    0,0,0,15
+    4,4,12,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,15
+    4,4,14,15
+    0,0,0,15
+    4,4,12,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,8
+    4,4,13,8
+    4,4,14,15
+    0,0,0,1
+    4,4,12,15 ; doo-do 3
+    4,4,14,15
+    0,0,0,15
+    4,4,12,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,15
+    4,4,14,15
+    0,0,0,15
+    4,4,12,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,8
+    4,4,13,8
+    4,4,14,15
+    4,4,12,15 ; doo-do 4
+    4,4,14,15
+    0,0,0,15
+    4,4,12,15
+    4,4,12,15
+    4,4,14,15
+    4,4,12,15
+    4,4,14,15
+    0,0,0,15
+    4,4,12,15
+    4,4,12,15
+    4,4,14,15
+    4,4,10,30
+    0,0,0,60
     255
 end
 
 __Startup_Loop
+
+      pfheights:
+    4
+    4
+    16
+    8
+    8
+    8
+    8
+    8
+    16
+    4
+    4
+end
+
    _Game_Timer = _Game_Timer + 1
 
-   if _Game_Timer < 5 then gosub __Title_Screen_1
-   if _Game_Timer >= 5 then gosub __Title_Screen_2
-   if _Game_Timer >= 10 then _Game_Timer = 0
+   if _Game_Timer & 8 then gosub __Title_Screen_1
+   if !_Game_Timer & 8 then gosub __Title_Screen_2
 
    gosub __Play_Theme
+
+   gosub __Buster_Sprite bank2
+
    drawscreen
 
    if joy0fire then goto __End_Title
@@ -1275,38 +1428,38 @@ __Startup_Loop
 
 __Title_Screen_1
    playfield:
+    .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
     X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
     ................................
-    ...XXXX.....X...X.....XXXXXX....
-    ...X...X....X...X.....X.........
+    ...XXXX.....X...X.....XXXXX.....
     ...X...X....X..X......X.........
-    ...XXXX.....XXX.......XXXXX.....
+    ...XXXX.....XXX.......XXX.......
     ...X........X..X......X.........
-    ...X........X...X.....X.........
-    ...X....X...X....X.X..XXXXXX.X..
+    ...X....X...X...X.X...XXXXX.X...
     ................................
+    .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
     X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
 end
-   COLUBK = $02
-   COLUPF = $1E
+   COLUBK = $0E
+   COLUPF = $44
    return
 
 __Title_Screen_2
    playfield:
+    X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
     .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
     ................................
-    ...XXXX.....X...X.....XXXXXX....
-    ...X...X....X...X.....X.........
+    ...XXXX.....X...X.....XXXXX.....
     ...X...X....X..X......X.........
-    ...XXXX.....XXX.......XXXXX.....
+    ...XXXX.....XXX.......XXX.......
     ...X........X..X......X.........
-    ...X........X...X.....X.........
-    ...X....X...X....X.X..XXXXXX.X..
+    ...X....X...X...X.X...XXXXX.X...
     ................................
+    X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
     .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
 end
-   COLUBK = $02
-   COLUPF = $1E
+   COLUBK = $0E
+   COLUPF = $44
    return
 
 __Play_Theme
