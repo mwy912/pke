@@ -43,7 +43,11 @@
    dim _SFX_Frq = var10
    dim _SFX_Dur = var11
    dim _SFX_Index = var12
-   
+   dim _Game_Level = var13
+   dim _Ghosts_Caught = var14
+
+
+
 
    ;***************************************************************
    ;  set bit variables
@@ -74,6 +78,10 @@ end
 
    data _Ghost_Damage_Colors
    $D4, $D4, $D6, $D6, $D8, $DA, $DC, $DE, $0E
+end
+
+   data Playfield_Color_Table
+   $F0, $42, $82, $C2, $60, $1A
 end
 
    ;***************************************************************
@@ -111,14 +119,12 @@ __Start_Restart
    ;   Initial Startup Value Settings
    ;***************************************************************
 
-   if switchleftb then _Bit5_Left_DifficultyB{5} = 1 else _Bit5_Left_DifficultyB{5} = 0
-   if switchrightb then _Bit6_Right_DifficultyB{6} = 1 else _Bit6_Right_DifficultyB{6} = 0
-
    const pfscore = 1
    AUDV0 = 0 : AUDV1 = 0
    _SFX_Dur = 1
    _SFX_Index = 0
    _GB_Dur = 1
+   _Game_Level = 0   
    pfscore1 = %00101010 ; 3 lives
    pfscorecolor = $0E
    scorecolor = $0E
@@ -146,6 +152,11 @@ __End_Theme
     8
     4
 end
+
+   if switchleftb then _Bit5_Left_DifficultyB{5} = 1 else _Bit5_Left_DifficultyB{5} = 0
+   if switchrightb then _Bit6_Right_DifficultyB{6} = 1 else _Bit6_Right_DifficultyB{6} = 0
+
+   if _Bit5_Left_DifficultyB{5} then _Difficulty_Level = 3 else _Difficulty_Level = 2
 
 __Start_Turn
    gosub __Ghost_Sprite bank2
@@ -211,7 +222,7 @@ __Main_Loop
    ;   Colors, Missiles, Ball and Sprite Setup
    ;***************************************************************
    
-   COLUPF = $F0
+   COLUPF = Playfield_Color_Table[_Game_Level]
    COLUBK = $02
    NUSIZ0 = $30
    gosub __Buster_Sprite bank2
@@ -445,7 +456,7 @@ __Ghost_Caught
    AUDV0 = 0 : AUDV1 = 0
    _Transition_Quick_Count = 60
    COLUBK = $0E
-   COLUPF = $0E
+   COLUPF = Playfield_Color_Table[_Game_Level]
    _SFX_Dur = 1
    _SFX_Index = 0
    score = score + 5000 : scorecolor = $C4 : _Score_Timer = 60
@@ -453,7 +464,7 @@ Trap_Loop
    gosub __Play_Trap_SFX bank2
    drawscreen
    COLUBK = $02
-   COLUPF = $F0
+   COLUPF = Playfield_Color_Table[_Game_Level]
    _Transition_Quick_Count = _Transition_Quick_Count - 1
    if _Transition_Quick_Count > 0 then goto Trap_Loop
    player0y = 0
@@ -463,6 +474,9 @@ Trap_Loop
    _Hit_Count = 0
    gosub __Spawn_Ghosts
    gosub __Set_Room_Layout bank3
+   _Ghosts_Caught = _Ghosts_Caught + 1
+   if _Ghosts_Caught > _Difficulty_Level then _Ghosts_Caught = 0 : _Game_Level = _Game_Level + 1
+   if _Game_Level > 5 then _Game_Level = 5
    return
 
    ;***************************************************************
@@ -791,7 +805,7 @@ __PKE_Drone
    return
    
 __PKE_Hum
-   if !_Bit5_Left_DifficultyB{5} then return
+   if !_Bit6_Right_DifficultyB{6} then return
    if (_Game_Timer & 63) = 0 then AUDV0 = 1 : AUDF0 = 20 : AUDC0 = 12
    if (_Game_Timer & 63) = 15 then AUDV0 = 0
    return
@@ -932,6 +946,7 @@ __Play_Overheat_SFX
 end
 
 __Set_Room_Layout
+    _SFX_Vol = trap_sfx[_SFX_Index]
    _Buster_Room = _Map_Position_y * 10 + _Map_Position_x
    temp2 = my_world_map[_Buster_Room]
    if temp2 =  1 then goto __Layout_Room_1
