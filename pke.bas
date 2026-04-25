@@ -124,7 +124,7 @@ __Start_Restart
    scorecolor = $0E
    missile0height = 0
    f = 10
-   goto __Theme_Setup bank4
+   goto __Title_Setup bank4
 
 __End_Theme
    AUDV0 = 0
@@ -169,13 +169,13 @@ __Start_Turn
    _Game_Timer = 0
 
       player1color:
-      $00;
+    $00;
     $00;
     $F8;
     $F8;
+    $F8;
     $3E;
-    $F8;
-    $F8;
+    $00;
     $F8;
     $3E;
     $3E;
@@ -582,14 +582,14 @@ __Lose_A_Life
     $D0;
     $D8;
     $D8;
-    $DE;
-    $D8;
-    $D8;
     $D8;
     $DE;
+    $D0;
+    $D8;
     $DE;
     $DE;
-    $D0
+    $DE;
+    $D0;
     $D2;
 end
    _Transition_Quick_Count = 60
@@ -691,9 +691,9 @@ __Buster_Sprite
     %00101000
     %00101000
     %00111000
-    %01000100
-    %01111100
-    %01111100
+    %00111000
+    %00100100
+    %00111111
     %00111000
     %00010000
     %00011000
@@ -706,9 +706,9 @@ end
     $00;
     $F8;
     $F8;
+    $F8;
     $3E;
-    $F8;
-    $F8;
+    $00;
     $F8;
     $3E;
     $3E;
@@ -717,13 +717,13 @@ end
     $C2;
 end
    if f >= 15 && f < 20 then player1:
-    %00110000
-    %00101100
+    %00001100
+    %00111000
     %00101000
     %00111000
-    %01000100
-    %01111100
-    %01111100
+    %00111000
+    %00100100
+    %00111111
     %00111000
     %00010000
     %00011000
@@ -736,9 +736,9 @@ end
     %00101000
     %00101000
     %00111000
-    %01000100
-    %01111100
-    %01111100
+    %00111000
+    %00100100
+    %00111111
     %00111000
     %00010000
     %00011000
@@ -747,13 +747,13 @@ end
     %00001000
 end
    if f >= 25 then player1:
-    %00001100
-    %00111000
+    %00110000
+    %00101100
     %00101000
     %00111000
-    %01000100
-    %01111100
-    %01111100
+    %00111000
+    %00100100
+    %00111111
     %00111000
     %00010000
     %00011000
@@ -1214,10 +1214,10 @@ end
    ;***************************************************************
 
    ;***************************************************************
-   ;   Subroutines - Startup Screen
+   ;   Subroutines - Startup Theme Music
    ;***************************************************************
 
-__Theme_Setup
+__Title_Setup
    sdata GhostbustersTheme = b
     0,0,0,30
     4,4,14,7
@@ -1395,6 +1395,10 @@ __Theme_Setup
     255
 end
 
+   ;***************************************************************
+   ;   Subroutines - GBVA Presents screen and Music
+   ;***************************************************************
+
 __Game_Credits
    pfheights:
     8
@@ -1413,9 +1417,9 @@ end
    scorecolor = $00
 
    _Game_Timer = _Game_Timer + 1
-   if _Game_Timer > 120 then goto __Startup_Loop
+   if _Game_Timer > 240 then goto __Title_Loop
    
-   gosub __Credits_Screen_1
+   gosub __Credits_Screen
    gosub __Play_Theme
    
    drawscreen
@@ -1428,8 +1432,42 @@ end
 
    goto __Game_Credits
 
+__Credits_Screen
+      playfield:
+    ................................
+    .........XX.XX..X.X..X..........
+    ........X...XXX.X.X.X.X.........
+    ........X.X.X.X.X.X.XXX.........
+    .........XX.XXX..X..X.X.........
+    ................................
+    .XX......................X......
+    .X.X.XX.XXX..XX.XXX.XX..XXX..XX.
+    .XX..X..XX...X..XX..X.X..X...X..
+    .X...X..XXX.XX..XXX.X.X..X..XX..
+    ................................
+end     
+   COLUBK = $00
+   COLUPF = $86
+   return
 
-__Startup_Loop
+   ;***************************************************************
+   ;   Subroutines - Title Screen and Music
+   ;***************************************************************
+
+__Title_Loop
+   pfheights:
+    8
+    4
+    8
+    8
+    4
+    8
+    8
+    4
+    12
+    12
+    12
+end
    pfscorecolor = $02
    scorecolor = $02
    COLUP0 = $0E 
@@ -1447,18 +1485,18 @@ __Startup_Loop
    if joy0fire then goto __End_Title
    if _GB_Vol = 255 then goto __End_Title
 
-   goto __Startup_Loop
+   goto __Title_Loop
 
 __Title_Screen
    playfield:
     ................................
-    ................................
-    ....XXXX.....X...X....XXXXX.....
-    ....X...X....X..X.....X.........
-    ....XXXX.....XXX......XXX.......
-    ....X........X..X.....X.........
-    ....X...X....X...X.X..XXXXX.X...
-    ................................    
+    XXXXX.....XX....XX.....XXXXXX...
+    XX...XX...XX...XX......XX.......
+    XX...XX...XX..XX.......XX.......
+    XXXXX.....XXXX.........XXXX.....
+    XX........XX..XX.......XX.......
+    XX........XX...XX......XX.......
+    XX....X...XX....XX..X..XXXXXX.X.
     ................................
     ................................
     ................................
@@ -1483,29 +1521,9 @@ __Play_Theme
    _GB_Dur = sread(GhostbustersTheme)   
    return
 
-__End_Title
-   AUDV0 = 0
-   score = 1000
-   goto __End_Theme bank1
-
-
-__Credits_Screen_1
-      playfield:
-    ................................
-    .........XX.XX..X.X..X..........
-    ........X...XXX.X.X.X.X.........
-    ........X.X.X.X.X.X.XXX.........
-    .........XX.XXX..X..X.X.........
-    ................................
-    .XX......................X......
-    .X.X.XX.XXX..XX.XXX.XX..XXX..XX.
-    .XX..X..XX...X..XX..X.X..X...X..
-    .X...X..XXX.XX..XXX.X.X..X..XX..
-    ................................
-end     
-   COLUBK = $00
-   COLUPF = $86
-   return
+   ;***************************************************************
+   ;   Subroutines - Buster and Ghost Title Animation
+   ;***************************************************************
 
 __Left_to_Right
    gosub __Ghost_Sprite bank2
@@ -1524,8 +1542,6 @@ __Left_to_Right
    if _Ghost_x > 200 then _Ghost_Direction = 0 : _Previous_x = 175
    return
 
-
-
 __Right_to_Left
    gosub __Buster_Sprite bank2
    REFP1 = 8
@@ -1543,3 +1559,12 @@ __Right_to_Left
    if _Previous_x > 175 && _Previous_x < 220 then _Ghost_Direction = 1 : _Ghost_x = 0
 
    return
+
+   ;***************************************************************
+   ;   Subroutines - End Title Sequence and Go To Gameplay
+   ;***************************************************************
+
+__End_Title
+   AUDV0 = 0
+   score = 1000
+   goto __End_Theme bank1

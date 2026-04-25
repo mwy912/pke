@@ -2426,12 +2426,12 @@
     470  122c
     471  122c		       a9 0a		      LDA	#10
     472  122e		       85 d9		      STA	f
-    473  1230				   .L079		;;line 127;;  goto __Theme_Setup bank4
+    473  1230				   .L079		;;line 127;;  goto __Title_Setup bank4
     474  1230
     475  1230		       85 ee		      sta	temp7
-    476  1232		       a9 f6		      lda	#>(.__Theme_Setup-1)
+    476  1232		       a9 f6		      lda	#>(.__Title_Setup-1)
     477  1234		       48		      pha
-    478  1235		       a9 26		      lda	#<(.__Theme_Setup-1)
+    478  1235		       a9 26		      lda	#<(.__Title_Setup-1)
     479  1237		       48		      pha
     480  1238		       a5 ee		      lda	temp7
     481  123a		       48		      pha
@@ -2485,7 +2485,7 @@
     529  1266				  -	      ifconst	pfres
     530  1266				  -	      lda	#<(pfcolorlabel18-pfres-9)
     531  1266					      else
-    532  1266		       a9 89		      lda	#<(pfcolorlabel18-21)
+    532  1266		       a9 95		      lda	#<(pfcolorlabel18-21)
     533  1268					      endif
     534  1268		       85 f0		      sta	pfcolortable
     535  126a				   .
@@ -2607,7 +2607,7 @@
     651  12e3
     652  12e3				   .L0104		;;line 171;;  player1color:
     653  12e3
-    654  12e3		       a2 a8		      LDX	#<playercolorL0104_1
+    654  12e3		       a2 b4		      LDX	#<playercolorL0104_1
     655  12e5		       86 87		      STX	player1color
     656  12e7		       a9 fb		      LDA	#>playercolorL0104_1
     657  12e9		       85 88		      STA	player1color+1
@@ -5225,7 +5225,7 @@
    3269  1cb9		       85 09		      STA	COLUBK
    3270  1cbb				   .L0323		;;line 580;;  player1color:
    3271  1cbb
-   3272  1cbb		       a2 b5		      LDX	#<playercolorL0323_1
+   3272  1cbb		       a2 c1		      LDX	#<playercolorL0323_1
    3273  1cbd		       86 87		      STX	player1color
    3274  1cbf		       a9 fb		      LDA	#>playercolorL0323_1
    3275  1cc1		       85 88		      STA	player1color+1
@@ -6463,7 +6463,7 @@
    3996  210c		       c9 0f		      CMP	#15
    3997  210e		       b0 0c		      BCS	.skip149then
    3998  2110				   .condpart150
-   3999  2110		       a2 c2		      LDX	#<player150then_1
+   3999  2110		       a2 ce		      LDX	#<player150then_1
    4000  2112		       86 8c		      STX	player1pointerlo
    4001  2114		       a9 fb		      LDA	#>player150then_1
    4002  2116		       85 8d		      STA	player1pointerhi
@@ -6473,7 +6473,7 @@
    4006  211c				   .skipL0381
    4007  211c				   .L0382		;;line 704;;  player1color:
    4008  211c
-   4009  211c		       a2 cf		      LDX	#<playercolorL0382_1
+   4009  211c		       a2 db		      LDX	#<playercolorL0382_1
    4010  211e		       86 87		      STX	player1color
    4011  2120		       a9 fb		      LDA	#>playercolorL0382_1
    4012  2122		       85 88		      STA	player1color+1
@@ -6487,7 +6487,7 @@
    4020  212c		       c9 14		      CMP	#20
    4021  212e		       b0 0c		      BCS	.skip151then
    4022  2130				   .condpart152
-   4023  2130		       a2 dc		      LDX	#<player152then_1
+   4023  2130		       a2 e8		      LDX	#<player152then_1
    4024  2132		       86 8c		      STX	player1pointerlo
    4025  2134		       a9 fb		      LDA	#>player152then_1
    4026  2136		       85 8d		      STA	player1pointerhi
@@ -6505,9 +6505,9 @@
    4038  2144		       c9 19		      CMP	#25
    4039  2146		       b0 0c		      BCS	.skip153then
    4040  2148				   .condpart154
-   4041  2148		       a2 e9		      LDX	#<player154then_1
+   4041  2148		       a2 00		      LDX	#<player154then_1
    4042  214a		       86 8c		      STX	player1pointerlo
-   4043  214c		       a9 fb		      LDA	#>player154then_1
+   4043  214c		       a9 fc		      LDA	#>player154then_1
    4044  214e		       85 8d		      STA	player1pointerhi
    4045  2150		       a9 0c		      LDA	#12
    4046  2152		       85 8f		      STA	player1height
@@ -6519,7 +6519,7 @@
    4052  2156		       c9 19		      CMP	#25
    4053  2158		       90 0c		      BCC	.skipL0385
    4054  215a				   .condpart155
-   4055  215a		       a2 00		      LDX	#<player155then_1
+   4055  215a		       a2 0d		      LDX	#<player155then_1
    4056  215c		       86 8c		      STX	player1pointerlo
    4057  215e		       a9 fc		      LDA	#>player155then_1
    4058  2160		       85 8d		      STA	player1pointerhi
@@ -6552,7 +6552,7 @@
    4085  217d
    4086  217d				   .L0388		;;line 768;;  player0:
    4087  217d
-   4088  217d		       a2 0d		      LDX	#<playerL0388_0
+   4088  217d		       a2 1a		      LDX	#<playerL0388_0
    4089  217f		       86 8a		      STX	player0pointerlo
    4090  2181		       a9 fc		      LDA	#>playerL0388_0
    4091  2183		       85 8b		      STA	player0pointerhi
@@ -11511,8 +11511,8 @@
    7793  4627				   .
    7794  4627							;;line 1219;;
    7795  4627
-   7796  4627				   .__Theme_Setup
-   7797  4627							;;line 1220;; __Theme_Setup
+   7796  4627				   .__Title_Setup
+   7797  4627							;;line 1220;; __Title_Setup
    7798  4627
    7799  4627				   .L0501		;;line 1221;;	sdata GhostbustersTheme  =  b
    7800  4627
@@ -11874,1290 +11874,1377 @@
    8156  48e7				   .
    8157  48e7							;;line 1397;;
    8158  48e7
-   8159  48e7				   .__Game_Credits
-   8160  48e7							;;line 1398;; __Game_Credits
+   8159  48e7				   .
+   8160  48e7							;;line 1398;;
    8161  48e7
-   8162  48e7				   .L0502		;;line 1399;;	pfheights:
-   8163  48e7
-   8164  48e7		       a9 08		      lda	# 8
-   8165  48e9		       85 ef		      sta	playfieldpos
-   8166  48eb				  -	      ifconst	pfres
-   8167  48eb				  -	      lda	#>(pfcolorlabel177-pfres-9)
-   8168  48eb					      else
-   8169  48eb		       a9 fc		      lda	#>(pfcolorlabel177-21)
-   8170  48ed					      endif
-   8171  48ed		       85 f1		      sta	pfcolortable+1
-   8172  48ef				  -	      ifconst	pfres
-   8173  48ef				  -	      lda	#<(pfcolorlabel177-pfres-9)
-   8174  48ef					      else
-   8175  48ef		       a9 00		      lda	#<(pfcolorlabel177-21)
-   8176  48f1					      endif
-   8177  48f1		       85 f0		      sta	pfcolortable
-   8178  48f3				   .L0503		;;line 1412;;	pfscorecolor = $00
-   8179  48f3
-   8180  48f3		       a9 00		      LDA	#$00
-   8181  48f5		       85 f4		      STA	pfscorecolor
-   8182  48f7				   .L0504		;;line 1413;;	scorecolor = $00
-   8183  48f7
-   8184  48f7		       a9 00		      LDA	#$00
-   8185  48f9		       85 a3		      STA	scorecolor
-   8186  48fb				   .
-   8187  48fb							;;line 1414;;
-   8188  48fb
-   8189  48fb				   .L0505		;;line 1415;;	_Game_Timer = _Game_Timer  +  1
-   8190  48fb
-   8191  48fb		       e6 e5		      INC	_Game_Timer
-   8192  48fd				   .L0506		;;line 1416;;	if _Game_Timer	>  120 then goto __Startup_Loop
-   8193  48fd
-   8194  48fd		       a9 78		      LDA	#120
-   8195  48ff		       c5 e5		      CMP	_Game_Timer
-   8196  4901		       b0 03		      BCS	.skipL0506
-   8197  4903				   .condpart192
-   8198  4903		       4c 2a f9 	      jmp	.__Startup_Loop
-   8199  4906
-   8200  4906				   .skipL0506
-   8201  4906				   .
-   8202  4906							;;line 1417;;
-   8203  4906
-   8204  4906				   .L0507		;;line 1418;;	gosub __Credits_Screen_1
-   8205  4906
-   8206  4906		       20 45 fa 	      jsr	.__Credits_Screen_1
-   8207  4909
-   8208  4909				   .L0508		;;line 1419;;	gosub __Play_Theme
-   8209  4909
-   8210  4909		       20 b2 f9 	      jsr	.__Play_Theme
-   8211  490c
-   8212  490c				   .
-   8213  490c							;;line 1420;;
-   8214  490c
-   8215  490c				   .L0509		;;line 1421;;	drawscreen
-   8216  490c
-   8217  490c		       20 87 f5 	      jsr	drawscreen
-   8218  490f				   .
-   8219  490f							;;line 1422;;
-   8220  490f
-   8221  490f				   .L0510		;;line 1423;;	if joy0fire then goto __End_Title
-   8222  490f
-   8223  490f		       24 0c		      bit	INPT4
-   8224  4911		       30 03		      BMI	.skipL0510
-   8225  4913				   .condpart193
-   8226  4913		       4c 23 fa 	      jmp	.__End_Title
-   8227  4916
-   8228  4916				   .skipL0510
-   8229  4916				   .L0511		;;line 1424;;	if _GB_Vol = 255 then goto __End_Title
-   8230  4916
-   8231  4916		       a5 ea		      LDA	_GB_Vol
-   8232  4918		       c9 ff		      CMP	#255
-   8233  491a		       d0 03		      BNE	.skipL0511
-   8234  491c				   .condpart194
-   8235  491c		       4c 23 fa 	      jmp	.__End_Title
-   8236  491f
-   8237  491f				   .skipL0511
-   8238  491f				   .
-   8239  491f							;;line 1425;;
-   8240  491f
-   8241  491f				   .L0512		;;line 1426;;	_Ghost_x = 0
-   8242  491f
-   8243  491f		       a9 00		      LDA	#0
-   8244  4921		       85 e0		      STA	_Ghost_x
-   8245  4923				   .L0513		;;line 1427;;	_Ghost_Direction = 1
-   8246  4923
-   8247  4923		       a9 01		      LDA	#1
-   8248  4925		       85 e3		      STA	_Ghost_Direction
-   8249  4927				   .
-   8250  4927							;;line 1428;;
-   8251  4927
-   8252  4927				   .L0514		;;line 1429;;	goto __Game_Credits
-   8253  4927
-   8254  4927		       4c e7 f8 	      jmp	.__Game_Credits
-   8255  492a
-   8256  492a				   .
-   8257  492a							;;line 1430;;
-   8258  492a
-   8259  492a				   .
-   8260  492a							;;line 1431;;
-   8261  492a
-   8262  492a				   .__Startup_Loop
-   8263  492a							;;line 1432;; __Startup_Loop
-   8264  492a
-   8265  492a				   .L0515		;;line 1433;;	pfscorecolor = $02
-   8266  492a
-   8267  492a		       a9 02		      LDA	#$02
-   8268  492c		       85 f4		      STA	pfscorecolor
-   8269  492e				   .L0516		;;line 1434;;	scorecolor = $02
-   8270  492e
-   8271  492e		       a9 02		      LDA	#$02
-   8272  4930		       85 a3		      STA	scorecolor
-   8273  4932				   .L0517		;;line 1435;;	COLUP0 = $0E
-   8274  4932
-   8275  4932		       a9 0e		      LDA	#$0E
-   8276  4934		       85 06		      STA	COLUP0
-   8277  4936				   .
-   8278  4936							;;line 1436;;
-   8279  4936
-   8280  4936				   .L0518		;;line 1437;;	gosub __Title_Screen
-   8281  4936
-   8282  4936		       20 63 f9 	      jsr	.__Title_Screen
-   8283  4939
-   8284  4939				   .
-   8285  4939							;;line 1438;;
-   8286  4939
-   8287  4939				   .L0519		;;line 1439;;	gosub __Play_Theme
-   8288  4939
-   8289  4939		       20 b2 f9 	      jsr	.__Play_Theme
-   8290  493c
-   8291  493c				   .
-   8292  493c							;;line 1440;;
-   8293  493c
-   8294  493c				   .L0520		;;line 1441;;	f = f  +  1
-   8295  493c
-   8296  493c		       e6 d9		      INC	f
-   8297  493e				   .
-   8298  493e							;;line 1442;;
-   8299  493e
-   8300  493e				   .L0521		;;line 1443;;	if  ( _Ghost_Direction	&  1 )	then gosub __Left_to_Right else gosub __Right_to_Left
-   8301  493e
-   8302  493e							; complex statement detected
-   8303  493e		       a5 e3		      LDA	_Ghost_Direction
-   8304  4940		       29 01		      AND	#1
-   8305  4942		       f0 06		      BEQ	.skipL0521
-   8306  4944				   .condpart195
-   8307  4944		       20 94 fa 	      jsr	.__Left_to_Right
-   8308  4947		       4c 4d f9 	      jmp	.skipelse13
-   8309  494a				   .skipL0521
-   8310  494a		       20 16 fb 	      jsr	.__Right_to_Left
-   8311  494d
-   8312  494d				   .skipelse13
-   8313  494d				   .
-   8314  494d							;;line 1444;;
-   8315  494d
-   8316  494d				   .L0522		;;line 1445;;	drawscreen
-   8317  494d
-   8318  494d		       20 87 f5 	      jsr	drawscreen
-   8319  4950				   .
-   8320  4950							;;line 1446;;
-   8321  4950
-   8322  4950				   .L0523		;;line 1447;;	if joy0fire then goto __End_Title
-   8323  4950
-   8324  4950		       24 0c		      bit	INPT4
-   8325  4952		       30 03		      BMI	.skipL0523
-   8326  4954				   .condpart196
-   8327  4954		       4c 23 fa 	      jmp	.__End_Title
-   8328  4957
-   8329  4957				   .skipL0523
-   8330  4957				   .L0524		;;line 1448;;	if _GB_Vol = 255 then goto __End_Title
-   8331  4957
-   8332  4957		       a5 ea		      LDA	_GB_Vol
-   8333  4959		       c9 ff		      CMP	#255
-   8334  495b		       d0 03		      BNE	.skipL0524
-   8335  495d				   .condpart197
-   8336  495d		       4c 23 fa 	      jmp	.__End_Title
-   8337  4960
-   8338  4960				   .skipL0524
-   8339  4960				   .
-   8340  4960							;;line 1449;;
-   8341  4960
-   8342  4960				   .L0525		;;line 1450;;	goto __Startup_Loop
-   8343  4960
-   8344  4960		       4c 2a f9 	      jmp	.__Startup_Loop
-   8345  4963
-   8346  4963				   .
-   8347  4963							;;line 1451;;
-   8348  4963
-   8349  4963				   .__Title_Screen
-   8350  4963							;;line 1452;; __Title_Screen
-   8351  4963
-   8352  4963				   .L0526		;;line 1453;;	playfield:
-   8353  4963
-   8354  4963				  -	      ifconst	pfres
-   8355  4963				  -	      ldx	#(11>pfres)*(pfres*pfwidth-1)+(11<=pfres)*43
-   8356  4963					      else
-   8357  4963		       a2 2b		      ldx	#((11*pfwidth-1)*((11*pfwidth-1)<47))+(47*((11*pfwidth-1)>=47))
-   8358  4965					      endif
-   8359  4965		       4c 94 f9 	      jmp	pflabel13
-   8360  4968				   PF_data13
-   8361  4968		       00 00		      .byte.b	%00000000, %00000000
-   8362  496a					      if	(pfwidth>2)
-   8363  496a		       00 00		      .byte.b	%00000000, %00000000
-   8364  496c					      endif
-   8365  496c		       00 00		      .byte.b	%00000000, %00000000
-   8366  496e					      if	(pfwidth>2)
-   8367  496e		       00 00		      .byte.b	%00000000, %00000000
-   8368  4970					      endif
-   8369  4970		       0f 20		      .byte.b	%00001111, %00100000
-   8370  4972					      if	(pfwidth>2)
-   8371  4972		       43 07		      .byte.b	%01000011, %00000111
-   8372  4974					      endif
-   8373  4974		       08 21		      .byte.b	%00001000, %00100001
-   8374  4976					      if	(pfwidth>2)
-   8375  4976		       82 00		      .byte.b	%10000010, %00000000
-   8376  4978					      endif
-   8377  4978		       0f e0		      .byte.b	%00001111, %11100000
-   8378  497a					      if	(pfwidth>2)
-   8379  497a		       03 01		      .byte.b	%00000011, %00000001
-   8380  497c					      endif
-   8381  497c		       08 20		      .byte.b	%00001000, %00100000
-   8382  497e					      if	(pfwidth>2)
-   8383  497e		       82 00		      .byte.b	%10000010, %00000000
-   8384  4980					      endif
-   8385  4980		       08 21		      .byte.b	%00001000, %00100001
-   8386  4982					      if	(pfwidth>2)
-   8387  4982		       53 17		      .byte.b	%01010011, %00010111
-   8388  4984					      endif
-   8389  4984		       00 00		      .byte.b	%00000000, %00000000
-   8390  4986					      if	(pfwidth>2)
-   8391  4986		       00 00		      .byte.b	%00000000, %00000000
-   8392  4988					      endif
-   8393  4988		       00 00		      .byte.b	%00000000, %00000000
-   8394  498a					      if	(pfwidth>2)
-   8395  498a		       00 00		      .byte.b	%00000000, %00000000
-   8396  498c					      endif
-   8397  498c		       00 00		      .byte.b	%00000000, %00000000
-   8398  498e					      if	(pfwidth>2)
-   8399  498e		       00 00		      .byte.b	%00000000, %00000000
-   8400  4990					      endif
-   8401  4990		       00 00		      .byte.b	%00000000, %00000000
-   8402  4992					      if	(pfwidth>2)
-   8403  4992		       00 00		      .byte.b	%00000000, %00000000
-   8404  4994					      endif
-   8405  4994				   pflabel13
-   8406  4994		       bd 68 f9 	      lda	PF_data13,x
-   8407  4997		       9d 50 10 	      sta	playfield-128,x
-   8408  499a		       ca		      dex
-   8409  499b		       10 f7		      bpl	pflabel13
-   8410  499d				   .L0527		;;line 1466;;	COLUBK = $02
-   8411  499d
-   8412  499d		       a9 02		      LDA	#$02
-   8413  499f		       85 09		      STA	COLUBK
-   8414  49a1				   .L0528		;;line 1467;;	COLUPF = $46
-   8415  49a1
-   8416  49a1		       a9 46		      LDA	#$46
-   8417  49a3		       85 08		      STA	COLUPF
-   8418  49a5				   .L0529		;;line 1468;;	return
-   8419  49a5
-   8420  49a5		       ba		      tsx
-   8421  49a6		       b5 02		      lda	2,x	; check return address
-   8422  49a8		       49 f9		      eor	#(>*)	; vs. current PCH
-   8423  49aa		       29 e0		      and	#$E0	;  mask off all but top 3 bits
-   8424  49ac		       f0 03		      beq	*+5	; if equal, do normal return
-   8425  49ae		       4c dd ff 	      JMP	BS_return
-   8426  49b1		       60		      RTS
-   8427  49b2				   .
-   8428  49b2							;;line 1469;;
-   8429  49b2
-   8430  49b2				   .__Play_Theme
-   8431  49b2							;;line 1470;; __Play_Theme
-   8432  49b2
-   8433  49b2				   .L0530		;;line 1471;;	_GB_Dur = _GB_Dur  -  1
-   8434  49b2
-   8435  49b2		       c6 ed		      DEC	_GB_Dur
-   8436  49b4				   .L0531		;;line 1472;;	if _GB_Dur  >  0 then return
-   8437  49b4
-   8438  49b4		       a9 00		      LDA	#0
-   8439  49b6		       c5 ed		      CMP	_GB_Dur
-   8440  49b8		       b0 0d		      BCS	.skipL0531
-   8441  49ba				   .condpart198
-   8442  49ba		       ba		      tsx
-   8443  49bb		       b5 02		      lda	2,x	; check return address
-   8444  49bd		       49 f9		      eor	#(>*)	; vs. current PCH
-   8445  49bf		       29 e0		      and	#$E0	;  mask off all but top 3 bits
-   8446  49c1		       f0 03		      beq	*+5	; if equal, do normal return
-   8447  49c3		       4c dd ff 	      JMP	BS_return
-   8448  49c6		       60		      RTS
-   8449  49c7				   .skipL0531
-   8450  49c7				   .
-   8451  49c7							;;line 1473;;
-   8452  49c7
-   8453  49c7				   .L0532		;;line 1474;;	_GB_Vol = sread ( GhostbustersTheme )
-   8454  49c7
-   8455  49c7		       a2 d5		      ldx	#GhostbustersTheme
-   8456  49c9		       a1 00		      lda	(0,x)
-   8457  49cb		       f6 00		      inc	0,x
-   8458  49cd		       d0 02		      bne	*+4
-   8459  49cf		       f6 01		      inc	1,x
-   8460  49d1		       85 ea		      STA	_GB_Vol
-   8461  49d3				   .L0533		;;line 1475;;	if _GB_Vol = 255 then return
-   8462  49d3
-   8463  49d3		       a5 ea		      LDA	_GB_Vol
-   8464  49d5		       c9 ff		      CMP	#255
-   8465  49d7		       d0 0d		      BNE	.skipL0533
-   8466  49d9				   .condpart199
-   8467  49d9		       ba		      tsx
-   8468  49da		       b5 02		      lda	2,x	; check return address
-   8469  49dc		       49 f9		      eor	#(>*)	; vs. current PCH
-   8470  49de		       29 e0		      and	#$E0	;  mask off all but top 3 bits
-   8471  49e0		       f0 03		      beq	*+5	; if equal, do normal return
-   8472  49e2		       4c dd ff 	      JMP	BS_return
-   8473  49e5		       60		      RTS
-   8474  49e6				   .skipL0533
-   8475  49e6				   .L0534		;;line 1476;;	_GB_Ch = sread ( GhostbustersTheme )
-   8476  49e6
-   8477  49e6		       a2 d5		      ldx	#GhostbustersTheme
-   8478  49e8		       a1 00		      lda	(0,x)
-   8479  49ea		       f6 00		      inc	0,x
-   8480  49ec		       d0 02		      bne	*+4
-   8481  49ee		       f6 01		      inc	1,x
-   8482  49f0		       85 eb		      STA	_GB_Ch
-   8483  49f2				   .L0535		;;line 1477;;	_GB_Frq = sread ( GhostbustersTheme )
-   8484  49f2
-   8485  49f2		       a2 d5		      ldx	#GhostbustersTheme
-   8486  49f4		       a1 00		      lda	(0,x)
-   8487  49f6		       f6 00		      inc	0,x
-   8488  49f8		       d0 02		      bne	*+4
-   8489  49fa		       f6 01		      inc	1,x
-   8490  49fc		       85 ec		      STA	_GB_Frq
-   8491  49fe				   .
-   8492  49fe							;;line 1478;;
-   8493  49fe
-   8494  49fe				   .L0536		;;line 1479;;	AUDV0 = _GB_Vol
-   8495  49fe
-   8496  49fe		       a5 ea		      LDA	_GB_Vol
-   8497  4a00		       85 19		      STA	AUDV0
-   8498  4a02				   .L0537		;;line 1480;;	AUDC0 = _GB_Ch
-   8499  4a02
-   8500  4a02		       a5 eb		      LDA	_GB_Ch
-   8501  4a04		       85 15		      STA	AUDC0
-   8502  4a06				   .L0538		;;line 1481;;	AUDF0 = _GB_Frq
-   8503  4a06
-   8504  4a06		       a5 ec		      LDA	_GB_Frq
-   8505  4a08		       85 17		      STA	AUDF0
-   8506  4a0a				   .
-   8507  4a0a							;;line 1482;;
-   8508  4a0a
-   8509  4a0a				   .L0539		;;line 1483;;	_GB_Dur = sread ( GhostbustersTheme )
-   8510  4a0a
-   8511  4a0a		       a2 d5		      ldx	#GhostbustersTheme
-   8512  4a0c		       a1 00		      lda	(0,x)
-   8513  4a0e		       f6 00		      inc	0,x
-   8514  4a10		       d0 02		      bne	*+4
-   8515  4a12		       f6 01		      inc	1,x
-   8516  4a14		       85 ed		      STA	_GB_Dur
-   8517  4a16				   .L0540		;;line 1484;;	return
-   8518  4a16
-   8519  4a16		       ba		      tsx
-   8520  4a17		       b5 02		      lda	2,x	; check return address
-   8521  4a19		       49 fa		      eor	#(>*)	; vs. current PCH
-   8522  4a1b		       29 e0		      and	#$E0	;  mask off all but top 3 bits
-   8523  4a1d		       f0 03		      beq	*+5	; if equal, do normal return
-   8524  4a1f		       4c dd ff 	      JMP	BS_return
-   8525  4a22		       60		      RTS
-   8526  4a23				   .
-   8527  4a23							;;line 1485;;
-   8528  4a23
-   8529  4a23				   .__End_Title
-   8530  4a23							;;line 1486;; __End_Title
-   8531  4a23
-   8532  4a23				   .L0541		;;line 1487;;	AUDV0 = 0
-   8533  4a23
-   8534  4a23		       a9 00		      LDA	#0
-   8535  4a25		       85 19		      STA	AUDV0
-   8536  4a27				   .L0542		;;line 1488;;	score = 1000
-   8537  4a27
-   8538  4a27		       a9 00		      LDA	#$00
-   8539  4a29		       85 95		      STA	score+2
-   8540  4a2b		       a9 10		      LDA	#$10
-   8541  4a2d		       85 94		      STA	score+1
-   8542  4a2f		       a9 00		      LDA	#$00
-   8543  4a31		       85 93		      STA	score
-   8544  4a33				   .L0543		;;line 1489;;	goto __End_Theme bank1
-   8545  4a33
-   8546  4a33		       85 ee		      sta	temp7
-   8547  4a35		       a9 92		      lda	#>(.__End_Theme-1)
-   8548  4a37		       48		      pha
-   8549  4a38		       a9 41		      lda	#<(.__End_Theme-1)
-   8550  4a3a		       48		      pha
-   8551  4a3b		       a5 ee		      lda	temp7
-   8552  4a3d		       48		      pha
-   8553  4a3e		       8a		      txa
-   8554  4a3f		       48		      pha
-   8555  4a40		       a2 01		      ldx	#1
-   8556  4a42		       4c eb ff 	      jmp	BS_jsr
-   8557  4a45				   .
-   8558  4a45							;;line 1490;;
-   8559  4a45
-   8560  4a45				   .
-   8561  4a45							;;line 1491;;
-   8562  4a45
-   8563  4a45				   .__Credits_Screen_1
-   8564  4a45							;;line 1492;; __Credits_Screen_1
-   8565  4a45
-   8566  4a45				   .L0544		;;line 1493;;	playfield:
-   8567  4a45
-   8568  4a45				  -	      ifconst	pfres
-   8569  4a45				  -	      ldx	#(11>pfres)*(pfres*pfwidth-1)+(11<=pfres)*43
-   8570  4a45					      else
-   8571  4a45		       a2 2b		      ldx	#((11*pfwidth-1)*((11*pfwidth-1)<47))+(47*((11*pfwidth-1)>=47))
-   8572  4a47					      endif
-   8573  4a47		       4c 76 fa 	      jmp	pflabel14
-   8574  4a4a				   PF_data14
-   8575  4a4a		       00 00		      .byte.b	%00000000, %00000000
-   8576  4a4c					      if	(pfwidth>2)
-   8577  4a4c		       00 00		      .byte.b	%00000000, %00000000
-   8578  4a4e					      endif
-   8579  4a4e		       00 36		      .byte.b	%00000000, %00110110
-   8580  4a50					      if	(pfwidth>2)
-   8581  4a50		       a4 00		      .byte.b	%10100100, %00000000
-   8582  4a52					      endif
-   8583  4a52		       00 71		      .byte.b	%00000000, %01110001
-   8584  4a54					      if	(pfwidth>2)
-   8585  4a54		       aa 00		      .byte.b	%10101010, %00000000
-   8586  4a56					      endif
-   8587  4a56		       00 55		      .byte.b	%00000000, %01010101
-   8588  4a58					      if	(pfwidth>2)
-   8589  4a58		       ae 00		      .byte.b	%10101110, %00000000
-   8590  4a5a					      endif
-   8591  4a5a		       00 76		      .byte.b	%00000000, %01110110
-   8592  4a5c					      if	(pfwidth>2)
-   8593  4a5c		       4a 00		      .byte.b	%01001010, %00000000
-   8594  4a5e					      endif
-   8595  4a5e		       00 00		      .byte.b	%00000000, %00000000
-   8596  4a60					      if	(pfwidth>2)
-   8597  4a60		       00 00		      .byte.b	%00000000, %00000000
-   8598  4a62					      endif
-   8599  4a62		       60 00		      .byte.b	%01100000, %00000000
-   8600  4a64					      if	(pfwidth>2)
-   8601  4a64		       00 02		      .byte.b	%00000000, %00000010
-   8602  4a66					      endif
-   8603  4a66		       56 67		      .byte.b	%01010110, %01100111
-   8604  4a68					      if	(pfwidth>2)
-   8605  4a68		       ec 67		      .byte.b	%11101100, %01100111
-   8606  4a6a					      endif
-   8607  4a6a		       64 23		      .byte.b	%01100100, %00100011
-   8608  4a6c					      if	(pfwidth>2)
-   8609  4a6c		       ca 22		      .byte.b	%11001010, %00100010
-   8610  4a6e					      endif
-   8611  4a6e		       44 37		      .byte.b	%01000100, %00110111
-   8612  4a70					      if	(pfwidth>2)
-   8613  4a70		       ea 32		      .byte.b	%11101010, %00110010
-   8614  4a72					      endif
-   8615  4a72		       00 00		      .byte.b	%00000000, %00000000
-   8616  4a74					      if	(pfwidth>2)
-   8617  4a74		       00 00		      .byte.b	%00000000, %00000000
-   8618  4a76					      endif
-   8619  4a76				   pflabel14
-   8620  4a76		       bd 4a fa 	      lda	PF_data14,x
-   8621  4a79		       9d 50 10 	      sta	playfield-128,x
-   8622  4a7c		       ca		      dex
-   8623  4a7d		       10 f7		      bpl	pflabel14
-   8624  4a7f				   .L0545		;;line 1506;;	COLUBK = $00
-   8625  4a7f
-   8626  4a7f		       a9 00		      LDA	#$00
-   8627  4a81		       85 09		      STA	COLUBK
-   8628  4a83				   .L0546		;;line 1507;;	COLUPF = $86
-   8629  4a83
-   8630  4a83		       a9 86		      LDA	#$86
-   8631  4a85		       85 08		      STA	COLUPF
-   8632  4a87				   .L0547		;;line 1508;;	return
-   8633  4a87
-   8634  4a87		       ba		      tsx
-   8635  4a88		       b5 02		      lda	2,x	; check return address
-   8636  4a8a		       49 fa		      eor	#(>*)	; vs. current PCH
-   8637  4a8c		       29 e0		      and	#$E0	;  mask off all but top 3 bits
-   8638  4a8e		       f0 03		      beq	*+5	; if equal, do normal return
-   8639  4a90		       4c dd ff 	      JMP	BS_return
-   8640  4a93		       60		      RTS
-   8641  4a94				   .
-   8642  4a94							;;line 1509;;
-   8643  4a94
-   8644  4a94				   .__Left_to_Right
-   8645  4a94							;;line 1510;; __Left_to_Right
-   8646  4a94
-   8647  4a94				   .L0548		;;line 1511;;	gosub __Ghost_Sprite bank2
-   8648  4a94
-   8649  4a94		       85 ee		      sta	temp7
-   8650  4a96		       a9 fa		      lda	#>(ret_point37-1)
-   8651  4a98		       48		      pha
-   8652  4a99		       a9 ab		      lda	#<(ret_point37-1)
-   8653  4a9b		       48		      pha
-   8654  4a9c		       a9 b1		      lda	#>(.__Ghost_Sprite-1)
-   8655  4a9e		       48		      pha
-   8656  4a9f		       a9 7c		      lda	#<(.__Ghost_Sprite-1)
-   8657  4aa1		       48		      pha
-   8658  4aa2		       a5 ee		      lda	temp7
-   8659  4aa4		       48		      pha
-   8660  4aa5		       8a		      txa
-   8661  4aa6		       48		      pha
-   8662  4aa7		       a2 02		      ldx	#2
-   8663  4aa9		       4c eb ff 	      jmp	BS_jsr
-   8664  4aac				   ret_point37
-   8665  4aac				   .L0549		;;line 1512;;	_Ghost_x = _Ghost_x  +	1
-   8666  4aac
-   8667  4aac		       e6 e0		      INC	_Ghost_x
-   8668  4aae				   .
-   8669  4aae							;;line 1513;;
-   8670  4aae
-   8671  4aae				   .L0550		;;line 1514;;	player0x = _Ghost_x
-   8672  4aae
-   8673  4aae		       a5 e0		      LDA	_Ghost_x
-   8674  4ab0		       85 80		      STA	player0x
-   8675  4ab2				   .L0551		;;line 1515;;	if _Ghost_x  <	150 then player0y = 78 else player0y = 0
-   8676  4ab2
-   8677  4ab2		       a5 e0		      LDA	_Ghost_x
-   8678  4ab4		       c9 96		      CMP	#150
-   8679  4ab6		       b0 07		      BCS	.skipL0551
-   8680  4ab8				   .condpart200
-   8681  4ab8		       a9 4e		      LDA	#78
-   8682  4aba		       85 85		      STA	player0y
-   8683  4abc		       4c c3 fa 	      jmp	.skipelse14
-   8684  4abf				   .skipL0551
-   8685  4abf		       a9 00		      LDA	#0
-   8686  4ac1		       85 85		      STA	player0y
-   8687  4ac3				   .skipelse14
-   8688  4ac3				   .
-   8689  4ac3							;;line 1516;;
-   8690  4ac3
-   8691  4ac3				   .L0552		;;line 1517;;	gosub __Buster_Sprite bank2
-   8692  4ac3
-   8693  4ac3		       85 ee		      sta	temp7
-   8694  4ac5		       a9 fa		      lda	#>(ret_point38-1)
-   8695  4ac7		       48		      pha
-   8696  4ac8		       a9 da		      lda	#<(ret_point38-1)
-   8697  4aca		       48		      pha
-   8698  4acb		       a9 b0		      lda	#>(.__Buster_Sprite-1)
-   8699  4acd		       48		      pha
-   8700  4ace		       a9 ff		      lda	#<(.__Buster_Sprite-1)
-   8701  4ad0		       48		      pha
-   8702  4ad1		       a5 ee		      lda	temp7
-   8703  4ad3		       48		      pha
-   8704  4ad4		       8a		      txa
-   8705  4ad5		       48		      pha
-   8706  4ad6		       a2 02		      ldx	#2
-   8707  4ad8		       4c eb ff 	      jmp	BS_jsr
-   8708  4adb				   ret_point38
-   8709  4adb				   .L0553		;;line 1518;;	REFP1 = 0
-   8710  4adb
-   8711  4adb		       a9 00		      LDA	#0
-   8712  4add		       85 0c		      STA	REFP1
-   8713  4adf				   .
-   8714  4adf							;;line 1519;;
-   8715  4adf
-   8716  4adf				   .L0554		;;line 1520;;	_Previous_x = _Ghost_x	-  30
-   8717  4adf
-   8718  4adf		       a5 e0		      LDA	_Ghost_x
-   8719  4ae1		       38		      SEC
-   8720  4ae2		       e9 1e		      SBC	#30
-   8721  4ae4		       85 de		      STA	_Previous_x
-   8722  4ae6				   .L0555		;;line 1521;;	player1x = _Previous_x
-   8723  4ae6
-   8724  4ae6		       a5 de		      LDA	_Previous_x
-   8725  4ae8		       85 81		      STA	player1x
-   8726  4aea				   .L0556		;;line 1522;;	if _Previous_x	<  150 then player1y = 80 else player1y = 0
-   8727  4aea
-   8728  4aea		       a5 de		      LDA	_Previous_x
-   8729  4aec		       c9 96		      CMP	#150
-   8730  4aee		       b0 07		      BCS	.skipL0556
-   8731  4af0				   .condpart201
-   8732  4af0		       a9 50		      LDA	#80
-   8733  4af2		       85 86		      STA	player1y
-   8734  4af4		       4c fb fa 	      jmp	.skipelse15
-   8735  4af7				   .skipL0556
-   8736  4af7		       a9 00		      LDA	#0
-   8737  4af9		       85 86		      STA	player1y
-   8738  4afb				   .skipelse15
-   8739  4afb				   .
-   8740  4afb							;;line 1523;;
-   8741  4afb
-   8742  4afb				   .L0557		;;line 1524;;	if _Ghost_x  >	200 then _Ghost_Direction = 0  :  _Previous_x = 175
-   8743  4afb
-   8744  4afb		       a9 c8		      LDA	#200
-   8745  4afd		       c5 e0		      CMP	_Ghost_x
-   8746  4aff		       b0 08		      BCS	.skipL0557
-   8747  4b01				   .condpart202
-   8748  4b01		       a9 00		      LDA	#0
-   8749  4b03		       85 e3		      STA	_Ghost_Direction
-   8750  4b05		       a9 af		      LDA	#175
-   8751  4b07		       85 de		      STA	_Previous_x
-   8752  4b09				   .skipL0557
-   8753  4b09				   .L0558		;;line 1525;;	return
-   8754  4b09
-   8755  4b09		       ba		      tsx
-   8756  4b0a		       b5 02		      lda	2,x	; check return address
-   8757  4b0c		       49 fb		      eor	#(>*)	; vs. current PCH
-   8758  4b0e		       29 e0		      and	#$E0	;  mask off all but top 3 bits
-   8759  4b10		       f0 03		      beq	*+5	; if equal, do normal return
-   8760  4b12		       4c dd ff 	      JMP	BS_return
-   8761  4b15		       60		      RTS
-   8762  4b16				   .
-   8763  4b16							;;line 1526;;
-   8764  4b16
-   8765  4b16				   .
-   8766  4b16							;;line 1527;;
-   8767  4b16
-   8768  4b16				   .
-   8769  4b16							;;line 1528;;
-   8770  4b16
-   8771  4b16				   .__Right_to_Left
-   8772  4b16							;;line 1529;; __Right_to_Left
-   8773  4b16
-   8774  4b16				   .L0559		;;line 1530;;	gosub __Buster_Sprite bank2
-   8775  4b16
-   8776  4b16		       85 ee		      sta	temp7
-   8777  4b18		       a9 fb		      lda	#>(ret_point39-1)
-   8778  4b1a		       48		      pha
-   8779  4b1b		       a9 2d		      lda	#<(ret_point39-1)
-   8780  4b1d		       48		      pha
-   8781  4b1e		       a9 b0		      lda	#>(.__Buster_Sprite-1)
-   8782  4b20		       48		      pha
-   8783  4b21		       a9 ff		      lda	#<(.__Buster_Sprite-1)
-   8784  4b23		       48		      pha
-   8785  4b24		       a5 ee		      lda	temp7
-   8786  4b26		       48		      pha
-   8787  4b27		       8a		      txa
-   8788  4b28		       48		      pha
-   8789  4b29		       a2 02		      ldx	#2
-   8790  4b2b		       4c eb ff 	      jmp	BS_jsr
-   8791  4b2e				   ret_point39
-   8792  4b2e				   .L0560		;;line 1531;;	REFP1 = 8
-   8793  4b2e
-   8794  4b2e		       a9 08		      LDA	#8
-   8795  4b30		       85 0c		      STA	REFP1
-   8796  4b32				   .
-   8797  4b32							;;line 1532;;
-   8798  4b32
-   8799  4b32				   .L0561		;;line 1533;;	_Previous_x = _Previous_x  -  1
-   8800  4b32
-   8801  4b32		       c6 de		      DEC	_Previous_x
-   8802  4b34				   .L0562		;;line 1534;;	player1x = _Previous_x
-   8803  4b34
-   8804  4b34		       a5 de		      LDA	_Previous_x
-   8805  4b36		       85 81		      STA	player1x
-   8806  4b38				   .L0563		;;line 1535;;	if _Previous_x	<  150 then player1y = 80 else player1y = 0
-   8807  4b38
-   8808  4b38		       a5 de		      LDA	_Previous_x
-   8809  4b3a		       c9 96		      CMP	#150
-   8810  4b3c		       b0 07		      BCS	.skipL0563
-   8811  4b3e				   .condpart203
-   8812  4b3e		       a9 50		      LDA	#80
-   8813  4b40		       85 86		      STA	player1y
-   8814  4b42		       4c 49 fb 	      jmp	.skipelse16
-   8815  4b45				   .skipL0563
-   8816  4b45		       a9 00		      LDA	#0
-   8817  4b47		       85 86		      STA	player1y
-   8818  4b49				   .skipelse16
-   8819  4b49				   .
-   8820  4b49							;;line 1536;;
-   8821  4b49
-   8822  4b49				   .L0564		;;line 1537;;	gosub __Ghost_Sprite bank2
-   8823  4b49
-   8824  4b49		       85 ee		      sta	temp7
-   8825  4b4b		       a9 fb		      lda	#>(ret_point40-1)
-   8826  4b4d		       48		      pha
-   8827  4b4e		       a9 60		      lda	#<(ret_point40-1)
-   8828  4b50		       48		      pha
-   8829  4b51		       a9 b1		      lda	#>(.__Ghost_Sprite-1)
-   8830  4b53		       48		      pha
-   8831  4b54		       a9 7c		      lda	#<(.__Ghost_Sprite-1)
-   8832  4b56		       48		      pha
-   8833  4b57		       a5 ee		      lda	temp7
-   8834  4b59		       48		      pha
-   8835  4b5a		       8a		      txa
-   8836  4b5b		       48		      pha
-   8837  4b5c		       a2 02		      ldx	#2
-   8838  4b5e		       4c eb ff 	      jmp	BS_jsr
-   8839  4b61				   ret_point40
-   8840  4b61				   .
-   8841  4b61							;;line 1538;;
-   8842  4b61
-   8843  4b61				   .L0565		;;line 1539;;	_Ghost_x = _Previous_x	-  30
-   8844  4b61
-   8845  4b61		       a5 de		      LDA	_Previous_x
-   8846  4b63		       38		      SEC
-   8847  4b64		       e9 1e		      SBC	#30
-   8848  4b66		       85 e0		      STA	_Ghost_x
-   8849  4b68				   .L0566		;;line 1540;;	player0x = _Ghost_x
-   8850  4b68
-   8851  4b68		       a5 e0		      LDA	_Ghost_x
-   8852  4b6a		       85 80		      STA	player0x
-   8853  4b6c				   .L0567		;;line 1541;;	if _Ghost_x  <	150 then player0y = 78 else player0y = 0
-   8854  4b6c
-   8855  4b6c		       a5 e0		      LDA	_Ghost_x
-   8856  4b6e		       c9 96		      CMP	#150
-   8857  4b70		       b0 07		      BCS	.skipL0567
-   8858  4b72				   .condpart204
-   8859  4b72		       a9 4e		      LDA	#78
-   8860  4b74		       85 85		      STA	player0y
-   8861  4b76		       4c 7d fb 	      jmp	.skipelse17
-   8862  4b79				   .skipL0567
-   8863  4b79		       a9 00		      LDA	#0
-   8864  4b7b		       85 85		      STA	player0y
-   8865  4b7d				   .skipelse17
-   8866  4b7d				   .
-   8867  4b7d							;;line 1542;;
-   8868  4b7d
-   8869  4b7d				   .L0568		;;line 1543;;	if _Previous_x	>  175	&&  _Previous_x  <  220 then _Ghost_Direction = 1  :  _Ghost_x = 0
-   8870  4b7d
-   8871  4b7d		       a9 af		      LDA	#175
-   8872  4b7f		       c5 de		      CMP	_Previous_x
-   8873  4b81		       b0 0e		      BCS	.skipL0568
-   8874  4b83				   .condpart205
-   8875  4b83		       a5 de		      LDA	_Previous_x
-   8876  4b85		       c9 dc		      CMP	#220
-   8877  4b87		       b0 08		      BCS	.skip205then
-   8878  4b89				   .condpart206
-   8879  4b89		       a9 01		      LDA	#1
-   8880  4b8b		       85 e3		      STA	_Ghost_Direction
-   8881  4b8d		       a9 00		      LDA	#0
-   8882  4b8f		       85 e0		      STA	_Ghost_x
-   8883  4b91				   .skip205then
-   8884  4b91				   .skipL0568
-   8885  4b91				   .
-   8886  4b91							;;line 1544;;
-   8887  4b91
-   8888  4b91				   .L0569		;;line 1545;;	return
-   8889  4b91
-   8890  4b91		       ba		      tsx
-   8891  4b92		       b5 02		      lda	2,x	; check return address
-   8892  4b94		       49 fb		      eor	#(>*)	; vs. current PCH
-   8893  4b96		       29 e0		      and	#$E0	;  mask off all but top 3 bits
-   8894  4b98		       f0 03		      beq	*+5	; if equal, do normal return
-   8895  4b9a		       4c dd ff 	      JMP	BS_return
-   8896  4b9d		       60		      RTS
-   8897  4b9e				  -	      ifconst	pfres
-   8898  4b9e				  -	      if	(<*) > 235-pfres
-   8899  4b9e				  -	      repeat	(265+pfres-<*)
-   8900  4b9e				  -	      .byte	0
-   8901  4b9e				  -	      repend
-   8902  4b9e				  -	      endif
-   8903  4b9e				  -	      if	(<*) < (pfres+9)
-   8904  4b9e				  -	      repeat	((pfres+9)-(<*))
-   8905  4b9e				  -	      .byte	0
-   8906  4b9e				  -	      repend
-   8907  4b9e				  -	      endif
-   8908  4b9e					      else
-   8909  4b9e				  -	      if	(<*) > 223
-   8910  4b9e				  -	      repeat	(277-<*)
-   8911  4b9e				  -	      .byte	0
-   8912  4b9e				  -	      repend
-   8913  4b9e					      endif
-   8914  4b9e				  -	      if	(<*) < 21
-   8915  4b9e				  -	      repeat	(21-(<*))
-   8916  4b9e				  -	      .byte	0
-   8917  4b9e				  -	      repend
-   8918  4b9e					      endif
-   8919  4b9e					      endif
-   8920  4b9e				   pfcolorlabel18
-   8921  4b9e		       08		      .byte.b	8
-   8922  4b9f		       09		      .byte.b	9
-   8923  4ba0		       04		      .byte.b	4
-   8924  4ba1		       11		      .byte.b	17
-   8925  4ba2		       04		      .byte.b	4
-   8926  4ba3		       11		      .byte.b	17
-   8927  4ba4		       04		      .byte.b	4
-   8928  4ba5		       09		      .byte.b	9
-   8929  4ba6		       08		      .byte.b	8
-   8930  4ba7		       04		      .byte.b	4
-   8931  4ba8				  -	      if	(<*) > (<(*+12))
-   8932  4ba8				  -	      repeat	($100-<*)
-   8933  4ba8				  -	      .byte	0
-   8934  4ba8				  -	      repend
-   8935  4ba8					      endif
-   8936  4ba8				   playercolorL0104_1
-   8937  4ba8		       00		      .byte.b	$00
-   8938  4ba9		       00		      .byte.b	$00
-   8939  4baa		       f8		      .byte.b	$F8
-   8940  4bab		       f8		      .byte.b	$F8
-   8941  4bac		       3e		      .byte.b	$3E
-   8942  4bad		       f8		      .byte.b	$F8
-   8943  4bae		       f8		      .byte.b	$F8
-   8944  4baf		       f8		      .byte.b	$F8
-   8945  4bb0		       3e		      .byte.b	$3E
-   8946  4bb1		       3e		      .byte.b	$3E
-   8947  4bb2		       3e		      .byte.b	$3E
-   8948  4bb3		       f0		      .byte.b	$F0
-   8949  4bb4		       c2		      .byte.b	$C2
-   8950  4bb5				  -	      if	(<*) > (<(*+12))
-   8951  4bb5				  -	      repeat	($100-<*)
-   8952  4bb5				  -	      .byte	0
-   8953  4bb5				  -	      repend
-   8954  4bb5					      endif
-   8955  4bb5				   playercolorL0323_1
-   8956  4bb5		       d0		      .byte.b	$D0
-   8957  4bb6		       d0		      .byte.b	$D0
-   8958  4bb7		       d8		      .byte.b	$D8
-   8959  4bb8		       d8		      .byte.b	$D8
-   8960  4bb9		       de		      .byte.b	$DE
-   8961  4bba		       d8		      .byte.b	$D8
-   8962  4bbb		       d8		      .byte.b	$D8
-   8963  4bbc		       d8		      .byte.b	$D8
-   8964  4bbd		       de		      .byte.b	$DE
-   8965  4bbe		       de		      .byte.b	$DE
-   8966  4bbf		       de		      .byte.b	$DE
-   8967  4bc0		       d0		      .byte.b	$D0
-   8968  4bc1		       d2		      .byte.b	$D2
-   8969  4bc2				  -	      if	(<*) > (<(*+12))
-   8970  4bc2				  -	      repeat	($100-<*)
-   8971  4bc2				  -	      .byte	0
-   8972  4bc2				  -	      repend
-   8973  4bc2					      endif
-   8974  4bc2				   player150then_1
-   8975  4bc2		       3c		      .byte.b	%00111100
-   8976  4bc3		       28		      .byte.b	%00101000
-   8977  4bc4		       28		      .byte.b	%00101000
-   8978  4bc5		       38		      .byte.b	%00111000
-   8979  4bc6		       44		      .byte.b	%01000100
-   8980  4bc7		       7c		      .byte.b	%01111100
-   8981  4bc8		       7c		      .byte.b	%01111100
-   8982  4bc9		       38		      .byte.b	%00111000
-   8983  4bca		       10		      .byte.b	%00010000
-   8984  4bcb		       18		      .byte.b	%00011000
-   8985  4bcc		       18		      .byte.b	%00011000
-   8986  4bcd		       18		      .byte.b	%00011000
-   8987  4bce		       08		      .byte.b	%00001000
-   8988  4bcf				  -	      if	(<*) > (<(*+12))
-   8989  4bcf				  -	      repeat	($100-<*)
-   8990  4bcf				  -	      .byte	0
-   8991  4bcf				  -	      repend
-   8992  4bcf					      endif
-   8993  4bcf				   playercolorL0382_1
-   8994  4bcf		       00		      .byte.b	$00
-   8995  4bd0		       00		      .byte.b	$00
-   8996  4bd1		       f8		      .byte.b	$F8
-   8997  4bd2		       f8		      .byte.b	$F8
-   8998  4bd3		       3e		      .byte.b	$3E
-   8999  4bd4		       f8		      .byte.b	$F8
-   9000  4bd5		       f8		      .byte.b	$F8
-   9001  4bd6		       f8		      .byte.b	$F8
-   9002  4bd7		       3e		      .byte.b	$3E
-   9003  4bd8		       3e		      .byte.b	$3E
-   9004  4bd9		       3e		      .byte.b	$3E
-   9005  4bda		       f0		      .byte.b	$F0
-   9006  4bdb		       c2		      .byte.b	$C2
-   9007  4bdc				  -	      if	(<*) > (<(*+12))
-   9008  4bdc				  -	      repeat	($100-<*)
-   9009  4bdc				  -	      .byte	0
-   9010  4bdc				  -	      repend
-   9011  4bdc					      endif
-   9012  4bdc				   player152then_1
-   9013  4bdc		       30		      .byte.b	%00110000
-   9014  4bdd		       2c		      .byte.b	%00101100
-   9015  4bde		       28		      .byte.b	%00101000
-   9016  4bdf		       38		      .byte.b	%00111000
-   9017  4be0		       44		      .byte.b	%01000100
-   9018  4be1		       7c		      .byte.b	%01111100
-   9019  4be2		       7c		      .byte.b	%01111100
-   9020  4be3		       38		      .byte.b	%00111000
-   9021  4be4		       10		      .byte.b	%00010000
-   9022  4be5		       18		      .byte.b	%00011000
-   9023  4be6		       18		      .byte.b	%00011000
-   9024  4be7		       18		      .byte.b	%00011000
-   9025  4be8		       08		      .byte.b	%00001000
-   9026  4be9				  -	      if	(<*) > (<(*+12))
-   9027  4be9				  -	      repeat	($100-<*)
-   9028  4be9				  -	      .byte	0
-   9029  4be9				  -	      repend
-   9030  4be9					      endif
-   9031  4be9				   player154then_1
-   9032  4be9		       3c		      .byte.b	%00111100
-   9033  4bea		       28		      .byte.b	%00101000
-   9034  4beb		       28		      .byte.b	%00101000
-   9035  4bec		       38		      .byte.b	%00111000
-   9036  4bed		       44		      .byte.b	%01000100
-   9037  4bee		       7c		      .byte.b	%01111100
-   9038  4bef		       7c		      .byte.b	%01111100
-   9039  4bf0		       38		      .byte.b	%00111000
-   9040  4bf1		       10		      .byte.b	%00010000
-   9041  4bf2		       18		      .byte.b	%00011000
-   9042  4bf3		       18		      .byte.b	%00011000
-   9043  4bf4		       18		      .byte.b	%00011000
-   9044  4bf5		       08		      .byte.b	%00001000
-   9045  4bf6					      if	(<*) > (<(*+12))
-   9046  4bf6					      repeat	($100-<*)
-   9047  4bf6		       00		      .byte.b	0
-   9046  4bf6					      repend
-   9047  4bf7		       00		      .byte.b	0
-   9046  4bf7					      repend
-   9047  4bf8		       00		      .byte.b	0
-   9046  4bf8					      repend
-   9047  4bf9		       00		      .byte.b	0
-   9046  4bf9					      repend
-   9047  4bfa		       00		      .byte.b	0
-   9046  4bfa					      repend
-   9047  4bfb		       00		      .byte.b	0
-   9046  4bfb					      repend
-   9047  4bfc		       00		      .byte.b	0
-   9046  4bfc					      repend
-   9047  4bfd		       00		      .byte.b	0
-   9046  4bfd					      repend
-   9047  4bfe		       00		      .byte.b	0
-   9046  4bfe					      repend
-   9047  4bff		       00		      .byte.b	0
-   9048  4c00					      repend
-   9049  4c00					      endif
-   9050  4c00				   player155then_1
-   9051  4c00		       0c		      .byte.b	%00001100
-   9052  4c01		       38		      .byte.b	%00111000
-   9053  4c02		       28		      .byte.b	%00101000
-   9054  4c03		       38		      .byte.b	%00111000
-   9055  4c04		       44		      .byte.b	%01000100
-   9056  4c05		       7c		      .byte.b	%01111100
-   9057  4c06		       7c		      .byte.b	%01111100
-   9058  4c07		       38		      .byte.b	%00111000
-   9059  4c08		       10		      .byte.b	%00010000
-   9060  4c09		       18		      .byte.b	%00011000
-   9061  4c0a		       18		      .byte.b	%00011000
-   9062  4c0b		       18		      .byte.b	%00011000
-   9063  4c0c		       08		      .byte.b	%00001000
-   9064  4c0d				  -	      if	(<*) > (<(*+6))
-   9065  4c0d				  -	      repeat	($100-<*)
-   9066  4c0d				  -	      .byte	0
-   9067  4c0d				  -	      repend
-   9068  4c0d					      endif
-   9069  4c0d				   playerL0388_0
-   9070  4c0d		       aa		      .byte.b	%10101010
-   9071  4c0e		       ff		      .byte.b	%11111111
-   9072  4c0f		       ff		      .byte.b	%11111111
-   9073  4c10		       ff		      .byte.b	%11111111
-   9074  4c11		       db		      .byte.b	%11011011
-   9075  4c12		       7e		      .byte.b	%01111110
-   9076  4c13		       3c		      .byte.b	%00111100
-   9077  4c14				  -	      ifconst	pfres
-   9078  4c14				  -	      if	(<*) > 235-pfres
-   9079  4c14				  -	      repeat	(265+pfres-<*)
-   9080  4c14				  -	      .byte	0
-   9081  4c14				  -	      repend
-   9082  4c14				  -	      endif
-   9083  4c14				  -	      if	(<*) < (pfres+9)
-   9084  4c14				  -	      repeat	((pfres+9)-(<*))
-   9085  4c14				  -	      .byte	0
-   9086  4c14				  -	      repend
-   9087  4c14				  -	      endif
-   9088  4c14					      else
-   9089  4c14				  -	      if	(<*) > 223
-   9090  4c14				  -	      repeat	(277-<*)
-   9091  4c14				  -	      .byte	0
-   9092  4c14				  -	      repend
-   9093  4c14					      endif
-   9094  4c14					      if	(<*) < 21
-   9095  4c14					      repeat	(21-(<*))
-   9096  4c14		       00		      .byte.b	0
-   9097  4c15					      repend
-   9098  4c15					      endif
-   9099  4c15					      endif
-   9100  4c15				   pfcolorlabel177
-   9101  4c15		       08		      .byte.b	8
-   9102  4c16		       08		      .byte.b	8
-   9103  4c17		       08		      .byte.b	8
-   9104  4c18		       08		      .byte.b	8
-   9105  4c19		       08		      .byte.b	8
-   9106  4c1a		       08		      .byte.b	8
-   9107  4c1b		       08		      .byte.b	8
-   9108  4c1c		       08		      .byte.b	8
-   9109  4c1d		       08		      .byte.b	8
-   9110  4c1e		       08		      .byte.b	8
-   9111  4c1f					      if	ECHOFIRST
-      853 bytes of ROM space left in bank 4
-   9112  4c1f					      echo	"    ",[(scoretable - *)]d , "bytes of ROM space left in bank 4")
-   9113  4c1f					      endif
-   9114  4c1f		       00 01	   ECHOFIRST  =	1
-   9115  4c1f
-   9116  4c1f
-   9117  4c1f							; Provided under the CC0 license. See the included LICENSE.txt for details.
-   9118  4c1f							; font equates
-   9119  4c1f		       00 01	   .21stcentury =	1
-   9120  4c1f		       00 02	   alarmclock =	2
-   9121  4c1f		       00 03	   handwritten =	3
-   9122  4c1f		       00 04	   interrupted =	4
-   9123  4c1f		       00 05	   retroputer =	5
-   9124  4c1f		       00 06	   whimsey    =	6
-   9125  4c1f		       00 07	   tiny       =	7
-   9126  4c1f		       00 08	   hex	      =	8
-   9127  4c1f
-   9128  4c1f							; feel free to modify the score graphics - just keep each digit 8 high
-   9129  4c1f							; and keep the conditional compilation stuff intact
-   9130  4c1f					      ifnconst	PXE
-   9131  4c1f				  -	      ifconst	ROM2k
-   9132  4c1f				  -	      ORG	$F7AC-8
-   9133  4c1f					      else
-   9134  4c1f					      ifconst	bankswitch
-   9135  4c1f				  -	      if	bankswitch == 8
-   9136  4c1f				  -	      ORG	$2F94-bscode_length
-   9137  4c1f				  -	      RORG	$FF94-bscode_length
-   9138  4c1f					      endif
-   9139  4c1f					      if	bankswitch == 16
-   9140  4f74					      ORG	$4F94-bscode_length
-   9141  4f74					      RORG	$FF94-bscode_length
-   9142  4f74					      endif
-   9143  4f74				  -	      if	bankswitch == 32
-   9144  4f74				  -	      ORG	$8F94-bscode_length
-   9145  4f74				  -	      RORG	$FF94-bscode_length
-   9146  4f74					      endif
-   9147  4f74				  -	      if	bankswitch == 64
-   9148  4f74				  -	      ORG	$10F80-bscode_length
-   9149  4f74				  -	      RORG	$1FF80-bscode_length
-   9150  4f74					      endif
-   9151  4f74				  -	      else
-   9152  4f74				  -	      ORG	$FF9C
-   9153  4f74					      endif
-   9154  4f74					      endif
-   9155  4f74
-   9156  4f74
-   9157  4f74				  -	      ifconst	font
-   9158  4f74				  -	      if	font == hex
-   9159  4f74				  -	      ORG	. - 48
-   9160  4f74				  -	      endif
-   9161  4f74					      endif
-   9162  4f74					      endif
-   9163  4f74
-   9164  4f74				   scoretable
-   9165  4f74
-   9166  4f74				  -	      ifconst	font
-   9167  4f74				  -	      if	font == .21stcentury
-   9168  4f74				  -	      include	"score_graphics.asm.21stcentury"
-   9169  4f74				  -	      endif
-   9170  4f74				  -	      if	font == alarmclock
-   9171  4f74				  -	      include	"score_graphics.asm.alarmclock"
-   9172  4f74				  -	      endif
-   9173  4f74				  -	      if	font == handwritten
-   9174  4f74				  -	      include	"score_graphics.asm.handwritten"
-   9175  4f74				  -	      endif
-   9176  4f74				  -	      if	font == interrupted
-   9177  4f74				  -	      include	"score_graphics.asm.interrupted"
-   9178  4f74				  -	      endif
-   9179  4f74				  -	      if	font == retroputer
-   9180  4f74				  -	      include	"score_graphics.asm.retroputer"
-   9181  4f74				  -	      endif
-   9182  4f74				  -	      if	font == whimsey
-   9183  4f74				  -	      include	"score_graphics.asm.whimsey"
-   9184  4f74				  -	      endif
-   9185  4f74				  -	      if	font == tiny
-   9186  4f74				  -	      include	"score_graphics.asm.tiny"
-   9187  4f74				  -	      endif
-   9188  4f74				  -	      if	font == hex
-   9189  4f74				  -	      include	"score_graphics.asm.hex"
-   9190  4f74				  -	      endif
-   9191  4f74					      else		; default font
-   9192  4f74
-   9193  4f74		       3c		      .byte.b	%00111100
-   9194  4f75		       66		      .byte.b	%01100110
-   9195  4f76		       66		      .byte.b	%01100110
-   9196  4f77		       66		      .byte.b	%01100110
-   9197  4f78		       66		      .byte.b	%01100110
-   9198  4f79		       66		      .byte.b	%01100110
-   9199  4f7a		       66		      .byte.b	%01100110
-   9200  4f7b		       3c		      .byte.b	%00111100
-   9201  4f7c
-   9202  4f7c		       7e		      .byte.b	%01111110
-   9203  4f7d		       18		      .byte.b	%00011000
-   9204  4f7e		       18		      .byte.b	%00011000
-   9205  4f7f		       18		      .byte.b	%00011000
-   9206  4f80		       18		      .byte.b	%00011000
-   9207  4f81		       38		      .byte.b	%00111000
-   9208  4f82		       18		      .byte.b	%00011000
-   9209  4f83		       08		      .byte.b	%00001000
-   9210  4f84
-   9211  4f84		       7e		      .byte.b	%01111110
-   9212  4f85		       60		      .byte.b	%01100000
-   9213  4f86		       60		      .byte.b	%01100000
-   9214  4f87		       3c		      .byte.b	%00111100
-   9215  4f88		       06		      .byte.b	%00000110
-   9216  4f89		       06		      .byte.b	%00000110
-   9217  4f8a		       46		      .byte.b	%01000110
-   9218  4f8b		       3c		      .byte.b	%00111100
-   9219  4f8c
-   9220  4f8c		       3c		      .byte.b	%00111100
-   9221  4f8d		       46		      .byte.b	%01000110
-   9222  4f8e		       06		      .byte.b	%00000110
-   9223  4f8f		       06		      .byte.b	%00000110
-   9224  4f90		       1c		      .byte.b	%00011100
-   9225  4f91		       06		      .byte.b	%00000110
-   9226  4f92		       46		      .byte.b	%01000110
-   9227  4f93		       3c		      .byte.b	%00111100
-   9228  4f94
-   9229  4f94		       0c		      .byte.b	%00001100
-   9230  4f95		       0c		      .byte.b	%00001100
-   9231  4f96		       7e		      .byte.b	%01111110
-   9232  4f97		       4c		      .byte.b	%01001100
-   9233  4f98		       4c		      .byte.b	%01001100
-   9234  4f99		       2c		      .byte.b	%00101100
-   9235  4f9a		       1c		      .byte.b	%00011100
-   9236  4f9b		       0c		      .byte.b	%00001100
-   9237  4f9c
-   9238  4f9c		       3c		      .byte.b	%00111100
-   9239  4f9d		       46		      .byte.b	%01000110
-   9240  4f9e		       06		      .byte.b	%00000110
-   9241  4f9f		       06		      .byte.b	%00000110
-   9242  4fa0		       3c		      .byte.b	%00111100
-   9243  4fa1		       60		      .byte.b	%01100000
-   9244  4fa2		       60		      .byte.b	%01100000
-   9245  4fa3		       7e		      .byte.b	%01111110
-   9246  4fa4
-   9247  4fa4		       3c		      .byte.b	%00111100
-   9248  4fa5		       66		      .byte.b	%01100110
-   9249  4fa6		       66		      .byte.b	%01100110
-   9250  4fa7		       66		      .byte.b	%01100110
-   9251  4fa8		       7c		      .byte.b	%01111100
-   9252  4fa9		       60		      .byte.b	%01100000
-   9253  4faa		       62		      .byte.b	%01100010
-   9254  4fab		       3c		      .byte.b	%00111100
-   9255  4fac
-   9256  4fac		       30		      .byte.b	%00110000
-   9257  4fad		       30		      .byte.b	%00110000
-   9258  4fae		       30		      .byte.b	%00110000
-   9259  4faf		       18		      .byte.b	%00011000
-   9260  4fb0		       0c		      .byte.b	%00001100
-   9261  4fb1		       06		      .byte.b	%00000110
-   9262  4fb2		       42		      .byte.b	%01000010
-   9263  4fb3		       3e		      .byte.b	%00111110
-   9264  4fb4
-   9265  4fb4		       3c		      .byte.b	%00111100
-   9266  4fb5		       66		      .byte.b	%01100110
-   9267  4fb6		       66		      .byte.b	%01100110
-   9268  4fb7		       66		      .byte.b	%01100110
-   9269  4fb8		       3c		      .byte.b	%00111100
-   9270  4fb9		       66		      .byte.b	%01100110
-   9271  4fba		       66		      .byte.b	%01100110
-   9272  4fbb		       3c		      .byte.b	%00111100
-   9273  4fbc
-   9274  4fbc		       3c		      .byte.b	%00111100
-   9275  4fbd		       46		      .byte.b	%01000110
-   9276  4fbe		       06		      .byte.b	%00000110
-   9277  4fbf		       3e		      .byte.b	%00111110
-   9278  4fc0		       66		      .byte.b	%01100110
-   9279  4fc1		       66		      .byte.b	%01100110
-   9280  4fc2		       66		      .byte.b	%01100110
-   9281  4fc3		       3c		      .byte.b	%00111100
-   9282  4fc4
-   9283  4fc4					      ifnconst	DPC_kernel_options
-   9284  4fc4
-   9285  4fc4		       00		      .byte.b	%00000000
-   9286  4fc5		       00		      .byte.b	%00000000
-   9287  4fc6		       00		      .byte.b	%00000000
-   9288  4fc7		       00		      .byte.b	%00000000
-   9289  4fc8		       00		      .byte.b	%00000000
-   9290  4fc9		       00		      .byte.b	%00000000
-   9291  4fca		       00		      .byte.b	%00000000
-   9292  4fcb		       00		      .byte.b	%00000000
-   9293  4fcc
-   9294  4fcc					      endif
-   9295  4fcc
-   9296  4fcc					      endif
-   9297  4fcc
-   9298  4fcc					      ifnconst	PXE
-   9299  4fcc				  -	      ifconst	ROM2k
-   9300  4fcc				  -	      ORG	$F7FC
-   9301  4fcc					      else
-   9302  4fcc					      ifconst	bankswitch
-   9303  4fcc				  -	      if	bankswitch == 8
-   9304  4fcc				  -	      ORG	$2FF4-bscode_length
-   9305  4fcc				  -	      RORG	$FFF4-bscode_length
-   9306  4fcc					      endif
-   9307  4fcc					      if	bankswitch == 16
-   9308  4fd4					      ORG	$4FF4-bscode_length
-   9309  4fd4					      RORG	$FFF4-bscode_length
-   9310  4fd4					      endif
-   9311  4fd4				  -	      if	bankswitch == 32
-   9312  4fd4				  -	      ORG	$8FF4-bscode_length
-   9313  4fd4				  -	      RORG	$FFF4-bscode_length
-   9314  4fd4					      endif
-   9315  4fd4				  -	      if	bankswitch == 64
-   9316  4fd4				  -	      ORG	$10FE0-bscode_length
-   9317  4fd4				  -	      RORG	$1FFE0-bscode_length
-   9318  4fd4					      endif
-   9319  4fd4				  -	      else
-   9320  4fd4				  -	      ORG	$FFFC
-   9321  4fd4					      endif
-   9322  4fd4					      endif
-   9323  4fd4					      endif
-   9324  4fd4							; Provided under the CC0 license. See the included LICENSE.txt for details.
-   9325  4fd4
-   9326  4fd4							; every bank has this stuff at the same place
-   9327  4fd4							; this code can switch to/from any bank at any entry point
-   9328  4fd4							; and can preserve register values
-   9329  4fd4							; note: lines not starting with a space are not placed in all banks
-   9330  4fd4							;
-   9331  4fd4							; line below tells the compiler how long this is - do not remove
-   9332  4fd4							;size=32
-   9333  4fd4
-   9334  4fd4				   begin_bscode
-   9335  4fd4		       a2 ff		      ldx	#$ff
-   9336  4fd6				  -	      ifconst	FASTFETCH	; using DPC+
-   9337  4fd6				  -	      stx	FASTFETCH
-   9338  4fd6					      endif
-   9339  4fd6		       9a		      txs
-   9340  4fd7				  -	      if	bankswitch == 64
-   9341  4fd7				  -	      lda	#(((>(start-1)) & $0F) | $F0)
-   9342  4fd7					      else
-   9343  4fd7		       a9 f3		      lda	#>(start-1)
-   9344  4fd9					      endif
-   9345  4fd9		       48		      pha
-   9346  4fda		       a9 51		      lda	#<(start-1)
-   9347  4fdc		       48		      pha
-   9348  4fdd
-   9349  4fdd				   BS_return
-   9350  4fdd		       48		      pha
-   9351  4fde		       8a		      txa
-   9352  4fdf		       48		      pha
-   9353  4fe0		       ba		      tsx
-   9354  4fe1
-   9355  4fe1					      if	bankswitch != 64
-   9356  4fe1		       b5 04		      lda	4,x	; get high byte of return address
-   9357  4fe3
-   9358  4fe3		       2a		      rol
-   9359  4fe4		       2a		      rol
-   9360  4fe5		       2a		      rol
-   9361  4fe6		       2a		      rol
-   9362  4fe7		       29 03		      and	#bs_mask	;1 3 or 7 for F8/F6/F4
-   9363  4fe9		       aa		      tax
-   9364  4fea		       e8		      inx
-   9365  4feb				  -	      else
-   9366  4feb				  -	      lda	4,x	; get high byte of return address
-   9367  4feb				  -	      tay
-   9368  4feb				  -	      ora	#$10	; change our bank nibble into a valid rom mirror
-   9369  4feb				  -	      sta	4,x
-   9370  4feb				  -	      tya
-   9371  4feb				  -	      lsr
-   9372  4feb				  -	      lsr
-   9373  4feb				  -	      lsr
-   9374  4feb				  -	      lsr
-   9375  4feb				  -	      tax
-   9376  4feb				  -	      inx
-   9377  4feb					      endif
-   9378  4feb
-   9379  4feb				   BS_jsr
-   9380  4feb		       bd f5 1f 	      lda	bankswitch_hotspot-1,x
-   9381  4fee		       68		      pla
-   9382  4fef		       aa		      tax
-   9383  4ff0		       68		      pla
-   9384  4ff1		       60		      rts
-   9385  4ff2				  -	      if	((* & $1FFF) > ((bankswitch_hotspot & $1FFF) - 1))
-   9386  4ff2				  -	      echo	"WARNING: size parameter in banksw.asm too small - the program probably will not work."
-   9387  4ff2				  -	      echo	"Change to",[(*-begin_bscode+1)&$FF]d,"and try again."
-   9388  4ff2					      endif
-   9389  4ff2							; Provided under the CC0 license. See the included LICENSE.txt for details.
-   9390  4ff2
-   9391  4ff2					      ifconst	bankswitch
-   9392  4ff2				  -	      if	bankswitch == 8
-   9393  4ff2				  -	      ORG	$2FFC
-   9394  4ff2				  -	      RORG	$FFFC
-   9395  4ff2					      endif
-   9396  4ff2					      if	bankswitch == 16
-   9397  4ffc					      ORG	$4FFC
-   9398  4ffc					      RORG	$FFFC
-   9399  4ffc					      endif
-   9400  4ffc				  -	      if	bankswitch == 32
-   9401  4ffc				  -	      ORG	$8FFC
-   9402  4ffc				  -	      RORG	$FFFC
-   9403  4ffc					      endif
-   9404  4ffc				  -	      if	bankswitch == 64
-   9405  4ffc				  -	      ORG	$10FF0
-   9406  4ffc				  -	      RORG	$1FFF0
-   9407  4ffc				  -	      lda	$ffe0	; we use wasted space to assist stella with EF format auto-detection
-   9408  4ffc				  -	      ORG	$10FF8
-   9409  4ffc				  -	      RORG	$1FFF8
-   9410  4ffc				  -	      ifconst	superchip
-   9411  4ffc				  -	      .byte	"E","F","S","C"
-   9412  4ffc				  -	      else
-   9413  4ffc				  -	      .byte	"E","F","E","F"
-   9414  4ffc				  -	      endif
-   9415  4ffc				  -	      ORG	$10FFC
-   9416  4ffc				  -	      RORG	$1FFFC
-   9417  4ffc					      endif
-   9418  4ffc				  -	      else
-   9419  4ffc				  -	      ifconst	ROM2k
-   9420  4ffc				  -	      ORG	$F7FC
-   9421  4ffc				  -	      else
-   9422  4ffc				  -	      ORG	$FFFC
-   9423  4ffc				  -	      endif
-   9424  4ffc					      endif
-   9425  4ffc		       52 f3		      .word.w	(start & $ffff)
-   9426  4ffe		       52 f3		      .word.w	(start & $ffff)
+   8162  48e7				   .
+   8163  48e7							;;line 1399;;
+   8164  48e7
+   8165  48e7				   .
+   8166  48e7							;;line 1400;;
+   8167  48e7
+   8168  48e7				   .
+   8169  48e7							;;line 1401;;
+   8170  48e7
+   8171  48e7				   .__Game_Credits
+   8172  48e7							;;line 1402;; __Game_Credits
+   8173  48e7
+   8174  48e7				   .L0502		;;line 1403;;	pfheights:
+   8175  48e7
+   8176  48e7		       a9 08		      lda	# 8
+   8177  48e9		       85 ef		      sta	playfieldpos
+   8178  48eb				  -	      ifconst	pfres
+   8179  48eb				  -	      lda	#>(pfcolorlabel177-pfres-9)
+   8180  48eb					      else
+   8181  48eb		       a9 fc		      lda	#>(pfcolorlabel177-21)
+   8182  48ed					      endif
+   8183  48ed		       85 f1		      sta	pfcolortable+1
+   8184  48ef				  -	      ifconst	pfres
+   8185  48ef				  -	      lda	#<(pfcolorlabel177-pfres-9)
+   8186  48ef					      else
+   8187  48ef		       a9 0c		      lda	#<(pfcolorlabel177-21)
+   8188  48f1					      endif
+   8189  48f1		       85 f0		      sta	pfcolortable
+   8190  48f3				   .L0503		;;line 1416;;	pfscorecolor = $00
+   8191  48f3
+   8192  48f3		       a9 00		      LDA	#$00
+   8193  48f5		       85 f4		      STA	pfscorecolor
+   8194  48f7				   .L0504		;;line 1417;;	scorecolor = $00
+   8195  48f7
+   8196  48f7		       a9 00		      LDA	#$00
+   8197  48f9		       85 a3		      STA	scorecolor
+   8198  48fb				   .
+   8199  48fb							;;line 1418;;
+   8200  48fb
+   8201  48fb				   .L0505		;;line 1419;;	_Game_Timer = _Game_Timer  +  1
+   8202  48fb
+   8203  48fb		       e6 e5		      INC	_Game_Timer
+   8204  48fd				   .L0506		;;line 1420;;	if _Game_Timer	>  240 then goto __Title_Loop
+   8205  48fd
+   8206  48fd		       a9 f0		      LDA	#240
+   8207  48ff		       c5 e5		      CMP	_Game_Timer
+   8208  4901		       b0 03		      BCS	.skipL0506
+   8209  4903				   .condpart192
+   8210  4903		       4c 79 f9 	      jmp	.__Title_Loop
+   8211  4906
+   8212  4906				   .skipL0506
+   8213  4906				   .
+   8214  4906							;;line 1421;;
+   8215  4906
+   8216  4906				   .L0507		;;line 1422;;	gosub __Credits_Screen
+   8217  4906
+   8218  4906		       20 2a f9 	      jsr	.__Credits_Screen
+   8219  4909
+   8220  4909				   .L0508		;;line 1423;;	gosub __Play_Theme
+   8221  4909
+   8222  4909		       20 0d fa 	      jsr	.__Play_Theme
+   8223  490c
+   8224  490c				   .
+   8225  490c							;;line 1424;;
+   8226  490c
+   8227  490c				   .L0509		;;line 1425;;	drawscreen
+   8228  490c
+   8229  490c		       20 87 f5 	      jsr	drawscreen
+   8230  490f				   .
+   8231  490f							;;line 1426;;
+   8232  490f
+   8233  490f				   .L0510		;;line 1427;;	if joy0fire then goto __End_Title
+   8234  490f
+   8235  490f		       24 0c		      bit	INPT4
+   8236  4911		       30 03		      BMI	.skipL0510
+   8237  4913				   .condpart193
+   8238  4913		       4c 88 fb 	      jmp	.__End_Title
+   8239  4916
+   8240  4916				   .skipL0510
+   8241  4916				   .L0511		;;line 1428;;	if _GB_Vol = 255 then goto __End_Title
+   8242  4916
+   8243  4916		       a5 ea		      LDA	_GB_Vol
+   8244  4918		       c9 ff		      CMP	#255
+   8245  491a		       d0 03		      BNE	.skipL0511
+   8246  491c				   .condpart194
+   8247  491c		       4c 88 fb 	      jmp	.__End_Title
+   8248  491f
+   8249  491f				   .skipL0511
+   8250  491f				   .
+   8251  491f							;;line 1429;;
+   8252  491f
+   8253  491f				   .L0512		;;line 1430;;	_Ghost_x = 0
+   8254  491f
+   8255  491f		       a9 00		      LDA	#0
+   8256  4921		       85 e0		      STA	_Ghost_x
+   8257  4923				   .L0513		;;line 1431;;	_Ghost_Direction = 1
+   8258  4923
+   8259  4923		       a9 01		      LDA	#1
+   8260  4925		       85 e3		      STA	_Ghost_Direction
+   8261  4927				   .
+   8262  4927							;;line 1432;;
+   8263  4927
+   8264  4927				   .L0514		;;line 1433;;	goto __Game_Credits
+   8265  4927
+   8266  4927		       4c e7 f8 	      jmp	.__Game_Credits
+   8267  492a
+   8268  492a				   .
+   8269  492a							;;line 1434;;
+   8270  492a
+   8271  492a				   .__Credits_Screen
+   8272  492a							;;line 1435;; __Credits_Screen
+   8273  492a
+   8274  492a				   .L0515		;;line 1436;;	playfield:
+   8275  492a
+   8276  492a				  -	      ifconst	pfres
+   8277  492a				  -	      ldx	#(11>pfres)*(pfres*pfwidth-1)+(11<=pfres)*43
+   8278  492a					      else
+   8279  492a		       a2 2b		      ldx	#((11*pfwidth-1)*((11*pfwidth-1)<47))+(47*((11*pfwidth-1)>=47))
+   8280  492c					      endif
+   8281  492c		       4c 5b f9 	      jmp	pflabel13
+   8282  492f				   PF_data13
+   8283  492f		       00 00		      .byte.b	%00000000, %00000000
+   8284  4931					      if	(pfwidth>2)
+   8285  4931		       00 00		      .byte.b	%00000000, %00000000
+   8286  4933					      endif
+   8287  4933		       00 36		      .byte.b	%00000000, %00110110
+   8288  4935					      if	(pfwidth>2)
+   8289  4935		       a4 00		      .byte.b	%10100100, %00000000
+   8290  4937					      endif
+   8291  4937		       00 71		      .byte.b	%00000000, %01110001
+   8292  4939					      if	(pfwidth>2)
+   8293  4939		       aa 00		      .byte.b	%10101010, %00000000
+   8294  493b					      endif
+   8295  493b		       00 55		      .byte.b	%00000000, %01010101
+   8296  493d					      if	(pfwidth>2)
+   8297  493d		       ae 00		      .byte.b	%10101110, %00000000
+   8298  493f					      endif
+   8299  493f		       00 76		      .byte.b	%00000000, %01110110
+   8300  4941					      if	(pfwidth>2)
+   8301  4941		       4a 00		      .byte.b	%01001010, %00000000
+   8302  4943					      endif
+   8303  4943		       00 00		      .byte.b	%00000000, %00000000
+   8304  4945					      if	(pfwidth>2)
+   8305  4945		       00 00		      .byte.b	%00000000, %00000000
+   8306  4947					      endif
+   8307  4947		       60 00		      .byte.b	%01100000, %00000000
+   8308  4949					      if	(pfwidth>2)
+   8309  4949		       00 02		      .byte.b	%00000000, %00000010
+   8310  494b					      endif
+   8311  494b		       56 67		      .byte.b	%01010110, %01100111
+   8312  494d					      if	(pfwidth>2)
+   8313  494d		       ec 67		      .byte.b	%11101100, %01100111
+   8314  494f					      endif
+   8315  494f		       64 23		      .byte.b	%01100100, %00100011
+   8316  4951					      if	(pfwidth>2)
+   8317  4951		       ca 22		      .byte.b	%11001010, %00100010
+   8318  4953					      endif
+   8319  4953		       44 37		      .byte.b	%01000100, %00110111
+   8320  4955					      if	(pfwidth>2)
+   8321  4955		       ea 32		      .byte.b	%11101010, %00110010
+   8322  4957					      endif
+   8323  4957		       00 00		      .byte.b	%00000000, %00000000
+   8324  4959					      if	(pfwidth>2)
+   8325  4959		       00 00		      .byte.b	%00000000, %00000000
+   8326  495b					      endif
+   8327  495b				   pflabel13
+   8328  495b		       bd 2f f9 	      lda	PF_data13,x
+   8329  495e		       9d 50 10 	      sta	playfield-128,x
+   8330  4961		       ca		      dex
+   8331  4962		       10 f7		      bpl	pflabel13
+   8332  4964				   .L0516		;;line 1449;;	COLUBK = $00
+   8333  4964
+   8334  4964		       a9 00		      LDA	#$00
+   8335  4966		       85 09		      STA	COLUBK
+   8336  4968				   .L0517		;;line 1450;;	COLUPF = $86
+   8337  4968
+   8338  4968		       a9 86		      LDA	#$86
+   8339  496a		       85 08		      STA	COLUPF
+   8340  496c				   .L0518		;;line 1451;;	return
+   8341  496c
+   8342  496c		       ba		      tsx
+   8343  496d		       b5 02		      lda	2,x	; check return address
+   8344  496f		       49 f9		      eor	#(>*)	; vs. current PCH
+   8345  4971		       29 e0		      and	#$E0	;  mask off all but top 3 bits
+   8346  4973		       f0 03		      beq	*+5	; if equal, do normal return
+   8347  4975		       4c dd ff 	      JMP	BS_return
+   8348  4978		       60		      RTS
+   8349  4979				   .
+   8350  4979							;;line 1452;;
+   8351  4979
+   8352  4979				   .
+   8353  4979							;;line 1453;;
+   8354  4979
+   8355  4979				   .
+   8356  4979							;;line 1454;;
+   8357  4979
+   8358  4979				   .
+   8359  4979							;;line 1455;;
+   8360  4979
+   8361  4979				   .
+   8362  4979							;;line 1456;;
+   8363  4979
+   8364  4979				   .__Title_Loop
+   8365  4979							;;line 1457;; __Title_Loop
+   8366  4979
+   8367  4979				   .L0519		;;line 1458;;	pfheights:
+   8368  4979
+   8369  4979		       a9 08		      lda	# 8
+   8370  497b		       85 ef		      sta	playfieldpos
+   8371  497d				  -	      ifconst	pfres
+   8372  497d				  -	      lda	#>(pfcolorlabel206-pfres-9)
+   8373  497d					      else
+   8374  497d		       a9 fc		      lda	#>(pfcolorlabel206-21)
+   8375  497f					      endif
+   8376  497f		       85 f1		      sta	pfcolortable+1
+   8377  4981				  -	      ifconst	pfres
+   8378  4981				  -	      lda	#<(pfcolorlabel206-pfres-9)
+   8379  4981					      else
+   8380  4981		       a9 16		      lda	#<(pfcolorlabel206-21)
+   8381  4983					      endif
+   8382  4983		       85 f0		      sta	pfcolortable
+   8383  4985				   .L0520		;;line 1471;;	pfscorecolor = $02
+   8384  4985
+   8385  4985		       a9 02		      LDA	#$02
+   8386  4987		       85 f4		      STA	pfscorecolor
+   8387  4989				   .L0521		;;line 1472;;	scorecolor = $02
+   8388  4989
+   8389  4989		       a9 02		      LDA	#$02
+   8390  498b		       85 a3		      STA	scorecolor
+   8391  498d				   .L0522		;;line 1473;;	COLUP0 = $0E
+   8392  498d
+   8393  498d		       a9 0e		      LDA	#$0E
+   8394  498f		       85 06		      STA	COLUP0
+   8395  4991				   .
+   8396  4991							;;line 1474;;
+   8397  4991
+   8398  4991				   .L0523		;;line 1475;;	gosub __Title_Screen
+   8399  4991
+   8400  4991		       20 be f9 	      jsr	.__Title_Screen
+   8401  4994
+   8402  4994				   .
+   8403  4994							;;line 1476;;
+   8404  4994
+   8405  4994				   .L0524		;;line 1477;;	gosub __Play_Theme
+   8406  4994
+   8407  4994		       20 0d fa 	      jsr	.__Play_Theme
+   8408  4997
+   8409  4997				   .
+   8410  4997							;;line 1478;;
+   8411  4997
+   8412  4997				   .L0525		;;line 1479;;	f = f  +  1
+   8413  4997
+   8414  4997		       e6 d9		      INC	f
+   8415  4999				   .
+   8416  4999							;;line 1480;;
+   8417  4999
+   8418  4999				   .L0526		;;line 1481;;	if  ( _Ghost_Direction	&  1 )	then gosub __Left_to_Right else gosub __Right_to_Left
+   8419  4999
+   8420  4999							; complex statement detected
+   8421  4999		       a5 e3		      LDA	_Ghost_Direction
+   8422  499b		       29 01		      AND	#1
+   8423  499d		       f0 06		      BEQ	.skipL0526
+   8424  499f				   .condpart195
+   8425  499f		       20 7e fa 	      jsr	.__Left_to_Right
+   8426  49a2		       4c a8 f9 	      jmp	.skipelse13
+   8427  49a5				   .skipL0526
+   8428  49a5		       20 00 fb 	      jsr	.__Right_to_Left
+   8429  49a8
+   8430  49a8				   .skipelse13
+   8431  49a8				   .
+   8432  49a8							;;line 1482;;
+   8433  49a8
+   8434  49a8				   .L0527		;;line 1483;;	drawscreen
+   8435  49a8
+   8436  49a8		       20 87 f5 	      jsr	drawscreen
+   8437  49ab				   .
+   8438  49ab							;;line 1484;;
+   8439  49ab
+   8440  49ab				   .L0528		;;line 1485;;	if joy0fire then goto __End_Title
+   8441  49ab
+   8442  49ab		       24 0c		      bit	INPT4
+   8443  49ad		       30 03		      BMI	.skipL0528
+   8444  49af				   .condpart196
+   8445  49af		       4c 88 fb 	      jmp	.__End_Title
+   8446  49b2
+   8447  49b2				   .skipL0528
+   8448  49b2				   .L0529		;;line 1486;;	if _GB_Vol = 255 then goto __End_Title
+   8449  49b2
+   8450  49b2		       a5 ea		      LDA	_GB_Vol
+   8451  49b4		       c9 ff		      CMP	#255
+   8452  49b6		       d0 03		      BNE	.skipL0529
+   8453  49b8				   .condpart197
+   8454  49b8		       4c 88 fb 	      jmp	.__End_Title
+   8455  49bb
+   8456  49bb				   .skipL0529
+   8457  49bb				   .
+   8458  49bb							;;line 1487;;
+   8459  49bb
+   8460  49bb				   .L0530		;;line 1488;;	goto __Title_Loop
+   8461  49bb
+   8462  49bb		       4c 79 f9 	      jmp	.__Title_Loop
+   8463  49be
+   8464  49be				   .
+   8465  49be							;;line 1489;;
+   8466  49be
+   8467  49be				   .__Title_Screen
+   8468  49be							;;line 1490;; __Title_Screen
+   8469  49be
+   8470  49be				   .L0531		;;line 1491;;	playfield:
+   8471  49be
+   8472  49be				  -	      ifconst	pfres
+   8473  49be				  -	      ldx	#(11>pfres)*(pfres*pfwidth-1)+(11<=pfres)*43
+   8474  49be					      else
+   8475  49be		       a2 2b		      ldx	#((11*pfwidth-1)*((11*pfwidth-1)<47))+(47*((11*pfwidth-1)>=47))
+   8476  49c0					      endif
+   8477  49c0		       4c ef f9 	      jmp	pflabel14
+   8478  49c3				   PF_data14
+   8479  49c3		       00 00		      .byte.b	%00000000, %00000000
+   8480  49c5					      if	(pfwidth>2)
+   8481  49c5		       00 00		      .byte.b	%00000000, %00000000
+   8482  49c7					      endif
+   8483  49c7		       f8 0c		      .byte.b	%11111000, %00001100
+   8484  49c9					      if	(pfwidth>2)
+   8485  49c9		       c1 1f		      .byte.b	%11000001, %00011111
+   8486  49cb					      endif
+   8487  49cb		       c6 8c		      .byte.b	%11000110, %10001100
+   8488  49cd					      if	(pfwidth>2)
+   8489  49cd		       81 01		      .byte.b	%10000001, %00000001
+   8490  49cf					      endif
+   8491  49cf		       c6 cc		      .byte.b	%11000110, %11001100
+   8492  49d1					      if	(pfwidth>2)
+   8493  49d1		       01 01		      .byte.b	%00000001, %00000001
+   8494  49d3					      endif
+   8495  49d3		       f8 3c		      .byte.b	%11111000, %00111100
+   8496  49d5					      if	(pfwidth>2)
+   8497  49d5		       01 07		      .byte.b	%00000001, %00000111
+   8498  49d7					      endif
+   8499  49d7		       c0 cc		      .byte.b	%11000000, %11001100
+   8500  49d9					      if	(pfwidth>2)
+   8501  49d9		       01 01		      .byte.b	%00000001, %00000001
+   8502  49db					      endif
+   8503  49db		       c0 8c		      .byte.b	%11000000, %10001100
+   8504  49dd					      if	(pfwidth>2)
+   8505  49dd		       81 01		      .byte.b	%10000001, %00000001
+   8506  49df					      endif
+   8507  49df		       c2 0c		      .byte.b	%11000010, %00001100
+   8508  49e1					      if	(pfwidth>2)
+   8509  49e1		       c9 5f		      .byte.b	%11001001, %01011111
+   8510  49e3					      endif
+   8511  49e3		       00 00		      .byte.b	%00000000, %00000000
+   8512  49e5					      if	(pfwidth>2)
+   8513  49e5		       00 00		      .byte.b	%00000000, %00000000
+   8514  49e7					      endif
+   8515  49e7		       00 00		      .byte.b	%00000000, %00000000
+   8516  49e9					      if	(pfwidth>2)
+   8517  49e9		       00 00		      .byte.b	%00000000, %00000000
+   8518  49eb					      endif
+   8519  49eb		       00 00		      .byte.b	%00000000, %00000000
+   8520  49ed					      if	(pfwidth>2)
+   8521  49ed		       00 00		      .byte.b	%00000000, %00000000
+   8522  49ef					      endif
+   8523  49ef				   pflabel14
+   8524  49ef		       bd c3 f9 	      lda	PF_data14,x
+   8525  49f2		       9d 50 10 	      sta	playfield-128,x
+   8526  49f5		       ca		      dex
+   8527  49f6		       10 f7		      bpl	pflabel14
+   8528  49f8				   .L0532		;;line 1504;;	COLUBK = $02
+   8529  49f8
+   8530  49f8		       a9 02		      LDA	#$02
+   8531  49fa		       85 09		      STA	COLUBK
+   8532  49fc				   .L0533		;;line 1505;;	COLUPF = $46
+   8533  49fc
+   8534  49fc		       a9 46		      LDA	#$46
+   8535  49fe		       85 08		      STA	COLUPF
+   8536  4a00				   .L0534		;;line 1506;;	return
+   8537  4a00
+   8538  4a00		       ba		      tsx
+   8539  4a01		       b5 02		      lda	2,x	; check return address
+   8540  4a03		       49 fa		      eor	#(>*)	; vs. current PCH
+   8541  4a05		       29 e0		      and	#$E0	;  mask off all but top 3 bits
+   8542  4a07		       f0 03		      beq	*+5	; if equal, do normal return
+   8543  4a09		       4c dd ff 	      JMP	BS_return
+   8544  4a0c		       60		      RTS
+   8545  4a0d				   .
+   8546  4a0d							;;line 1507;;
+   8547  4a0d
+   8548  4a0d				   .__Play_Theme
+   8549  4a0d							;;line 1508;; __Play_Theme
+   8550  4a0d
+   8551  4a0d				   .L0535		;;line 1509;;	_GB_Dur = _GB_Dur  -  1
+   8552  4a0d
+   8553  4a0d		       c6 ed		      DEC	_GB_Dur
+   8554  4a0f				   .L0536		;;line 1510;;	if _GB_Dur  >  0 then return
+   8555  4a0f
+   8556  4a0f		       a9 00		      LDA	#0
+   8557  4a11		       c5 ed		      CMP	_GB_Dur
+   8558  4a13		       b0 0d		      BCS	.skipL0536
+   8559  4a15				   .condpart198
+   8560  4a15		       ba		      tsx
+   8561  4a16		       b5 02		      lda	2,x	; check return address
+   8562  4a18		       49 fa		      eor	#(>*)	; vs. current PCH
+   8563  4a1a		       29 e0		      and	#$E0	;  mask off all but top 3 bits
+   8564  4a1c		       f0 03		      beq	*+5	; if equal, do normal return
+   8565  4a1e		       4c dd ff 	      JMP	BS_return
+   8566  4a21		       60		      RTS
+   8567  4a22				   .skipL0536
+   8568  4a22				   .
+   8569  4a22							;;line 1511;;
+   8570  4a22
+   8571  4a22				   .L0537		;;line 1512;;	_GB_Vol = sread ( GhostbustersTheme )
+   8572  4a22
+   8573  4a22		       a2 d5		      ldx	#GhostbustersTheme
+   8574  4a24		       a1 00		      lda	(0,x)
+   8575  4a26		       f6 00		      inc	0,x
+   8576  4a28		       d0 02		      bne	*+4
+   8577  4a2a		       f6 01		      inc	1,x
+   8578  4a2c		       85 ea		      STA	_GB_Vol
+   8579  4a2e				   .L0538		;;line 1513;;	if _GB_Vol = 255 then return
+   8580  4a2e
+   8581  4a2e		       a5 ea		      LDA	_GB_Vol
+   8582  4a30		       c9 ff		      CMP	#255
+   8583  4a32		       d0 0d		      BNE	.skipL0538
+   8584  4a34				   .condpart199
+   8585  4a34		       ba		      tsx
+   8586  4a35		       b5 02		      lda	2,x	; check return address
+   8587  4a37		       49 fa		      eor	#(>*)	; vs. current PCH
+   8588  4a39		       29 e0		      and	#$E0	;  mask off all but top 3 bits
+   8589  4a3b		       f0 03		      beq	*+5	; if equal, do normal return
+   8590  4a3d		       4c dd ff 	      JMP	BS_return
+   8591  4a40		       60		      RTS
+   8592  4a41				   .skipL0538
+   8593  4a41				   .L0539		;;line 1514;;	_GB_Ch = sread ( GhostbustersTheme )
+   8594  4a41
+   8595  4a41		       a2 d5		      ldx	#GhostbustersTheme
+   8596  4a43		       a1 00		      lda	(0,x)
+   8597  4a45		       f6 00		      inc	0,x
+   8598  4a47		       d0 02		      bne	*+4
+   8599  4a49		       f6 01		      inc	1,x
+   8600  4a4b		       85 eb		      STA	_GB_Ch
+   8601  4a4d				   .L0540		;;line 1515;;	_GB_Frq = sread ( GhostbustersTheme )
+   8602  4a4d
+   8603  4a4d		       a2 d5		      ldx	#GhostbustersTheme
+   8604  4a4f		       a1 00		      lda	(0,x)
+   8605  4a51		       f6 00		      inc	0,x
+   8606  4a53		       d0 02		      bne	*+4
+   8607  4a55		       f6 01		      inc	1,x
+   8608  4a57		       85 ec		      STA	_GB_Frq
+   8609  4a59				   .
+   8610  4a59							;;line 1516;;
+   8611  4a59
+   8612  4a59				   .L0541		;;line 1517;;	AUDV0 = _GB_Vol
+   8613  4a59
+   8614  4a59		       a5 ea		      LDA	_GB_Vol
+   8615  4a5b		       85 19		      STA	AUDV0
+   8616  4a5d				   .L0542		;;line 1518;;	AUDC0 = _GB_Ch
+   8617  4a5d
+   8618  4a5d		       a5 eb		      LDA	_GB_Ch
+   8619  4a5f		       85 15		      STA	AUDC0
+   8620  4a61				   .L0543		;;line 1519;;	AUDF0 = _GB_Frq
+   8621  4a61
+   8622  4a61		       a5 ec		      LDA	_GB_Frq
+   8623  4a63		       85 17		      STA	AUDF0
+   8624  4a65				   .
+   8625  4a65							;;line 1520;;
+   8626  4a65
+   8627  4a65				   .L0544		;;line 1521;;	_GB_Dur = sread ( GhostbustersTheme )
+   8628  4a65
+   8629  4a65		       a2 d5		      ldx	#GhostbustersTheme
+   8630  4a67		       a1 00		      lda	(0,x)
+   8631  4a69		       f6 00		      inc	0,x
+   8632  4a6b		       d0 02		      bne	*+4
+   8633  4a6d		       f6 01		      inc	1,x
+   8634  4a6f		       85 ed		      STA	_GB_Dur
+   8635  4a71				   .L0545		;;line 1522;;	return
+   8636  4a71
+   8637  4a71		       ba		      tsx
+   8638  4a72		       b5 02		      lda	2,x	; check return address
+   8639  4a74		       49 fa		      eor	#(>*)	; vs. current PCH
+   8640  4a76		       29 e0		      and	#$E0	;  mask off all but top 3 bits
+   8641  4a78		       f0 03		      beq	*+5	; if equal, do normal return
+   8642  4a7a		       4c dd ff 	      JMP	BS_return
+   8643  4a7d		       60		      RTS
+   8644  4a7e				   .
+   8645  4a7e							;;line 1523;;
+   8646  4a7e
+   8647  4a7e				   .
+   8648  4a7e							;;line 1524;;
+   8649  4a7e
+   8650  4a7e				   .
+   8651  4a7e							;;line 1525;;
+   8652  4a7e
+   8653  4a7e				   .
+   8654  4a7e							;;line 1526;;
+   8655  4a7e
+   8656  4a7e				   .
+   8657  4a7e							;;line 1527;;
+   8658  4a7e
+   8659  4a7e				   .__Left_to_Right
+   8660  4a7e							;;line 1528;; __Left_to_Right
+   8661  4a7e
+   8662  4a7e				   .L0546		;;line 1529;;	gosub __Ghost_Sprite bank2
+   8663  4a7e
+   8664  4a7e		       85 ee		      sta	temp7
+   8665  4a80		       a9 fa		      lda	#>(ret_point37-1)
+   8666  4a82		       48		      pha
+   8667  4a83		       a9 95		      lda	#<(ret_point37-1)
+   8668  4a85		       48		      pha
+   8669  4a86		       a9 b1		      lda	#>(.__Ghost_Sprite-1)
+   8670  4a88		       48		      pha
+   8671  4a89		       a9 7c		      lda	#<(.__Ghost_Sprite-1)
+   8672  4a8b		       48		      pha
+   8673  4a8c		       a5 ee		      lda	temp7
+   8674  4a8e		       48		      pha
+   8675  4a8f		       8a		      txa
+   8676  4a90		       48		      pha
+   8677  4a91		       a2 02		      ldx	#2
+   8678  4a93		       4c eb ff 	      jmp	BS_jsr
+   8679  4a96				   ret_point37
+   8680  4a96				   .L0547		;;line 1530;;	_Ghost_x = _Ghost_x  +	1
+   8681  4a96
+   8682  4a96		       e6 e0		      INC	_Ghost_x
+   8683  4a98				   .
+   8684  4a98							;;line 1531;;
+   8685  4a98
+   8686  4a98				   .L0548		;;line 1532;;	player0x = _Ghost_x
+   8687  4a98
+   8688  4a98		       a5 e0		      LDA	_Ghost_x
+   8689  4a9a		       85 80		      STA	player0x
+   8690  4a9c				   .L0549		;;line 1533;;	if _Ghost_x  <	150 then player0y = 78 else player0y = 0
+   8691  4a9c
+   8692  4a9c		       a5 e0		      LDA	_Ghost_x
+   8693  4a9e		       c9 96		      CMP	#150
+   8694  4aa0		       b0 07		      BCS	.skipL0549
+   8695  4aa2				   .condpart200
+   8696  4aa2		       a9 4e		      LDA	#78
+   8697  4aa4		       85 85		      STA	player0y
+   8698  4aa6		       4c ad fa 	      jmp	.skipelse14
+   8699  4aa9				   .skipL0549
+   8700  4aa9		       a9 00		      LDA	#0
+   8701  4aab		       85 85		      STA	player0y
+   8702  4aad				   .skipelse14
+   8703  4aad				   .
+   8704  4aad							;;line 1534;;
+   8705  4aad
+   8706  4aad				   .L0550		;;line 1535;;	gosub __Buster_Sprite bank2
+   8707  4aad
+   8708  4aad		       85 ee		      sta	temp7
+   8709  4aaf		       a9 fa		      lda	#>(ret_point38-1)
+   8710  4ab1		       48		      pha
+   8711  4ab2		       a9 c4		      lda	#<(ret_point38-1)
+   8712  4ab4		       48		      pha
+   8713  4ab5		       a9 b0		      lda	#>(.__Buster_Sprite-1)
+   8714  4ab7		       48		      pha
+   8715  4ab8		       a9 ff		      lda	#<(.__Buster_Sprite-1)
+   8716  4aba		       48		      pha
+   8717  4abb		       a5 ee		      lda	temp7
+   8718  4abd		       48		      pha
+   8719  4abe		       8a		      txa
+   8720  4abf		       48		      pha
+   8721  4ac0		       a2 02		      ldx	#2
+   8722  4ac2		       4c eb ff 	      jmp	BS_jsr
+   8723  4ac5				   ret_point38
+   8724  4ac5				   .L0551		;;line 1536;;	REFP1 = 0
+   8725  4ac5
+   8726  4ac5		       a9 00		      LDA	#0
+   8727  4ac7		       85 0c		      STA	REFP1
+   8728  4ac9				   .
+   8729  4ac9							;;line 1537;;
+   8730  4ac9
+   8731  4ac9				   .L0552		;;line 1538;;	_Previous_x = _Ghost_x	-  30
+   8732  4ac9
+   8733  4ac9		       a5 e0		      LDA	_Ghost_x
+   8734  4acb		       38		      SEC
+   8735  4acc		       e9 1e		      SBC	#30
+   8736  4ace		       85 de		      STA	_Previous_x
+   8737  4ad0				   .L0553		;;line 1539;;	player1x = _Previous_x
+   8738  4ad0
+   8739  4ad0		       a5 de		      LDA	_Previous_x
+   8740  4ad2		       85 81		      STA	player1x
+   8741  4ad4				   .L0554		;;line 1540;;	if _Previous_x	<  150 then player1y = 80 else player1y = 0
+   8742  4ad4
+   8743  4ad4		       a5 de		      LDA	_Previous_x
+   8744  4ad6		       c9 96		      CMP	#150
+   8745  4ad8		       b0 07		      BCS	.skipL0554
+   8746  4ada				   .condpart201
+   8747  4ada		       a9 50		      LDA	#80
+   8748  4adc		       85 86		      STA	player1y
+   8749  4ade		       4c e5 fa 	      jmp	.skipelse15
+   8750  4ae1				   .skipL0554
+   8751  4ae1		       a9 00		      LDA	#0
+   8752  4ae3		       85 86		      STA	player1y
+   8753  4ae5				   .skipelse15
+   8754  4ae5				   .
+   8755  4ae5							;;line 1541;;
+   8756  4ae5
+   8757  4ae5				   .L0555		;;line 1542;;	if _Ghost_x  >	200 then _Ghost_Direction = 0  :  _Previous_x = 175
+   8758  4ae5
+   8759  4ae5		       a9 c8		      LDA	#200
+   8760  4ae7		       c5 e0		      CMP	_Ghost_x
+   8761  4ae9		       b0 08		      BCS	.skipL0555
+   8762  4aeb				   .condpart202
+   8763  4aeb		       a9 00		      LDA	#0
+   8764  4aed		       85 e3		      STA	_Ghost_Direction
+   8765  4aef		       a9 af		      LDA	#175
+   8766  4af1		       85 de		      STA	_Previous_x
+   8767  4af3				   .skipL0555
+   8768  4af3				   .L0556		;;line 1543;;	return
+   8769  4af3
+   8770  4af3		       ba		      tsx
+   8771  4af4		       b5 02		      lda	2,x	; check return address
+   8772  4af6		       49 fa		      eor	#(>*)	; vs. current PCH
+   8773  4af8		       29 e0		      and	#$E0	;  mask off all but top 3 bits
+   8774  4afa		       f0 03		      beq	*+5	; if equal, do normal return
+   8775  4afc		       4c dd ff 	      JMP	BS_return
+   8776  4aff		       60		      RTS
+   8777  4b00				   .
+   8778  4b00							;;line 1544;;
+   8779  4b00
+   8780  4b00				   .__Right_to_Left
+   8781  4b00							;;line 1545;; __Right_to_Left
+   8782  4b00
+   8783  4b00				   .L0557		;;line 1546;;	gosub __Buster_Sprite bank2
+   8784  4b00
+   8785  4b00		       85 ee		      sta	temp7
+   8786  4b02		       a9 fb		      lda	#>(ret_point39-1)
+   8787  4b04		       48		      pha
+   8788  4b05		       a9 17		      lda	#<(ret_point39-1)
+   8789  4b07		       48		      pha
+   8790  4b08		       a9 b0		      lda	#>(.__Buster_Sprite-1)
+   8791  4b0a		       48		      pha
+   8792  4b0b		       a9 ff		      lda	#<(.__Buster_Sprite-1)
+   8793  4b0d		       48		      pha
+   8794  4b0e		       a5 ee		      lda	temp7
+   8795  4b10		       48		      pha
+   8796  4b11		       8a		      txa
+   8797  4b12		       48		      pha
+   8798  4b13		       a2 02		      ldx	#2
+   8799  4b15		       4c eb ff 	      jmp	BS_jsr
+   8800  4b18				   ret_point39
+   8801  4b18				   .L0558		;;line 1547;;	REFP1 = 8
+   8802  4b18
+   8803  4b18		       a9 08		      LDA	#8
+   8804  4b1a		       85 0c		      STA	REFP1
+   8805  4b1c				   .
+   8806  4b1c							;;line 1548;;
+   8807  4b1c
+   8808  4b1c				   .L0559		;;line 1549;;	_Previous_x = _Previous_x  -  1
+   8809  4b1c
+   8810  4b1c		       c6 de		      DEC	_Previous_x
+   8811  4b1e				   .L0560		;;line 1550;;	player1x = _Previous_x
+   8812  4b1e
+   8813  4b1e		       a5 de		      LDA	_Previous_x
+   8814  4b20		       85 81		      STA	player1x
+   8815  4b22				   .L0561		;;line 1551;;	if _Previous_x	<  150 then player1y = 80 else player1y = 0
+   8816  4b22
+   8817  4b22		       a5 de		      LDA	_Previous_x
+   8818  4b24		       c9 96		      CMP	#150
+   8819  4b26		       b0 07		      BCS	.skipL0561
+   8820  4b28				   .condpart203
+   8821  4b28		       a9 50		      LDA	#80
+   8822  4b2a		       85 86		      STA	player1y
+   8823  4b2c		       4c 33 fb 	      jmp	.skipelse16
+   8824  4b2f				   .skipL0561
+   8825  4b2f		       a9 00		      LDA	#0
+   8826  4b31		       85 86		      STA	player1y
+   8827  4b33				   .skipelse16
+   8828  4b33				   .
+   8829  4b33							;;line 1552;;
+   8830  4b33
+   8831  4b33				   .L0562		;;line 1553;;	gosub __Ghost_Sprite bank2
+   8832  4b33
+   8833  4b33		       85 ee		      sta	temp7
+   8834  4b35		       a9 fb		      lda	#>(ret_point40-1)
+   8835  4b37		       48		      pha
+   8836  4b38		       a9 4a		      lda	#<(ret_point40-1)
+   8837  4b3a		       48		      pha
+   8838  4b3b		       a9 b1		      lda	#>(.__Ghost_Sprite-1)
+   8839  4b3d		       48		      pha
+   8840  4b3e		       a9 7c		      lda	#<(.__Ghost_Sprite-1)
+   8841  4b40		       48		      pha
+   8842  4b41		       a5 ee		      lda	temp7
+   8843  4b43		       48		      pha
+   8844  4b44		       8a		      txa
+   8845  4b45		       48		      pha
+   8846  4b46		       a2 02		      ldx	#2
+   8847  4b48		       4c eb ff 	      jmp	BS_jsr
+   8848  4b4b				   ret_point40
+   8849  4b4b				   .
+   8850  4b4b							;;line 1554;;
+   8851  4b4b
+   8852  4b4b				   .L0563		;;line 1555;;	_Ghost_x = _Previous_x	-  30
+   8853  4b4b
+   8854  4b4b		       a5 de		      LDA	_Previous_x
+   8855  4b4d		       38		      SEC
+   8856  4b4e		       e9 1e		      SBC	#30
+   8857  4b50		       85 e0		      STA	_Ghost_x
+   8858  4b52				   .L0564		;;line 1556;;	player0x = _Ghost_x
+   8859  4b52
+   8860  4b52		       a5 e0		      LDA	_Ghost_x
+   8861  4b54		       85 80		      STA	player0x
+   8862  4b56				   .L0565		;;line 1557;;	if _Ghost_x  <	150 then player0y = 78 else player0y = 0
+   8863  4b56
+   8864  4b56		       a5 e0		      LDA	_Ghost_x
+   8865  4b58		       c9 96		      CMP	#150
+   8866  4b5a		       b0 07		      BCS	.skipL0565
+   8867  4b5c				   .condpart204
+   8868  4b5c		       a9 4e		      LDA	#78
+   8869  4b5e		       85 85		      STA	player0y
+   8870  4b60		       4c 67 fb 	      jmp	.skipelse17
+   8871  4b63				   .skipL0565
+   8872  4b63		       a9 00		      LDA	#0
+   8873  4b65		       85 85		      STA	player0y
+   8874  4b67				   .skipelse17
+   8875  4b67				   .
+   8876  4b67							;;line 1558;;
+   8877  4b67
+   8878  4b67				   .L0566		;;line 1559;;	if _Previous_x	>  175	&&  _Previous_x  <  220 then _Ghost_Direction = 1  :  _Ghost_x = 0
+   8879  4b67
+   8880  4b67		       a9 af		      LDA	#175
+   8881  4b69		       c5 de		      CMP	_Previous_x
+   8882  4b6b		       b0 0e		      BCS	.skipL0566
+   8883  4b6d				   .condpart205
+   8884  4b6d		       a5 de		      LDA	_Previous_x
+   8885  4b6f		       c9 dc		      CMP	#220
+   8886  4b71		       b0 08		      BCS	.skip205then
+   8887  4b73				   .condpart206
+   8888  4b73		       a9 01		      LDA	#1
+   8889  4b75		       85 e3		      STA	_Ghost_Direction
+   8890  4b77		       a9 00		      LDA	#0
+   8891  4b79		       85 e0		      STA	_Ghost_x
+   8892  4b7b				   .skip205then
+   8893  4b7b				   .skipL0566
+   8894  4b7b				   .
+   8895  4b7b							;;line 1560;;
+   8896  4b7b
+   8897  4b7b				   .L0567		;;line 1561;;	return
+   8898  4b7b
+   8899  4b7b		       ba		      tsx
+   8900  4b7c		       b5 02		      lda	2,x	; check return address
+   8901  4b7e		       49 fb		      eor	#(>*)	; vs. current PCH
+   8902  4b80		       29 e0		      and	#$E0	;  mask off all but top 3 bits
+   8903  4b82		       f0 03		      beq	*+5	; if equal, do normal return
+   8904  4b84		       4c dd ff 	      JMP	BS_return
+   8905  4b87		       60		      RTS
+   8906  4b88				   .
+   8907  4b88							;;line 1562;;
+   8908  4b88
+   8909  4b88				   .
+   8910  4b88							;;line 1563;;
+   8911  4b88
+   8912  4b88				   .
+   8913  4b88							;;line 1564;;
+   8914  4b88
+   8915  4b88				   .
+   8916  4b88							;;line 1565;;
+   8917  4b88
+   8918  4b88				   .
+   8919  4b88							;;line 1566;;
+   8920  4b88
+   8921  4b88				   .__End_Title
+   8922  4b88							;;line 1567;; __End_Title
+   8923  4b88
+   8924  4b88				   .L0568		;;line 1568;;	AUDV0 = 0
+   8925  4b88
+   8926  4b88		       a9 00		      LDA	#0
+   8927  4b8a		       85 19		      STA	AUDV0
+   8928  4b8c				   .L0569		;;line 1569;;	score = 1000
+   8929  4b8c
+   8930  4b8c		       a9 00		      LDA	#$00
+   8931  4b8e		       85 95		      STA	score+2
+   8932  4b90		       a9 10		      LDA	#$10
+   8933  4b92		       85 94		      STA	score+1
+   8934  4b94		       a9 00		      LDA	#$00
+   8935  4b96		       85 93		      STA	score
+   8936  4b98				   .L0570		;;line 1570;;	goto __End_Theme bank1
+   8937  4b98		       85 ee		      sta	temp7
+   8938  4b9a		       a9 92		      lda	#>(.__End_Theme-1)
+   8939  4b9c		       48		      pha
+   8940  4b9d		       a9 41		      lda	#<(.__End_Theme-1)
+   8941  4b9f		       48		      pha
+   8942  4ba0		       a5 ee		      lda	temp7
+   8943  4ba2		       48		      pha
+   8944  4ba3		       8a		      txa
+   8945  4ba4		       48		      pha
+   8946  4ba5		       a2 01		      ldx	#1
+   8947  4ba7		       4c eb ff 	      jmp	BS_jsr
+   8948  4baa				  -	      ifconst	pfres
+   8949  4baa				  -	      if	(<*) > 235-pfres
+   8950  4baa				  -	      repeat	(265+pfres-<*)
+   8951  4baa				  -	      .byte	0
+   8952  4baa				  -	      repend
+   8953  4baa				  -	      endif
+   8954  4baa				  -	      if	(<*) < (pfres+9)
+   8955  4baa				  -	      repeat	((pfres+9)-(<*))
+   8956  4baa				  -	      .byte	0
+   8957  4baa				  -	      repend
+   8958  4baa				  -	      endif
+   8959  4baa					      else
+   8960  4baa				  -	      if	(<*) > 223
+   8961  4baa				  -	      repeat	(277-<*)
+   8962  4baa				  -	      .byte	0
+   8963  4baa				  -	      repend
+   8964  4baa					      endif
+   8965  4baa				  -	      if	(<*) < 21
+   8966  4baa				  -	      repeat	(21-(<*))
+   8967  4baa				  -	      .byte	0
+   8968  4baa				  -	      repend
+   8969  4baa					      endif
+   8970  4baa					      endif
+   8971  4baa				   pfcolorlabel18
+   8972  4baa		       08		      .byte.b	8
+   8973  4bab		       09		      .byte.b	9
+   8974  4bac		       04		      .byte.b	4
+   8975  4bad		       11		      .byte.b	17
+   8976  4bae		       04		      .byte.b	4
+   8977  4baf		       11		      .byte.b	17
+   8978  4bb0		       04		      .byte.b	4
+   8979  4bb1		       09		      .byte.b	9
+   8980  4bb2		       08		      .byte.b	8
+   8981  4bb3		       04		      .byte.b	4
+   8982  4bb4				  -	      if	(<*) > (<(*+12))
+   8983  4bb4				  -	      repeat	($100-<*)
+   8984  4bb4				  -	      .byte	0
+   8985  4bb4				  -	      repend
+   8986  4bb4					      endif
+   8987  4bb4				   playercolorL0104_1
+   8988  4bb4		       00		      .byte.b	$00
+   8989  4bb5		       00		      .byte.b	$00
+   8990  4bb6		       f8		      .byte.b	$F8
+   8991  4bb7		       f8		      .byte.b	$F8
+   8992  4bb8		       f8		      .byte.b	$F8
+   8993  4bb9		       3e		      .byte.b	$3E
+   8994  4bba		       00		      .byte.b	$00
+   8995  4bbb		       f8		      .byte.b	$F8
+   8996  4bbc		       3e		      .byte.b	$3E
+   8997  4bbd		       3e		      .byte.b	$3E
+   8998  4bbe		       3e		      .byte.b	$3E
+   8999  4bbf		       f0		      .byte.b	$F0
+   9000  4bc0		       c2		      .byte.b	$C2
+   9001  4bc1				  -	      if	(<*) > (<(*+12))
+   9002  4bc1				  -	      repeat	($100-<*)
+   9003  4bc1				  -	      .byte	0
+   9004  4bc1				  -	      repend
+   9005  4bc1					      endif
+   9006  4bc1				   playercolorL0323_1
+   9007  4bc1		       d0		      .byte.b	$D0
+   9008  4bc2		       d0		      .byte.b	$D0
+   9009  4bc3		       d8		      .byte.b	$D8
+   9010  4bc4		       d8		      .byte.b	$D8
+   9011  4bc5		       d8		      .byte.b	$D8
+   9012  4bc6		       de		      .byte.b	$DE
+   9013  4bc7		       d0		      .byte.b	$D0
+   9014  4bc8		       d8		      .byte.b	$D8
+   9015  4bc9		       de		      .byte.b	$DE
+   9016  4bca		       de		      .byte.b	$DE
+   9017  4bcb		       de		      .byte.b	$DE
+   9018  4bcc		       d0		      .byte.b	$D0
+   9019  4bcd		       d2		      .byte.b	$D2
+   9020  4bce				  -	      if	(<*) > (<(*+12))
+   9021  4bce				  -	      repeat	($100-<*)
+   9022  4bce				  -	      .byte	0
+   9023  4bce				  -	      repend
+   9024  4bce					      endif
+   9025  4bce				   player150then_1
+   9026  4bce		       3c		      .byte.b	%00111100
+   9027  4bcf		       28		      .byte.b	%00101000
+   9028  4bd0		       28		      .byte.b	%00101000
+   9029  4bd1		       38		      .byte.b	%00111000
+   9030  4bd2		       38		      .byte.b	%00111000
+   9031  4bd3		       24		      .byte.b	%00100100
+   9032  4bd4		       3f		      .byte.b	%00111111
+   9033  4bd5		       38		      .byte.b	%00111000
+   9034  4bd6		       10		      .byte.b	%00010000
+   9035  4bd7		       18		      .byte.b	%00011000
+   9036  4bd8		       18		      .byte.b	%00011000
+   9037  4bd9		       18		      .byte.b	%00011000
+   9038  4bda		       08		      .byte.b	%00001000
+   9039  4bdb				  -	      if	(<*) > (<(*+12))
+   9040  4bdb				  -	      repeat	($100-<*)
+   9041  4bdb				  -	      .byte	0
+   9042  4bdb				  -	      repend
+   9043  4bdb					      endif
+   9044  4bdb				   playercolorL0382_1
+   9045  4bdb		       00		      .byte.b	$00
+   9046  4bdc		       00		      .byte.b	$00
+   9047  4bdd		       f8		      .byte.b	$F8
+   9048  4bde		       f8		      .byte.b	$F8
+   9049  4bdf		       f8		      .byte.b	$F8
+   9050  4be0		       3e		      .byte.b	$3E
+   9051  4be1		       00		      .byte.b	$00
+   9052  4be2		       f8		      .byte.b	$F8
+   9053  4be3		       3e		      .byte.b	$3E
+   9054  4be4		       3e		      .byte.b	$3E
+   9055  4be5		       3e		      .byte.b	$3E
+   9056  4be6		       f0		      .byte.b	$F0
+   9057  4be7		       c2		      .byte.b	$C2
+   9058  4be8				  -	      if	(<*) > (<(*+12))
+   9059  4be8				  -	      repeat	($100-<*)
+   9060  4be8				  -	      .byte	0
+   9061  4be8				  -	      repend
+   9062  4be8					      endif
+   9063  4be8				   player152then_1
+   9064  4be8		       0c		      .byte.b	%00001100
+   9065  4be9		       38		      .byte.b	%00111000
+   9066  4bea		       28		      .byte.b	%00101000
+   9067  4beb		       38		      .byte.b	%00111000
+   9068  4bec		       38		      .byte.b	%00111000
+   9069  4bed		       24		      .byte.b	%00100100
+   9070  4bee		       3f		      .byte.b	%00111111
+   9071  4bef		       38		      .byte.b	%00111000
+   9072  4bf0		       10		      .byte.b	%00010000
+   9073  4bf1		       18		      .byte.b	%00011000
+   9074  4bf2		       18		      .byte.b	%00011000
+   9075  4bf3		       18		      .byte.b	%00011000
+   9076  4bf4		       08		      .byte.b	%00001000
+   9077  4bf5					      if	(<*) > (<(*+12))
+   9078  4bf5					      repeat	($100-<*)
+   9079  4bf5		       00		      .byte.b	0
+   9078  4bf5					      repend
+   9079  4bf6		       00		      .byte.b	0
+   9078  4bf6					      repend
+   9079  4bf7		       00		      .byte.b	0
+   9078  4bf7					      repend
+   9079  4bf8		       00		      .byte.b	0
+   9078  4bf8					      repend
+   9079  4bf9		       00		      .byte.b	0
+   9078  4bf9					      repend
+   9079  4bfa		       00		      .byte.b	0
+   9078  4bfa					      repend
+   9079  4bfb		       00		      .byte.b	0
+   9078  4bfb					      repend
+   9079  4bfc		       00		      .byte.b	0
+   9078  4bfc					      repend
+   9079  4bfd		       00		      .byte.b	0
+   9078  4bfd					      repend
+   9079  4bfe		       00		      .byte.b	0
+   9078  4bfe					      repend
+   9079  4bff		       00		      .byte.b	0
+   9080  4c00					      repend
+   9081  4c00					      endif
+   9082  4c00				   player154then_1
+   9083  4c00		       3c		      .byte.b	%00111100
+   9084  4c01		       28		      .byte.b	%00101000
+   9085  4c02		       28		      .byte.b	%00101000
+   9086  4c03		       38		      .byte.b	%00111000
+   9087  4c04		       38		      .byte.b	%00111000
+   9088  4c05		       24		      .byte.b	%00100100
+   9089  4c06		       3f		      .byte.b	%00111111
+   9090  4c07		       38		      .byte.b	%00111000
+   9091  4c08		       10		      .byte.b	%00010000
+   9092  4c09		       18		      .byte.b	%00011000
+   9093  4c0a		       18		      .byte.b	%00011000
+   9094  4c0b		       18		      .byte.b	%00011000
+   9095  4c0c		       08		      .byte.b	%00001000
+   9096  4c0d				  -	      if	(<*) > (<(*+12))
+   9097  4c0d				  -	      repeat	($100-<*)
+   9098  4c0d				  -	      .byte	0
+   9099  4c0d				  -	      repend
+   9100  4c0d					      endif
+   9101  4c0d				   player155then_1
+   9102  4c0d		       30		      .byte.b	%00110000
+   9103  4c0e		       2c		      .byte.b	%00101100
+   9104  4c0f		       28		      .byte.b	%00101000
+   9105  4c10		       38		      .byte.b	%00111000
+   9106  4c11		       38		      .byte.b	%00111000
+   9107  4c12		       24		      .byte.b	%00100100
+   9108  4c13		       3f		      .byte.b	%00111111
+   9109  4c14		       38		      .byte.b	%00111000
+   9110  4c15		       10		      .byte.b	%00010000
+   9111  4c16		       18		      .byte.b	%00011000
+   9112  4c17		       18		      .byte.b	%00011000
+   9113  4c18		       18		      .byte.b	%00011000
+   9114  4c19		       08		      .byte.b	%00001000
+   9115  4c1a				  -	      if	(<*) > (<(*+6))
+   9116  4c1a				  -	      repeat	($100-<*)
+   9117  4c1a				  -	      .byte	0
+   9118  4c1a				  -	      repend
+   9119  4c1a					      endif
+   9120  4c1a				   playerL0388_0
+   9121  4c1a		       aa		      .byte.b	%10101010
+   9122  4c1b		       ff		      .byte.b	%11111111
+   9123  4c1c		       ff		      .byte.b	%11111111
+   9124  4c1d		       ff		      .byte.b	%11111111
+   9125  4c1e		       db		      .byte.b	%11011011
+   9126  4c1f		       7e		      .byte.b	%01111110
+   9127  4c20		       3c		      .byte.b	%00111100
+   9128  4c21				  -	      ifconst	pfres
+   9129  4c21				  -	      if	(<*) > 235-pfres
+   9130  4c21				  -	      repeat	(265+pfres-<*)
+   9131  4c21				  -	      .byte	0
+   9132  4c21				  -	      repend
+   9133  4c21				  -	      endif
+   9134  4c21				  -	      if	(<*) < (pfres+9)
+   9135  4c21				  -	      repeat	((pfres+9)-(<*))
+   9136  4c21				  -	      .byte	0
+   9137  4c21				  -	      repend
+   9138  4c21				  -	      endif
+   9139  4c21					      else
+   9140  4c21				  -	      if	(<*) > 223
+   9141  4c21				  -	      repeat	(277-<*)
+   9142  4c21				  -	      .byte	0
+   9143  4c21				  -	      repend
+   9144  4c21					      endif
+   9145  4c21				  -	      if	(<*) < 21
+   9146  4c21				  -	      repeat	(21-(<*))
+   9147  4c21				  -	      .byte	0
+   9148  4c21				  -	      repend
+   9149  4c21					      endif
+   9150  4c21					      endif
+   9151  4c21				   pfcolorlabel177
+   9152  4c21		       08		      .byte.b	8
+   9153  4c22		       08		      .byte.b	8
+   9154  4c23		       08		      .byte.b	8
+   9155  4c24		       08		      .byte.b	8
+   9156  4c25		       08		      .byte.b	8
+   9157  4c26		       08		      .byte.b	8
+   9158  4c27		       08		      .byte.b	8
+   9159  4c28		       08		      .byte.b	8
+   9160  4c29		       08		      .byte.b	8
+   9161  4c2a		       08		      .byte.b	8
+   9162  4c2b				  -	      ifconst	pfres
+   9163  4c2b				  -	      if	(<*) > 235-pfres
+   9164  4c2b				  -	      repeat	(265+pfres-<*)
+   9165  4c2b				  -	      .byte	0
+   9166  4c2b				  -	      repend
+   9167  4c2b				  -	      endif
+   9168  4c2b				  -	      if	(<*) < (pfres+9)
+   9169  4c2b				  -	      repeat	((pfres+9)-(<*))
+   9170  4c2b				  -	      .byte	0
+   9171  4c2b				  -	      repend
+   9172  4c2b				  -	      endif
+   9173  4c2b					      else
+   9174  4c2b				  -	      if	(<*) > 223
+   9175  4c2b				  -	      repeat	(277-<*)
+   9176  4c2b				  -	      .byte	0
+   9177  4c2b				  -	      repend
+   9178  4c2b					      endif
+   9179  4c2b				  -	      if	(<*) < 21
+   9180  4c2b				  -	      repeat	(21-(<*))
+   9181  4c2b				  -	      .byte	0
+   9182  4c2b				  -	      repend
+   9183  4c2b					      endif
+   9184  4c2b					      endif
+   9185  4c2b				   pfcolorlabel206
+   9186  4c2b		       04		      .byte.b	4
+   9187  4c2c		       08		      .byte.b	8
+   9188  4c2d		       08		      .byte.b	8
+   9189  4c2e		       04		      .byte.b	4
+   9190  4c2f		       08		      .byte.b	8
+   9191  4c30		       08		      .byte.b	8
+   9192  4c31		       04		      .byte.b	4
+   9193  4c32		       0c		      .byte.b	12
+   9194  4c33		       0c		      .byte.b	12
+   9195  4c34		       0c		      .byte.b	12
+   9196  4c35					      if	ECHOFIRST
+      831 bytes of ROM space left in bank 4
+   9197  4c35					      echo	"    ",[(scoretable - *)]d , "bytes of ROM space left in bank 4")
+   9198  4c35					      endif
+   9199  4c35		       00 01	   ECHOFIRST  =	1
+   9200  4c35
+   9201  4c35
+   9202  4c35							; Provided under the CC0 license. See the included LICENSE.txt for details.
+   9203  4c35							; font equates
+   9204  4c35		       00 01	   .21stcentury =	1
+   9205  4c35		       00 02	   alarmclock =	2
+   9206  4c35		       00 03	   handwritten =	3
+   9207  4c35		       00 04	   interrupted =	4
+   9208  4c35		       00 05	   retroputer =	5
+   9209  4c35		       00 06	   whimsey    =	6
+   9210  4c35		       00 07	   tiny       =	7
+   9211  4c35		       00 08	   hex	      =	8
+   9212  4c35
+   9213  4c35							; feel free to modify the score graphics - just keep each digit 8 high
+   9214  4c35							; and keep the conditional compilation stuff intact
+   9215  4c35					      ifnconst	PXE
+   9216  4c35				  -	      ifconst	ROM2k
+   9217  4c35				  -	      ORG	$F7AC-8
+   9218  4c35					      else
+   9219  4c35					      ifconst	bankswitch
+   9220  4c35				  -	      if	bankswitch == 8
+   9221  4c35				  -	      ORG	$2F94-bscode_length
+   9222  4c35				  -	      RORG	$FF94-bscode_length
+   9223  4c35					      endif
+   9224  4c35					      if	bankswitch == 16
+   9225  4f74					      ORG	$4F94-bscode_length
+   9226  4f74					      RORG	$FF94-bscode_length
+   9227  4f74					      endif
+   9228  4f74				  -	      if	bankswitch == 32
+   9229  4f74				  -	      ORG	$8F94-bscode_length
+   9230  4f74				  -	      RORG	$FF94-bscode_length
+   9231  4f74					      endif
+   9232  4f74				  -	      if	bankswitch == 64
+   9233  4f74				  -	      ORG	$10F80-bscode_length
+   9234  4f74				  -	      RORG	$1FF80-bscode_length
+   9235  4f74					      endif
+   9236  4f74				  -	      else
+   9237  4f74				  -	      ORG	$FF9C
+   9238  4f74					      endif
+   9239  4f74					      endif
+   9240  4f74
+   9241  4f74
+   9242  4f74				  -	      ifconst	font
+   9243  4f74				  -	      if	font == hex
+   9244  4f74				  -	      ORG	. - 48
+   9245  4f74				  -	      endif
+   9246  4f74					      endif
+   9247  4f74					      endif
+   9248  4f74
+   9249  4f74				   scoretable
+   9250  4f74
+   9251  4f74				  -	      ifconst	font
+   9252  4f74				  -	      if	font == .21stcentury
+   9253  4f74				  -	      include	"score_graphics.asm.21stcentury"
+   9254  4f74				  -	      endif
+   9255  4f74				  -	      if	font == alarmclock
+   9256  4f74				  -	      include	"score_graphics.asm.alarmclock"
+   9257  4f74				  -	      endif
+   9258  4f74				  -	      if	font == handwritten
+   9259  4f74				  -	      include	"score_graphics.asm.handwritten"
+   9260  4f74				  -	      endif
+   9261  4f74				  -	      if	font == interrupted
+   9262  4f74				  -	      include	"score_graphics.asm.interrupted"
+   9263  4f74				  -	      endif
+   9264  4f74				  -	      if	font == retroputer
+   9265  4f74				  -	      include	"score_graphics.asm.retroputer"
+   9266  4f74				  -	      endif
+   9267  4f74				  -	      if	font == whimsey
+   9268  4f74				  -	      include	"score_graphics.asm.whimsey"
+   9269  4f74				  -	      endif
+   9270  4f74				  -	      if	font == tiny
+   9271  4f74				  -	      include	"score_graphics.asm.tiny"
+   9272  4f74				  -	      endif
+   9273  4f74				  -	      if	font == hex
+   9274  4f74				  -	      include	"score_graphics.asm.hex"
+   9275  4f74				  -	      endif
+   9276  4f74					      else		; default font
+   9277  4f74
+   9278  4f74		       3c		      .byte.b	%00111100
+   9279  4f75		       66		      .byte.b	%01100110
+   9280  4f76		       66		      .byte.b	%01100110
+   9281  4f77		       66		      .byte.b	%01100110
+   9282  4f78		       66		      .byte.b	%01100110
+   9283  4f79		       66		      .byte.b	%01100110
+   9284  4f7a		       66		      .byte.b	%01100110
+   9285  4f7b		       3c		      .byte.b	%00111100
+   9286  4f7c
+   9287  4f7c		       7e		      .byte.b	%01111110
+   9288  4f7d		       18		      .byte.b	%00011000
+   9289  4f7e		       18		      .byte.b	%00011000
+   9290  4f7f		       18		      .byte.b	%00011000
+   9291  4f80		       18		      .byte.b	%00011000
+   9292  4f81		       38		      .byte.b	%00111000
+   9293  4f82		       18		      .byte.b	%00011000
+   9294  4f83		       08		      .byte.b	%00001000
+   9295  4f84
+   9296  4f84		       7e		      .byte.b	%01111110
+   9297  4f85		       60		      .byte.b	%01100000
+   9298  4f86		       60		      .byte.b	%01100000
+   9299  4f87		       3c		      .byte.b	%00111100
+   9300  4f88		       06		      .byte.b	%00000110
+   9301  4f89		       06		      .byte.b	%00000110
+   9302  4f8a		       46		      .byte.b	%01000110
+   9303  4f8b		       3c		      .byte.b	%00111100
+   9304  4f8c
+   9305  4f8c		       3c		      .byte.b	%00111100
+   9306  4f8d		       46		      .byte.b	%01000110
+   9307  4f8e		       06		      .byte.b	%00000110
+   9308  4f8f		       06		      .byte.b	%00000110
+   9309  4f90		       1c		      .byte.b	%00011100
+   9310  4f91		       06		      .byte.b	%00000110
+   9311  4f92		       46		      .byte.b	%01000110
+   9312  4f93		       3c		      .byte.b	%00111100
+   9313  4f94
+   9314  4f94		       0c		      .byte.b	%00001100
+   9315  4f95		       0c		      .byte.b	%00001100
+   9316  4f96		       7e		      .byte.b	%01111110
+   9317  4f97		       4c		      .byte.b	%01001100
+   9318  4f98		       4c		      .byte.b	%01001100
+   9319  4f99		       2c		      .byte.b	%00101100
+   9320  4f9a		       1c		      .byte.b	%00011100
+   9321  4f9b		       0c		      .byte.b	%00001100
+   9322  4f9c
+   9323  4f9c		       3c		      .byte.b	%00111100
+   9324  4f9d		       46		      .byte.b	%01000110
+   9325  4f9e		       06		      .byte.b	%00000110
+   9326  4f9f		       06		      .byte.b	%00000110
+   9327  4fa0		       3c		      .byte.b	%00111100
+   9328  4fa1		       60		      .byte.b	%01100000
+   9329  4fa2		       60		      .byte.b	%01100000
+   9330  4fa3		       7e		      .byte.b	%01111110
+   9331  4fa4
+   9332  4fa4		       3c		      .byte.b	%00111100
+   9333  4fa5		       66		      .byte.b	%01100110
+   9334  4fa6		       66		      .byte.b	%01100110
+   9335  4fa7		       66		      .byte.b	%01100110
+   9336  4fa8		       7c		      .byte.b	%01111100
+   9337  4fa9		       60		      .byte.b	%01100000
+   9338  4faa		       62		      .byte.b	%01100010
+   9339  4fab		       3c		      .byte.b	%00111100
+   9340  4fac
+   9341  4fac		       30		      .byte.b	%00110000
+   9342  4fad		       30		      .byte.b	%00110000
+   9343  4fae		       30		      .byte.b	%00110000
+   9344  4faf		       18		      .byte.b	%00011000
+   9345  4fb0		       0c		      .byte.b	%00001100
+   9346  4fb1		       06		      .byte.b	%00000110
+   9347  4fb2		       42		      .byte.b	%01000010
+   9348  4fb3		       3e		      .byte.b	%00111110
+   9349  4fb4
+   9350  4fb4		       3c		      .byte.b	%00111100
+   9351  4fb5		       66		      .byte.b	%01100110
+   9352  4fb6		       66		      .byte.b	%01100110
+   9353  4fb7		       66		      .byte.b	%01100110
+   9354  4fb8		       3c		      .byte.b	%00111100
+   9355  4fb9		       66		      .byte.b	%01100110
+   9356  4fba		       66		      .byte.b	%01100110
+   9357  4fbb		       3c		      .byte.b	%00111100
+   9358  4fbc
+   9359  4fbc		       3c		      .byte.b	%00111100
+   9360  4fbd		       46		      .byte.b	%01000110
+   9361  4fbe		       06		      .byte.b	%00000110
+   9362  4fbf		       3e		      .byte.b	%00111110
+   9363  4fc0		       66		      .byte.b	%01100110
+   9364  4fc1		       66		      .byte.b	%01100110
+   9365  4fc2		       66		      .byte.b	%01100110
+   9366  4fc3		       3c		      .byte.b	%00111100
+   9367  4fc4
+   9368  4fc4					      ifnconst	DPC_kernel_options
+   9369  4fc4
+   9370  4fc4		       00		      .byte.b	%00000000
+   9371  4fc5		       00		      .byte.b	%00000000
+   9372  4fc6		       00		      .byte.b	%00000000
+   9373  4fc7		       00		      .byte.b	%00000000
+   9374  4fc8		       00		      .byte.b	%00000000
+   9375  4fc9		       00		      .byte.b	%00000000
+   9376  4fca		       00		      .byte.b	%00000000
+   9377  4fcb		       00		      .byte.b	%00000000
+   9378  4fcc
+   9379  4fcc					      endif
+   9380  4fcc
+   9381  4fcc					      endif
+   9382  4fcc
+   9383  4fcc					      ifnconst	PXE
+   9384  4fcc				  -	      ifconst	ROM2k
+   9385  4fcc				  -	      ORG	$F7FC
+   9386  4fcc					      else
+   9387  4fcc					      ifconst	bankswitch
+   9388  4fcc				  -	      if	bankswitch == 8
+   9389  4fcc				  -	      ORG	$2FF4-bscode_length
+   9390  4fcc				  -	      RORG	$FFF4-bscode_length
+   9391  4fcc					      endif
+   9392  4fcc					      if	bankswitch == 16
+   9393  4fd4					      ORG	$4FF4-bscode_length
+   9394  4fd4					      RORG	$FFF4-bscode_length
+   9395  4fd4					      endif
+   9396  4fd4				  -	      if	bankswitch == 32
+   9397  4fd4				  -	      ORG	$8FF4-bscode_length
+   9398  4fd4				  -	      RORG	$FFF4-bscode_length
+   9399  4fd4					      endif
+   9400  4fd4				  -	      if	bankswitch == 64
+   9401  4fd4				  -	      ORG	$10FE0-bscode_length
+   9402  4fd4				  -	      RORG	$1FFE0-bscode_length
+   9403  4fd4					      endif
+   9404  4fd4				  -	      else
+   9405  4fd4				  -	      ORG	$FFFC
+   9406  4fd4					      endif
+   9407  4fd4					      endif
+   9408  4fd4					      endif
+   9409  4fd4							; Provided under the CC0 license. See the included LICENSE.txt for details.
+   9410  4fd4
+   9411  4fd4							; every bank has this stuff at the same place
+   9412  4fd4							; this code can switch to/from any bank at any entry point
+   9413  4fd4							; and can preserve register values
+   9414  4fd4							; note: lines not starting with a space are not placed in all banks
+   9415  4fd4							;
+   9416  4fd4							; line below tells the compiler how long this is - do not remove
+   9417  4fd4							;size=32
+   9418  4fd4
+   9419  4fd4				   begin_bscode
+   9420  4fd4		       a2 ff		      ldx	#$ff
+   9421  4fd6				  -	      ifconst	FASTFETCH	; using DPC+
+   9422  4fd6				  -	      stx	FASTFETCH
+   9423  4fd6					      endif
+   9424  4fd6		       9a		      txs
+   9425  4fd7				  -	      if	bankswitch == 64
+   9426  4fd7				  -	      lda	#(((>(start-1)) & $0F) | $F0)
+   9427  4fd7					      else
+   9428  4fd7		       a9 f3		      lda	#>(start-1)
+   9429  4fd9					      endif
+   9430  4fd9		       48		      pha
+   9431  4fda		       a9 51		      lda	#<(start-1)
+   9432  4fdc		       48		      pha
+   9433  4fdd
+   9434  4fdd				   BS_return
+   9435  4fdd		       48		      pha
+   9436  4fde		       8a		      txa
+   9437  4fdf		       48		      pha
+   9438  4fe0		       ba		      tsx
+   9439  4fe1
+   9440  4fe1					      if	bankswitch != 64
+   9441  4fe1		       b5 04		      lda	4,x	; get high byte of return address
+   9442  4fe3
+   9443  4fe3		       2a		      rol
+   9444  4fe4		       2a		      rol
+   9445  4fe5		       2a		      rol
+   9446  4fe6		       2a		      rol
+   9447  4fe7		       29 03		      and	#bs_mask	;1 3 or 7 for F8/F6/F4
+   9448  4fe9		       aa		      tax
+   9449  4fea		       e8		      inx
+   9450  4feb				  -	      else
+   9451  4feb				  -	      lda	4,x	; get high byte of return address
+   9452  4feb				  -	      tay
+   9453  4feb				  -	      ora	#$10	; change our bank nibble into a valid rom mirror
+   9454  4feb				  -	      sta	4,x
+   9455  4feb				  -	      tya
+   9456  4feb				  -	      lsr
+   9457  4feb				  -	      lsr
+   9458  4feb				  -	      lsr
+   9459  4feb				  -	      lsr
+   9460  4feb				  -	      tax
+   9461  4feb				  -	      inx
+   9462  4feb					      endif
+   9463  4feb
+   9464  4feb				   BS_jsr
+   9465  4feb		       bd f5 1f 	      lda	bankswitch_hotspot-1,x
+   9466  4fee		       68		      pla
+   9467  4fef		       aa		      tax
+   9468  4ff0		       68		      pla
+   9469  4ff1		       60		      rts
+   9470  4ff2				  -	      if	((* & $1FFF) > ((bankswitch_hotspot & $1FFF) - 1))
+   9471  4ff2				  -	      echo	"WARNING: size parameter in banksw.asm too small - the program probably will not work."
+   9472  4ff2				  -	      echo	"Change to",[(*-begin_bscode+1)&$FF]d,"and try again."
+   9473  4ff2					      endif
+   9474  4ff2							; Provided under the CC0 license. See the included LICENSE.txt for details.
+   9475  4ff2
+   9476  4ff2					      ifconst	bankswitch
+   9477  4ff2				  -	      if	bankswitch == 8
+   9478  4ff2				  -	      ORG	$2FFC
+   9479  4ff2				  -	      RORG	$FFFC
+   9480  4ff2					      endif
+   9481  4ff2					      if	bankswitch == 16
+   9482  4ffc					      ORG	$4FFC
+   9483  4ffc					      RORG	$FFFC
+   9484  4ffc					      endif
+   9485  4ffc				  -	      if	bankswitch == 32
+   9486  4ffc				  -	      ORG	$8FFC
+   9487  4ffc				  -	      RORG	$FFFC
+   9488  4ffc					      endif
+   9489  4ffc				  -	      if	bankswitch == 64
+   9490  4ffc				  -	      ORG	$10FF0
+   9491  4ffc				  -	      RORG	$1FFF0
+   9492  4ffc				  -	      lda	$ffe0	; we use wasted space to assist stella with EF format auto-detection
+   9493  4ffc				  -	      ORG	$10FF8
+   9494  4ffc				  -	      RORG	$1FFF8
+   9495  4ffc				  -	      ifconst	superchip
+   9496  4ffc				  -	      .byte	"E","F","S","C"
+   9497  4ffc				  -	      else
+   9498  4ffc				  -	      .byte	"E","F","E","F"
+   9499  4ffc				  -	      endif
+   9500  4ffc				  -	      ORG	$10FFC
+   9501  4ffc				  -	      RORG	$1FFFC
+   9502  4ffc					      endif
+   9503  4ffc				  -	      else
+   9504  4ffc				  -	      ifconst	ROM2k
+   9505  4ffc				  -	      ORG	$F7FC
+   9506  4ffc				  -	      else
+   9507  4ffc				  -	      ORG	$FFFC
+   9508  4ffc				  -	      endif
+   9509  4ffc					      endif
+   9510  4ffc		       52 f3		      .word.w	(start & $ffff)
+   9511  4ffe		       52 f3		      .word.w	(start & $ffff)
