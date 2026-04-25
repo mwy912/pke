@@ -1396,7 +1396,7 @@ __Theme_Setup
 end
 
 __Game_Credits
-      pfheights:
+   pfheights:
     8
     8
     8
@@ -1413,7 +1413,7 @@ end
    scorecolor = $00
 
    _Game_Timer = _Game_Timer + 1
-   if _Game_Timer > 100 then goto __Startup_Loop
+   if _Game_Timer > 120 then goto __Startup_Loop
    
    gosub __Credits_Screen_1
    gosub __Play_Theme
@@ -1423,74 +1423,48 @@ end
    if joy0fire then goto __End_Title
    if _GB_Vol = 255 then goto __End_Title
 
+   _Ghost_x = 0
+   _Ghost_Direction = 1
+
    goto __Game_Credits
 
 
 __Startup_Loop
-      pfheights:
-    4
-    4
-    16
-    8
-    8
-    8
-    8
-    8
-    16
-    4
-    4
-end
-   pfscorecolor = $0E
-   scorecolor = $0E
+   pfscorecolor = $02
+   scorecolor = $02
+   COLUP0 = $0E 
 
-   _Game_Timer = _Game_Timer + 1
-
-   if _Game_Timer & 8 then gosub __Title_Screen_1
-   if !_Game_Timer & 8 then gosub __Title_Screen_2
+   gosub __Title_Screen
 
    gosub __Play_Theme
 
-   drawscreen
+   f = f + 1   
 
+   if (_Ghost_Direction & 1) then gosub __Left_to_Right else gosub __Right_to_Left
+   
+   drawscreen
+   
    if joy0fire then goto __End_Title
    if _GB_Vol = 255 then goto __End_Title
 
    goto __Startup_Loop
 
-__Title_Screen_1
+__Title_Screen
    playfield:
-    .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
-    X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
     ................................
-    ...XXXX.....X...X.....XXXXX.....
-    ...X...X....X..X......X.........
-    ...XXXX.....XXX.......XXX.......
-    ...X........X..X......X.........
-    ...X....X...X...X.X...XXXXX.X...
     ................................
-    .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
-    X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
+    ....XXXX.....X...X....XXXXX.....
+    ....X...X....X..X.....X.........
+    ....XXXX.....XXX......XXX.......
+    ....X........X..X.....X.........
+    ....X...X....X...X.X..XXXXX.X...
+    ................................    
+    ................................
+    ................................
+    ................................
 end
-   COLUBK = $0E
-   COLUPF = $44
-   return
-
-__Title_Screen_2
-   playfield:
-    X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
-    .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
-    ................................
-    ...XXXX.....X...X.....XXXXX.....
-    ...X...X....X..X......X.........
-    ...XXXX.....XXX.......XXX.......
-    ...X........X..X......X.........
-    ...X....X...X...X.X...XXXXX.X...
-    ................................
-    X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.
-    .X.X.X.X.X.X.X.X.X.X.X.X.X.X.X.X
-end
-   COLUBK = $0E
-   COLUPF = $44
+   COLUBK = $02
+   COLUPF = $46
    return
 
 __Play_Theme
@@ -1531,4 +1505,41 @@ __Credits_Screen_1
 end     
    COLUBK = $00
    COLUPF = $86
+   return
+
+__Left_to_Right
+   gosub __Ghost_Sprite bank2
+   _Ghost_x = _Ghost_x + 1
+
+   player0x = _Ghost_x
+   if _Ghost_x < 150 then player0y = 78 else player0y = 0
+   
+   gosub __Buster_Sprite bank2
+   REFP1 = 0
+
+   _Previous_x = _Ghost_x - 30
+   player1x = _Previous_x
+   if _Previous_x < 150 then player1y = 80 else player1y = 0
+
+   if _Ghost_x > 200 then _Ghost_Direction = 0 : _Previous_x = 175
+   return
+
+
+
+__Right_to_Left
+   gosub __Buster_Sprite bank2
+   REFP1 = 8
+
+   _Previous_x = _Previous_x - 1
+   player1x = _Previous_x
+   if _Previous_x < 150 then player1y = 80 else player1y = 0
+
+   gosub __Ghost_Sprite bank2
+
+   _Ghost_x = _Previous_x - 30
+   player0x = _Ghost_x
+   if _Ghost_x < 150 then player0y = 78 else player0y = 0
+   
+   if _Previous_x > 175 && _Previous_x < 220 then _Ghost_Direction = 1 : _Ghost_x = 0
+
    return
