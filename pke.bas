@@ -5,65 +5,66 @@
    ;   Variable Declarations
    ;***************************************************************
 
-   dim rand16 = a
-   ; b and c reserved for GB Theme
-   dim _Buster_Room = d
-   dim _Ghost1_Room = e
-   ; f reserved for player1 frame count
-   dim _Ghost2_Room = g
-   dim _Ghost3_Room = h
-   dim _Map_Position_x = i
-   dim _Map_Position_y = j
-   dim _Previous_x = k
-   dim _Previous_y = l
-   dim _Ghost_x = m
-   dim _Ghost_y = n
-   dim _Buster_Direction = o
-   dim _Ghost_Direction = p
-   dim _Ghost_Timer = q
-   dim _Game_Timer = r
-   dim _Distance_to_Ghost = s
-   dim _Wand_Temperature = t
-   dim _Wand_Temperature_Subpixel = u
-   dim _Transition_Quick_Count = v
-   dim _GB_Vol = w
-   dim _GB_Ch = x
-   dim _GB_Frq = y
-   dim _GB_Dur = z
+   dim rand16 = var0
+   ; var1 and var2 reserved for GB Theme
+   dim _Buster_Room = var3
+   dim _Ghost1_Room = var4
+   dim _Ghost2_Room = var5
+   dim _Ghost3_Room = var6
+   dim _Map_Position_x = var7
+   dim _Map_Position_y = var8
+   dim _Previous_x = var9
+   dim _Previous_y = var10
+   dim _Ghost_x = var11
+   dim _Ghost_y = var12
+   dim _Buster_Direction = var13
+   dim _Ghost_Direction = var14
+   dim _Ghost_Timer = var15
+   dim _Game_Timer = var16
+   dim _Distance_to_Ghost = var17
+   dim _Wand_Temperature = var18
+   dim _Wand_Temperature_Subpixel = var19
+   dim _Transition_Quick_Count = var20
+   dim _GB_Vol = var21
+   dim _GB_Ch = var22
+   dim _GB_Frq = var23
+   dim _GB_Dur = var24
+   dim _frame = var25
+
    
-   dim _Stun_Timer = var2
-   dim _Hit_Count = var3
-   dim _Beam_Color = var4
-   dim _Previous_Missile_x = var5
-   dim _Stream_Counter = var6
-   dim _Ghost_Color = var7
-   dim _Score_Timer = var8
-   dim _SFX_Vol = var9
-   dim _SFX_Ch = var10
-   dim _SFX_Frq = var11
-   dim _SFX_Dur = var12
-   dim _SFX_Index = var13
-   dim _Game_Level = var14
-   dim _Ghosts_Caught = var15
-   dim _Difficulty_Level = var16
-   dim _Ghost_Speed_Mask = var17
-   dim _Visit_Length = var18
-   dim _Timer_Mask = var19
-   dim _Room_Counter = var20
-   dim _Flee_Range = var21
+   dim _Stun_Timer = var26
+   dim _Hit_Count = var27
+   dim _Beam_Color = var28
+   dim _Previous_Missile_x = var29
+   dim _Stream_Counter = var30
+   dim _Ghost_Color = var31
+   dim _Score_Timer = var32
+   dim _SFX_Vol = var33
+   dim _SFX_Ch = var34
+   dim _SFX_Frq = var35
+   dim _SFX_Dur = var36
+   dim _SFX_Index = var37
+   dim _Game_Level = var38
+   dim _Ghosts_Caught = var39
+   dim _Difficulty_Level = var40
+   dim _Ghost_Speed_Mask = var41
+   dim _Visit_Length = var42
+   dim _Timer_Mask = var43
+   dim _Room_Counter = var44
+   dim _Flee_Range = var45
    
 
    ;***************************************************************
    ;  set bit variables
    ;***************************************************************
 
-   dim _Bit0_Reset_Restrainer = var0  ; Restrains the reset switch for the main loop.
-   dim _Bit1_Missile_Flag = var0      ; 0 = stream starting over, 1 = stream already flying
-   dim _Bit2_Wand_Lock = var0         ; 0 = not locked, 1 = locked out
-   dim _Bit3_Stunned_Ghost = var0     ; 0 = not stunned, 1 = stunned
-   dim _Bit4_Trap_Active = var0       ; 0 = not deployed, 1 = deployed
-   dim _Bit5_Left_DifficultyB = var0  ; 0 = A - PKE only 1 room away, 1 = B - PKE up to 2 rooms away
-   dim _Bit6_Right_DifficultyB = var0 ; 0 = A, 1 = B   
+   dim _Bit0_Reset_Restrainer = var46  ; Restrains the reset switch for the main loop.
+   dim _Bit1_Missile_Flag = var46      ; 0 = stream starting over, 1 = stream already flying
+   dim _Bit2_Wand_Lock = var46         ; 0 = not locked, 1 = locked out
+   dim _Bit3_Stunned_Ghost = var46     ; 0 = not stunned, 1 = stunned
+   dim _Bit4_Trap_Active = var46       ; 0 = not deployed, 1 = deployed
+   dim _Bit5_Left_DifficultyB = var46  ; 0 = A - PKE only 1 room away, 1 = B - PKE up to 2 rooms away
+   dim _Bit6_Right_DifficultyB = var46 ; 0 = A, 1 = B   
 
 
    ;***************************************************************
@@ -135,13 +136,13 @@ __Start_Restart
    _SFX_Dur = 1
    _SFX_Index = 0
    _GB_Dur = 1
-   _Game_Level = 2
+   _Game_Level = 0
    gosub __Level_Change
    pfscore1 = %10101010 ; 4 lives
    pfscorecolor = $0E
    scorecolor = $0E
    missile0height = 0
-   f = 10
+   _frame = 10
    goto __Title_Setup bank4
 
 __End_Theme
@@ -179,7 +180,7 @@ __Start_Turn
    player1x = 78
    player1y = 83
    _Buster_Direction = 0
-   f = 10
+   _frame = 10
    _Wand_Temperature = 0
    _Bit0_Reset_Restrainer{0} = 1
    _Bit1_Missile_Flag{1} = 0
@@ -205,8 +206,6 @@ __Start_Turn
     $F0;
     $C2;
 end
-
-   _Ghost1_Room = 85
 
 __One_Second_Pause
    _Game_Timer = _Game_Timer + 1
@@ -246,12 +245,12 @@ __Main_Loop
       
    if !joy0fire then _Bit1_Missile_Flag{1} = 0 : _Bit3_Stunned_Ghost{3} = 0
    
-   if joy0right && !joy0fire then player1x = player1x + 1 : _Buster_Direction = 0 : f = f + 1
-   if joy0right && joy0fire then player1x = player1x + 1 : f = f + 1
-   if joy0left && !joy0fire then player1x = player1x - 1 : _Buster_Direction = 8 : f = f + 1
-   if joy0left && joy0fire then player1x = player1x - 1 : f = f + 1
-   if joy0up then player1y = player1y - 1 : f = f + 1
-   if joy0down then player1y = player1y + 1 : f = f + 1
+   if joy0right && !joy0fire then player1x = player1x + 1 : _Buster_Direction = 0 : _frame = _frame + 1
+   if joy0right && joy0fire then player1x = player1x + 1 : _frame = _frame + 1
+   if joy0left && !joy0fire then player1x = player1x - 1 : _Buster_Direction = 8 : _frame = _frame + 1
+   if joy0left && joy0fire then player1x = player1x - 1 : _frame = v + 1
+   if joy0up then player1y = player1y - 1 : _frame = _frame + 1
+   if joy0down then player1y = player1y + 1 : _frame = _frame + 1
       
    ;***************************************************************
    ;   Proton Stream Control
@@ -612,7 +611,7 @@ __Roll_Ghost3
    
 __Buster_Sprite
    REFP1 = _Buster_Direction
-   if f >= 10 && f < 15 then player1:
+   if _frame >= 10 && _frame < 15 then player1:
     %00111100
     %00101000
     %00101000
@@ -642,7 +641,7 @@ end
     $F0;
     $C2;
 end
-   if f >= 15 && f < 20 then player1:
+   if _frame >= 15 && _frame < 20 then player1:
     %00001100
     %00111000
     %00101000
@@ -657,7 +656,7 @@ end
     %00011000
     %00001000
 end
-   if f >= 20 && f < 25 then player1:
+   if _frame >= 20 && _frame < 25 then player1:
     %00111100
     %00101000
     %00101000
@@ -672,7 +671,7 @@ end
     %00011000
     %00001000
 end
-   if f >= 25 then player1:
+   if _frame >= 25 then player1:
     %00110000
     %00101100
     %00101000
@@ -687,7 +686,7 @@ end
     %00011000
     %00001000
 end
-   if f >= 30 then f = 10
+   if _frame >= 30 then _frame = 10
    return
    
 __Ghost_Sprite
@@ -1289,7 +1288,7 @@ end
    ;***************************************************************
 
 __Title_Setup
-   sdata GhostbustersTheme = b
+   sdata GhostbustersTheme = var1
     0,0,0,30
     4,4,14,7
     0,0,0,1
@@ -1547,7 +1546,7 @@ end
 
    gosub __Play_Theme
 
-   f = f + 1   
+   _frame = _frame + 1   
 
    if (_Ghost_Direction & 1) then gosub __Left_to_Right else gosub __Right_to_Left
    
