@@ -9,7 +9,7 @@ Javatari = {
     PRESETS:                        "",                         // Configuration Presets to apply. See Presets Configuration
 
     // Full or relative URL of Media files to load
-    CARTRIDGE_URL:                  "",
+    CARTRIDGE_URL:                  "P.K.E.",
     AUTODETECT_URL:                 "",
     STATE_URL:                      "",
 
