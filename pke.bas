@@ -31,35 +31,41 @@
    dim _GB_Frq = y
    dim _GB_Dur = z
    
-   dim _Stun_Timer = var1
-   dim _Hit_Count = var2
-   dim _Beam_Color = var3
-   dim _Previous_Missile_x = var4
-   dim _Stream_Counter = var5
-   dim _Ghost_Color = var6
-   dim _Score_Timer = var7
-   dim _SFX_Vol = var8
-   dim _SFX_Ch = var9
-   dim _SFX_Frq = var10
-   dim _SFX_Dur = var11
-   dim _SFX_Index = var12
-   dim _Game_Level = var13
-   dim _Ghosts_Caught = var14
-
-
-
+   dim _Stun_Timer = var2
+   dim _Hit_Count = var3
+   dim _Beam_Color = var4
+   dim _Previous_Missile_x = var5
+   dim _Stream_Counter = var6
+   dim _Ghost_Color = var7
+   dim _Score_Timer = var8
+   dim _SFX_Vol = var9
+   dim _SFX_Ch = var10
+   dim _SFX_Frq = var11
+   dim _SFX_Dur = var12
+   dim _SFX_Index = var13
+   dim _Game_Level = var14
+   dim _Ghosts_Caught = var15
+   dim _Difficulty_Level = var16
+   dim _Ghost_Speed_Mask = var17
+   dim _Visit_Length = var18
+   dim _Timer_Mask = var19
+   dim _Room_Counter = var20
+   dim _Flee_Range = var21
+   
 
    ;***************************************************************
    ;  set bit variables
    ;***************************************************************
 
-   dim _Bit0_Reset_Restrainer = var0 ; Restrains the reset switch for the main loop.
-   dim _Bit1_Missile_Flag = var0     ; 0 = stream starting over, 1 = stream already flying
-   dim _Bit2_Wand_Lock = var0        ; 0 = not locked, 1 = locked out
-   dim _Bit3_Stunned_Ghost = var0    ; 0 = not stunned, 1 = stunned
-   dim _Bit4_Trap_Active = var0      ; 0 = not deployed, 1 = deployed
+   dim _Bit0_Reset_Restrainer = var0  ; Restrains the reset switch for the main loop.
+   dim _Bit1_Missile_Flag = var0      ; 0 = stream starting over, 1 = stream already flying
+   dim _Bit2_Wand_Lock = var0         ; 0 = not locked, 1 = locked out
+   dim _Bit3_Stunned_Ghost = var0     ; 0 = not stunned, 1 = stunned
+   dim _Bit4_Trap_Active = var0       ; 0 = not deployed, 1 = deployed
    dim _Bit5_Left_DifficultyB = var0  ; 0 = A - PKE only 1 room away, 1 = B - PKE up to 2 rooms away
-   dim _Bit6_Right_DifficultyB = var0 ; 0 = A, 1 = B
+   dim _Bit6_Right_DifficultyB = var0 ; 0 = A, 1 = B   
+
+
    ;***************************************************************
    ;  Converts 6 digit score to 3 sets of two digits.
    ;***************************************************************
@@ -81,8 +87,14 @@ end
 end
 
    data Playfield_Color_Table
-   $F0, $42, $82, $C2, $60, $1A
+   $0E, $F0, $42, $82, $C2, $60, $1A
 end
+   ; Level 1 = Brown
+   ; level 2 = Red
+   ; Level 3 = Blue
+   ; Level 4 = Green
+   ; Level 5 = Purple
+   ; Level 6 = Yellow
 
    ;***************************************************************
    ;  PROGRAM START/RESTART
@@ -113,7 +125,6 @@ __Start_Restart
    missile0y = 0
    bally = 0
    score = 0
-   pfscore1 = 0
    
    ;***************************************************************
    ;   Initial Startup Value Settings
@@ -124,8 +135,9 @@ __Start_Restart
    _SFX_Dur = 1
    _SFX_Index = 0
    _GB_Dur = 1
-   _Game_Level = 0   
-   pfscore1 = %00101010 ; 3 lives
+   _Game_Level = 2
+   gosub __Level_Change
+   pfscore1 = %10101010 ; 4 lives
    pfscorecolor = $0E
    scorecolor = $0E
    missile0height = 0
@@ -156,12 +168,10 @@ end
    if switchleftb then _Bit5_Left_DifficultyB{5} = 1 else _Bit5_Left_DifficultyB{5} = 0
    if switchrightb then _Bit6_Right_DifficultyB{6} = 1 else _Bit6_Right_DifficultyB{6} = 0
 
-   if _Bit5_Left_DifficultyB{5} then _Difficulty_Level = 3 else _Difficulty_Level = 2
+   if _Bit5_Left_DifficultyB{5} then _Difficulty_Level = 2 else _Difficulty_Level = 1
 
 __Start_Turn
-   gosub __Ghost_Sprite bank2
    COLUBK = $02
-   gosub __Spawn_Ghosts
    _Map_Position_x = 5
    _Map_Position_y = 9
    _Buster_Room = 95
@@ -176,9 +186,10 @@ __Start_Turn
    _Bit2_Wand_Lock{2} = 0
    _Bit3_Stunned_Ghost{3} = 0
    _Bit4_Trap_Active{4} = 0
+   gosub __Ghost_Sprite bank2
+   gosub __Spawn_Ghosts
 
    _Game_Timer = 0
-
       player1color:
     $00;
     $00;
@@ -199,7 +210,7 @@ end
 
 __One_Second_Pause
    _Game_Timer = _Game_Timer + 1
-   COLUPF = $F0
+   COLUPF = Playfield_Color_Table[_Game_Level]
    COLUBK = $02
    drawscreen
    if _Game_Timer < 60 then goto __One_Second_Pause
@@ -232,29 +243,20 @@ __Main_Loop
    ;***************************************************************
 
    _Previous_x = player1x : _Previous_y = player1y
-   
-   if joy0fire then goto __Move_While_Streaming
-   
+      
    if !joy0fire then _Bit1_Missile_Flag{1} = 0 : _Bit3_Stunned_Ghost{3} = 0
    
-   if joy0right then player1x = player1x + 1 : _Buster_Direction = 0 : f = f + 1
-   if joy0left then player1x = player1x - 1 : _Buster_Direction = 8 : f = f + 1
+   if joy0right && !joy0fire then player1x = player1x + 1 : _Buster_Direction = 0 : f = f + 1
+   if joy0right && joy0fire then player1x = player1x + 1 : f = f + 1
+   if joy0left && !joy0fire then player1x = player1x - 1 : _Buster_Direction = 8 : f = f + 1
+   if joy0left && joy0fire then player1x = player1x - 1 : f = f + 1
    if joy0up then player1y = player1y - 1 : f = f + 1
    if joy0down then player1y = player1y + 1 : f = f + 1
-   
-   goto __Heat_Logic
-   
+      
    ;***************************************************************
    ;   Proton Stream Control
    ;***************************************************************
 
-__Move_While_Streaming
-   if joy0right then player1x = player1x + 1 : f = f + 1
-   if joy0left then player1x = player1x - 1 : f = f + 1
-   if joy0up then player1y = player1y - 1 : f = f + 1 :
-   if joy0down then player1y = player1y + 1 : f = f + 1
-
-__Heat_Logic
    temp1 = _Wand_Temperature / 8
    pfscore2 = _Heat_Bar_Table[temp1]
    
@@ -283,7 +285,7 @@ __Heat_Logic
    ;   Ghost Movement
    ;***************************************************************
 
-   gosub __Move_Ghost
+   gosub __Move_Ghost bank2
    
    if collision(player1, player0) then goto __Lose_A_Life
 
@@ -373,6 +375,9 @@ __Transition_Out
    player0y = 0
    _Hit_Count = 0
    _Stun_Timer = 0
+   if _Buster_Room = _Ghost1_Room then gosub __Spawn_Ghosts
+   if _Buster_Room = _Ghost2_Room then gosub __Spawn_Ghosts
+   if _Buster_Room = _Ghost3_Room then gosub __Spawn_Ghosts
    _Transition_Quick_Count = 4
 __Fade_Loop
    drawscreen
@@ -447,8 +452,14 @@ __Trap_Logic
 
    if collision(ball, player0) then gosub __Ghost_Caught
    return
+   
+   ;***************************************************************
+   ;   Subroutines - Cleanup after Ghost Caught
+   ;***************************************************************   
 
 __Ghost_Caught
+   _Ghosts_Caught = _Ghosts_Caught + 1
+   if _Ghosts_Caught > _Difficulty_Level then gosub __Level_Change
    _Ghost1_Room = 100
    _Ghost2_Room = 100
    _Ghost3_Room = 100
@@ -459,128 +470,34 @@ __Ghost_Caught
    COLUPF = Playfield_Color_Table[_Game_Level]
    _SFX_Dur = 1
    _SFX_Index = 0
-   score = score + 5000 : scorecolor = $C4 : _Score_Timer = 60
-Trap_Loop
+   gosub __Add_Points bank2
+
+__Trap_Loop
    gosub __Play_Trap_SFX bank2
    drawscreen
    COLUBK = $02
    COLUPF = Playfield_Color_Table[_Game_Level]
    _Transition_Quick_Count = _Transition_Quick_Count - 1
-   if _Transition_Quick_Count > 0 then goto Trap_Loop
+   if _Transition_Quick_Count > 0 then goto __Trap_Loop
    player0y = 0
    bally = 0
    _Bit4_Trap_Active{4} = 0
-   
    _Hit_Count = 0
    gosub __Spawn_Ghosts
    gosub __Set_Room_Layout bank3
-   _Ghosts_Caught = _Ghosts_Caught + 1
-   if _Ghosts_Caught > _Difficulty_Level then _Ghosts_Caught = 0 : _Game_Level = _Game_Level + 1
-   if _Game_Level > 5 then _Game_Level = 5
    return
 
-   ;***************************************************************
-   ;   Subroutines - Ghost Movement in Room
-   ;***************************************************************
+__Level_Change
+   _Ghosts_Caught = 0
+   _Game_Level = _Game_Level + 1
+   if _Game_Level > 6 then _Game_Level = 6
 
-__Move_Ghost
-   if _Ghost1_Room <> _Buster_Room && _Ghost2_Room <> _Buster_Room && _Ghost3_Room <> _Buster_Room then return
-   if _Game_Timer & 1 then return
-   if !_Bit3_Stunned_Ghost{3} then goto __Not_Stunned
-   _Stun_Timer = _Stun_Timer + 1
-   if _Stun_Timer > 30 then _Bit3_Stunned_Ghost{3} = 0 : _Stun_Timer = 0
-   return
-
-__Not_Stunned
-   if _Bit2_Wand_Lock{2} then goto __Choose_To_Chase
-
-   if _Ghost_Timer > 0 then goto __Keep_Moving
-
-   ; --- New direction decision ---
-   ; Longer base timer = more committed movement, less jitter
-   ; rand & 15 gives 0-15, + 10 gives 10-25 ticks
-   _Ghost_Timer = (rand & 15) + 10
-
-   temp5 = player1x - _Ghost_x : if _Ghost_x > player1x then temp5 = _Ghost_x - player1x
-   temp6 = player1y - _Ghost_y : if _Ghost_y > player1y then temp6 = _Ghost_y - player1y
-
-   ; --- Graduated proximity: tight range flees cardinally,
-   ;     mid range can flee diagonally, far range wanders ---
-   if temp5 > 30 && temp6 > 30 then goto __Pick_Random_Direction
-   if temp5 < 12 && temp6 < 12 then goto __Flee_Diagonal
-   if (rand & 1) then goto __Choose_To_Flee_X else goto __Choose_To_Flee_Y
-
-__Choose_To_Flee_X
-   if player1x > _Ghost_x then _Ghost_Direction = 2 else _Ghost_Direction = 3
-   goto __Keep_Moving
-
-__Choose_To_Flee_Y
-   if player1y > _Ghost_y then _Ghost_Direction = 0 else _Ghost_Direction = 1
-   goto __Keep_Moving
-
-__Flee_Diagonal
-   ; Very close: flee diagonally — feels panicked and organic
-   if player1x > _Ghost_x && player1y > _Ghost_y then _Ghost_Direction = 4 : goto __Keep_Moving  ; NW
-   if player1x > _Ghost_x && player1y < _Ghost_y then _Ghost_Direction = 5 : goto __Keep_Moving  ; SW
-   if player1x < _Ghost_x && player1y > _Ghost_y then _Ghost_Direction = 6 : goto __Keep_Moving  ; NE
-   _Ghost_Direction = 7                                                                            ; SE
-   goto __Keep_Moving
-
-__Pick_Random_Direction
-   ; Bias toward cardinal directions (0-3) — diagonals feel strange when wandering
-   ; rand & 7 still gives 0-7, but reroll diagonals sometimes
-   _Ghost_Direction = (rand & 7)
-   if _Ghost_Direction > 3 && (rand & 3) then _Ghost_Direction = (rand & 3)
-   goto __Keep_Moving
-
-__Choose_To_Chase
-   if _Ghost_Timer > 0 then goto __Keep_Moving
-
-   ; Longer chase timer too — ghost commits to a path instead of stuttering
-   _Ghost_Timer = (rand & 7) + 12
-
-   temp5 = player1x - _Ghost_x : if _Ghost_x > player1x then temp5 = _Ghost_x - player1x
-   temp6 = player1y - _Ghost_y : if _Ghost_y > player1y then temp6 = _Ghost_y - player1y
-
-   ; Close on both axes: chase diagonally — more threatening
-   if temp5 < 20 && temp6 < 20 then goto __Chase_Diagonal
-
-   ; Far on both axes: bias toward closing the larger gap
-   if temp5 > temp6 then goto __Choose_To_Chase_X else goto __Choose_To_Chase_Y
-
-__Choose_To_Chase_X
-   if player1x > _Ghost_x then _Ghost_Direction = 3 else _Ghost_Direction = 2
-   goto __Keep_Moving
-
-__Choose_To_Chase_Y
-   if player1y > _Ghost_y then _Ghost_Direction = 1 else _Ghost_Direction = 0
-   goto __Keep_Moving
-
-__Chase_Diagonal
-   ; Close range chase: diagonal pursuit feels relentless
-   if player1x > _Ghost_x && player1y > _Ghost_y then _Ghost_Direction = 7 : goto __Keep_Moving  ; SE
-   if player1x > _Ghost_x && player1y < _Ghost_y then _Ghost_Direction = 6 : goto __Keep_Moving  ; NE  (corrected: NE moves +x -y)
-   if player1x < _Ghost_x && player1y > _Ghost_y then _Ghost_Direction = 5 : goto __Keep_Moving  ; SW
-   _Ghost_Direction = 4                                                                            ; NW
-   goto __Keep_Moving
-
-__Keep_Moving
-   _Ghost_Timer = _Ghost_Timer - 1
-   if _Ghost_Direction = 0 then _Ghost_y = _Ghost_y - 1 : goto __Bounce_Out_Of_Corner
-   if _Ghost_Direction = 1 then _Ghost_y = _Ghost_y + 1 : goto __Bounce_Out_Of_Corner
-   if _Ghost_Direction = 2 then _Ghost_x = _Ghost_x - 1 : goto __Bounce_Out_Of_Corner
-   if _Ghost_Direction = 3 then _Ghost_x = _Ghost_x + 1 : goto __Bounce_Out_Of_Corner
-   if _Ghost_Direction = 4 then _Ghost_x = _Ghost_x - 1 : _Ghost_y = _Ghost_y - 1 : goto __Bounce_Out_Of_Corner
-   if _Ghost_Direction = 5 then _Ghost_x = _Ghost_x - 1 : _Ghost_y = _Ghost_y + 1 : goto __Bounce_Out_Of_Corner
-   if _Ghost_Direction = 6 then _Ghost_x = _Ghost_x + 1 : _Ghost_y = _Ghost_y - 1 : goto __Bounce_Out_Of_Corner
-   if _Ghost_Direction = 7 then _Ghost_x = _Ghost_x + 1 : _Ghost_y = _Ghost_y + 1 : goto __Bounce_Out_Of_Corner
-
-__Bounce_Out_Of_Corner
-   if _Ghost_x < 20 then _Ghost_x = 20 : _Ghost_Direction = 3 : _Ghost_Timer = 20
-   if _Ghost_x > 140 then _Ghost_x = 140 : _Ghost_Direction = 2 : _Ghost_Timer = 20
-   if _Ghost_y < 15 then _Ghost_y = 15 : _Ghost_Direction = 1 : _Ghost_Timer = 20
-   if _Ghost_y > 89 then _Ghost_y = 89 : _Ghost_Direction = 0 : _Ghost_Timer = 20
-   player0x = _Ghost_x : player0y = _Ghost_y
+   if _Game_Level = 1 then _Ghost_Speed_Mask = 1 : _Visit_Length = 45 : _Timer_Mask = 15 : _Flee_Range = 20
+   if _Game_Level = 2 then _Ghost_Speed_Mask = 1 : _Visit_Length = 30 : _Timer_Mask = 7  : _Flee_Range = 30
+   if _Game_Level = 3 then _Ghost_Speed_Mask = 1 : _Visit_Length = 20 : _Timer_Mask = 3  : _Flee_Range = 40
+   if _Game_Level = 4 then _Ghost_Speed_Mask = 1 : _Visit_Length = 15 : _Timer_Mask = 1 
+   if _Game_Level = 5 then _Ghost_Speed_Mask = 1 : _Visit_Length = 10 : _Timer_Mask = 0 
+   if _Game_Level = 6 then _Ghost_Speed_Mask = 0 : _Visit_Length = 10 : _Timer_Mask = 0
    return
    
    ;***************************************************************
@@ -608,17 +525,12 @@ __Lose_A_Life
 end
    _Transition_Quick_Count = 60
 
-   AUDC0 = 3
-   AUDF0 = 10
-
 __Slimed_Loop
-   drawscreen
    _Transition_Quick_Count = _Transition_Quick_Count - 1
-   AUDV0 = _Transition_Quick_Count / 4
-   if (_Transition_Quick_Count & 3) = 0 then AUDF0 = AUDF0 + 1
+   gosub __Play_Slimed_SFX bank2
+   drawscreen
    if _Transition_Quick_Count > 0 then goto __Slimed_Loop
-   AUDV0 = 0
-
+   AUDV0 = 0 : AUDV1 = 0
    if pfscore1 >= %00000010 then goto __Start_Turn
 
 __Game_Over_Loop
@@ -790,6 +702,127 @@ __Ghost_Sprite
 end
    return
 
+__Bookcart_Sprite
+  player0:
+   %11001100
+   %11001100
+   %01111100
+   %01000100
+   %01000100
+   %01000100
+   %01111100
+   %01000100
+   %01000100
+end
+   player0color:
+    $00;
+    $00;
+    $82;
+    $82;
+    $82;
+    $82;
+    $82;
+    $82;
+    $82;
+    $82;
+end
+   return
+
+__Add_Points
+   scorecolor = $C4 : _Score_Timer = 60
+   if  _Game_Level > 5 then  score = score + 3000 : return
+   if  _Game_Level = 5 then  score = score + 2000 : return
+   if  _Game_Level = 4 then  score = score + 2000 : return
+   if  _Game_Level = 3 then  score = score + 1000 : return
+   if  _Game_Level = 2 then  score = score + 1000 : return
+   if  _Game_Level = 1 then  score = score + 1000 : return
+   return
+
+   ;***************************************************************
+   ;   Subroutines - Ghost Movement in Room
+   ;***************************************************************
+
+__Move_Ghost	
+	; Check to see if a ghost is in this room.
+   if _Ghost1_Room <> _Buster_Room && _Ghost2_Room <> _Buster_Room && _Ghost3_Room <> _Buster_Room then return
+   
+	; Check to see if the ghost is stunned
+   if !_Bit3_Stunned_Ghost{3} then goto __Not_Stunned
+   _Stun_Timer = _Stun_Timer + 1
+   if _Stun_Timer > 10 then _Bit3_Stunned_Ghost{3} = 0 : _Stun_Timer = 0
+   return
+   
+   	; If the ghost is not stunned, start calculating moves.
+__Not_Stunned
+   _Room_Counter = _Room_Counter + 1
+   if _Room_Counter = 60 then _Visit_Length = _Visit_Length - 1 : _Room_Counter = 0
+   if _Visit_Length >0 then goto __Still_In_Room
+
+   ; make noise and flicker ghost before spawning in a new room
+   gosub __Spawn_Ghosts bank1
+   _Distance_to_Ghost = 255
+   gosub __Set_Room_Layout bank3
+   return
+
+__Still_In_Room
+   if (_Game_Timer & _Ghost_Speed_Mask) then return
+
+   if _Bit2_Wand_Lock{2} then goto __Choose_To_Chase
+   if _Game_Level > 3 then goto __Choose_To_Chase
+
+   if _Ghost_Timer > 0 then goto __Keep_Moving
+
+   _Ghost_Timer = (rand & _Timer_Mask) + 10
+
+   temp5 = player1x - _Ghost_x : if _Ghost_x > player1x then temp5 = _Ghost_x - player1x
+   temp6 = player1y - _Ghost_y : if _Ghost_y > player1y then temp6 = _Ghost_y - player1y
+
+   if temp5 > _Flee_Range && temp6 > _Flee_Range then _Ghost_Direction = (rand & 3) : goto __Keep_Moving
+   if (rand & 1) then goto __Choose_To_Flee_X else goto __Choose_To_Flee_Y
+   
+__Choose_To_Flee_X
+   if player1x > _Ghost_x then _Ghost_Direction = 2 else _Ghost_Direction = 3
+   goto __Keep_Moving
+
+__Choose_To_Flee_Y
+   if player1y > _Ghost_y then _Ghost_Direction = 0 else _Ghost_Direction = 1
+   goto __Keep_Moving
+
+__Choose_To_Chase
+   if _Ghost_Timer > 0 then goto __Keep_Moving
+
+   _Ghost_Timer = (rand & _Timer_Mask) + 10
+
+   temp5 = player1x - _Ghost_x : if _Ghost_x > player1x then temp5 = _Ghost_x - player1x
+   temp6 = player1y - _Ghost_y : if _Ghost_y > player1y then temp6 = _Ghost_y - player1y
+
+   ; Far on both axes: bias toward closing the larger gap
+   if temp5 > temp6 then goto __Choose_To_Chase_X else goto __Choose_To_Chase_Y
+
+__Choose_To_Chase_X
+   if player1x > _Ghost_x then _Ghost_Direction = 3 else _Ghost_Direction = 2
+   goto __Keep_Moving
+
+__Choose_To_Chase_Y
+   if player1y > _Ghost_y then _Ghost_Direction = 1 else _Ghost_Direction = 0
+   goto __Keep_Moving
+
+__Keep_Moving
+   _Ghost_Timer = _Ghost_Timer - 1
+   if _Ghost_Direction = 0 then _Ghost_y = _Ghost_y - 1 : goto __Bounce_Out_Of_Corner
+   if _Ghost_Direction = 1 then _Ghost_y = _Ghost_y + 1 : goto __Bounce_Out_Of_Corner
+   if _Ghost_Direction = 2 then _Ghost_x = _Ghost_x - 1 : goto __Bounce_Out_Of_Corner
+   if _Ghost_Direction = 3 then _Ghost_x = _Ghost_x + 1 : goto __Bounce_Out_Of_Corner
+
+__Bounce_Out_Of_Corner
+   if _Ghost_x < 20 then _Ghost_x = 20 : _Ghost_Direction = 3 : _Ghost_Timer = 10
+   if _Ghost_x > 140 then _Ghost_x = 140 : _Ghost_Direction = 2 : _Ghost_Timer = 10
+   if _Ghost_y < 15 then _Ghost_y = 15 : _Ghost_Direction = 1 : _Ghost_Timer = 10
+   if _Ghost_y > 89 then _Ghost_y = 89 : _Ghost_Direction = 0 : _Ghost_Timer = 10
+
+   player0x = _Ghost_x : player0y = _Ghost_y
+   return
+
    ;***************************************************************
    ;   Subroutines - Audio
    ;***************************************************************
@@ -814,7 +847,45 @@ __PKE_Off
    AUDV0 = 0
    return
 
- data trap_sfx
+   data slimed_sfx
+   15,7,25,1
+   15,7,19,1
+   15,6,26,1
+   15,1,26,1
+   15,7,23,1
+   15,12,16,1
+   15,7,20,1
+   15,7,4,1
+   15,7,14,1
+   15,1,27,1
+   15,1,27,1
+   15,7,30,1
+   15,7,18,1
+   15,6,9,1
+   15,15,23,1
+   15,6,17,1
+   11,7,9,1
+   14,7,9,1
+   11,15,11,1
+   12,15,14,1
+   9,7,26,1
+   9,15,19,1
+   11,15,20,1
+   7,14,12,1
+   7,7,24,1
+   7,7,25,1
+   6,15,11,1
+   7,7,26,1
+   3,7,26,1
+   3,7,31,1
+   6,6,24,1
+   4,6,23,1
+   4,6,20,1
+   1,7,21,1
+   255
+end
+
+   data trap_sfx
    14,4,22,2
    14,4,21,2
    14,4,21,2
@@ -827,6 +898,54 @@ __PKE_Off
    8,4,21,2
    255
 end
+
+   data overheat_sfx
+   4,4,27,1
+   10,4,28,1
+   15,4,28,1
+   15,4,27,1
+   15,4,28,1
+   15,4,28,1
+   15,4,25,1
+   15,4,28,1
+   15,4,28,1
+   15,4,28,1
+   9,4,28,1
+   15,4,28,1
+   15,4,28,1
+   15,4,28,1
+   9,4,28,1
+   15,4,28,1
+   15,4,28,1
+   15,4,28,1
+   9,4,28,1
+   15,4,28,1
+   15,4,28,1
+   8,4,29,1
+   2,4,29,1
+   1,4,29,1
+   0,4,29,1
+   2,4,29,1
+   1,4,29,1
+   255
+end
+
+__Play_Slimed_SFX
+   _SFX_Dur = _SFX_Dur - 1
+   if _SFX_Dur > 0 then return
+
+   _SFX_Vol = slimed_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   if _SFX_Vol = 255 then AUDV0 = 0 : AUDV1 = 0 : _SFX_Dur = 255 : return
+
+   _SFX_Ch = slimed_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   _SFX_Frq = slimed_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+
+   AUDV1 = _SFX_Vol
+   AUDC1 = _SFX_Ch
+   AUDF1 = _SFX_Frq
+
+   _SFX_Dur = slimed_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   return
 
 __Play_Trap_SFX
    _SFX_Dur = _SFX_Dur - 1
@@ -843,66 +962,7 @@ __Play_Trap_SFX
    AUDF1 = _SFX_Frq
 
    _SFX_Dur = trap_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
-   
    return
-
- data overheat_sfx
-   4,4,27
-   1
-   10,4,28
-   1
-   15,4,28
-   1
-   15,4,27
-   1
-   15,4,28
-   1
-   15,4,28
-   1
-   15,4,25
-   1
-   15,4,28
-   1
-   15,4,28
-   1
-   15,4,28
-   1
-   9,4,28
-   1
-   15,4,28
-   1
-   15,4,28
-   1
-   15,4,28
-   1
-   9,4,28
-   1
-   15,4,28
-   1
-   15,4,28
-   1
-   15,4,28
-   1
-   9,4,28
-   1
-   15,4,28
-   1
-   15,4,28
-   1
-   8,4,29
-   1
-   2,4,29
-   1
-   1,4,29
-   1
-   0,4,29
-   1
-   2,4,29
-   1
-   1,4,29
-   1
-   255
-end
 
 __Play_Overheat_SFX
    _SFX_Dur = _SFX_Dur - 1
@@ -919,7 +979,6 @@ __Play_Overheat_SFX
    AUDF1 = _SFX_Frq
 
    _SFX_Dur = overheat_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
-   
    return
 
    ;***************************************************************
@@ -1002,10 +1061,7 @@ __Absolute_Difference
    return
 
 __Draw_Ghost
-   if player0y <> 0 then goto __Continue_Draw_Ghost
-   _Ghost_x = (rand/2) + 15
-   _Ghost_y = (rand/4) + 15
-__Continue_Draw_Ghost
+   if player0y = 0 then _Ghost_x = 80 : _Ghost_y = 45
    player0x = _Ghost_x : player0y = _Ghost_y
    return
 
