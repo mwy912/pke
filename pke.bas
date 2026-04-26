@@ -148,7 +148,6 @@ __Start_Restart
 __End_Theme
    AUDV0 = 0
    AUDV1 = 0
-   score = 1000
    pfscorecolor = $D4
    scorecolor = $00
 
@@ -225,8 +224,6 @@ __Main_Loop
    
    if _Score_Timer < 1 then scorecolor = $00
    
-   if _sc1 = $00 && _sc2 = $00 && _sc3 < $01 then goto __Game_Over_Loop
-
    if _Bit2_Wand_Lock{2} then gosub __Play_Overheat_SFX bank2 else AUDV1 = 0
 
    ;***************************************************************
@@ -414,7 +411,7 @@ __Missile_Moving
    _Previous_Missile_x = missile0x
    if _Buster_Direction = 0 then missile0x = missile0x + 8
    if _Buster_Direction = 8 then missile0x = missile0x - 8
-   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : score = score - 100 : scorecolor = $42 : _Score_Timer = 60
+   if collision(missile0, playfield) then _Bit1_Missile_Flag{1} = 0 : missile0x = _Previous_Missile_x : _Wand_Temperature = _Wand_Temperature + 4
    if (_Stream_Counter & 1) = 0 then missile0y = missile0y + 1 else missile0y = missile0y - 1
    if missile0x < 15 then _Bit1_Missile_Flag{1} = 0
    if missile0x > 140 then _Bit1_Missile_Flag{1} = 0
@@ -462,6 +459,7 @@ __Trap_Logic
    ;***************************************************************   
 
 __Ghost_Caught
+   gosub __Add_Points bank2
    _Ghosts_Caught = _Ghosts_Caught + 1
    if _Ghosts_Caught > _Difficulty_Level then gosub __Level_Change
    _Ghost1_Room = 100
@@ -474,7 +472,6 @@ __Ghost_Caught
    COLUPF = Playfield_Color_Table[_Game_Level]
    _SFX_Dur = 1
    _SFX_Index = 0
-   gosub __Add_Points bank2
 
 __Trap_Loop
    gosub __Play_Trap_SFX bank2
@@ -709,11 +706,11 @@ end
 __Add_Points
    scorecolor = $C4 : _Score_Timer = 60
    if  _Game_Level > 5 then  score = score + 5000 : return
-   if  _Game_Level = 5 then  score = score + 4000 : return
-   if  _Game_Level = 4 then  score = score + 3000 : return
-   if  _Game_Level = 3 then  score = score + 2000 : return
-   if  _Game_Level = 2 then  score = score + 1000 : return
-   if  _Game_Level = 1 then  score = score + 500 : return
+   if  _Game_Level = 5 then  score = score + 2500 : return
+   if  _Game_Level = 4 then  score = score + 1000 : return
+   if  _Game_Level = 3 then  score = score + 500 : return
+   if  _Game_Level = 2 then  score = score + 250 : return
+   if  _Game_Level = 1 then  score = score + 100 : return
    return
 
    ;***************************************************************
