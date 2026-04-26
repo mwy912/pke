@@ -136,7 +136,7 @@ __Start_Restart
    _SFX_Dur = 1
    _SFX_Index = 0
    _GB_Dur = 1
-   _Game_Level = 0
+   _Game_Level = 1
    gosub __Level_Change
    pfscore1 = %10101010 ; 4 lives
    pfscorecolor = $0E
@@ -171,11 +171,12 @@ end
 
    if _Bit5_Left_DifficultyB{5} then _Difficulty_Level = 2 else _Difficulty_Level = 1
 
+
 __Start_Turn
    COLUBK = $02
-   _Map_Position_x = 5
+   _Map_Position_x = 4
    _Map_Position_y = 9
-   _Buster_Room = 95
+   _Buster_Room = 94
    gosub __Set_Room_Layout bank3
    player1x = 78
    player1y = 83
@@ -189,6 +190,9 @@ __Start_Turn
    _Bit4_Trap_Active{4} = 0
    gosub __Ghost_Sprite bank2
    gosub __Spawn_Ghosts
+
+   _Ghost1_Room = 84
+
 
    _Game_Timer = 0
       player1color:
@@ -289,8 +293,11 @@ __Main_Loop
    if collision(player1, player0) then goto __Lose_A_Life
 
    if !collision(missile0, player0) then goto __Skip_Collision_Logic
+
+   _Stun_Timer = 0
    _Bit1_Missile_Flag{1} = 0
    _Bit3_Stunned_Ghost{3} = 1
+
    if _Hit_Count > 31 then goto __Skip_Collision_Logic
    _Hit_Count = _Hit_Count + 1
 
@@ -377,6 +384,7 @@ __Transition_Out
    if _Buster_Room = _Ghost1_Room then gosub __Spawn_Ghosts
    if _Buster_Room = _Ghost2_Room then gosub __Spawn_Ghosts
    if _Buster_Room = _Ghost3_Room then gosub __Spawn_Ghosts
+   gosub __Reset_Level_Variables
    _Transition_Quick_Count = 4
 __Fade_Loop
    drawscreen
@@ -490,13 +498,13 @@ __Level_Change
    _Ghosts_Caught = 0
    _Game_Level = _Game_Level + 1
    if _Game_Level > 6 then _Game_Level = 6
-
-   if _Game_Level = 1 then _Ghost_Speed_Mask = 1 : _Visit_Length = 45 : _Timer_Mask = 15 : _Flee_Range = 20
-   if _Game_Level = 2 then _Ghost_Speed_Mask = 1 : _Visit_Length = 30 : _Timer_Mask = 7  : _Flee_Range = 30
-   if _Game_Level = 3 then _Ghost_Speed_Mask = 1 : _Visit_Length = 20 : _Timer_Mask = 3  : _Flee_Range = 40
-   if _Game_Level = 4 then _Ghost_Speed_Mask = 1 : _Visit_Length = 15 : _Timer_Mask = 1 
-   if _Game_Level = 5 then _Ghost_Speed_Mask = 1 : _Visit_Length = 10 : _Timer_Mask = 0 
-   if _Game_Level = 6 then _Ghost_Speed_Mask = 0 : _Visit_Length = 10 : _Timer_Mask = 0
+__Reset_Level_Variables
+   if _Game_Level = 1 then _Ghost_Speed_Mask = 1 : _Visit_Length = 20 : _Timer_Mask = 15 : _Flee_Range = 10
+   if _Game_Level = 2 then _Ghost_Speed_Mask = 1 : _Visit_Length = 15 : _Timer_Mask = 7  : _Flee_Range = 20
+   if _Game_Level = 3 then _Ghost_Speed_Mask = 1 : _Visit_Length = 10 : _Timer_Mask = 3  : _Flee_Range = 30
+   if _Game_Level = 4 then _Ghost_Speed_Mask = 1 : _Visit_Length = 10 : _Timer_Mask = 1  : _Flee_Range = 40
+   if _Game_Level = 5 then _Ghost_Speed_Mask = 1 : _Visit_Length = 5 : _Timer_Mask = 0 
+   if _Game_Level = 6 then _Ghost_Speed_Mask = 0 : _Visit_Length = 5 : _Timer_Mask = 0
    return
    
    ;***************************************************************
@@ -701,40 +709,14 @@ __Ghost_Sprite
 end
    return
 
-__Bookcart_Sprite
-  player0:
-   %11001100
-   %11001100
-   %01111100
-   %01000100
-   %01000100
-   %01000100
-   %01111100
-   %01000100
-   %01000100
-end
-   player0color:
-    $00;
-    $00;
-    $82;
-    $82;
-    $82;
-    $82;
-    $82;
-    $82;
-    $82;
-    $82;
-end
-   return
-
 __Add_Points
    scorecolor = $C4 : _Score_Timer = 60
-   if  _Game_Level > 5 then  score = score + 3000 : return
-   if  _Game_Level = 5 then  score = score + 2000 : return
-   if  _Game_Level = 4 then  score = score + 2000 : return
-   if  _Game_Level = 3 then  score = score + 1000 : return
+   if  _Game_Level > 5 then  score = score + 5000 : return
+   if  _Game_Level = 5 then  score = score + 4000 : return
+   if  _Game_Level = 4 then  score = score + 3000 : return
+   if  _Game_Level = 3 then  score = score + 2000 : return
    if  _Game_Level = 2 then  score = score + 1000 : return
-   if  _Game_Level = 1 then  score = score + 1000 : return
+   if  _Game_Level = 1 then  score = score + 500 : return
    return
 
    ;***************************************************************
@@ -748,26 +730,29 @@ __Move_Ghost
 	; Check to see if the ghost is stunned
    if !_Bit3_Stunned_Ghost{3} then goto __Not_Stunned
    _Stun_Timer = _Stun_Timer + 1
-   if _Stun_Timer > 10 then _Bit3_Stunned_Ghost{3} = 0 : _Stun_Timer = 0
+   if _Stun_Timer > 15 then _Bit3_Stunned_Ghost{3} = 0 : _Stun_Timer = 0
    return
    
    	; If the ghost is not stunned, start calculating moves.
 __Not_Stunned
    _Room_Counter = _Room_Counter + 1
    if _Room_Counter = 60 then _Visit_Length = _Visit_Length - 1 : _Room_Counter = 0
-   if _Visit_Length >0 then goto __Still_In_Room
+   if _Visit_Length > 2 then goto __Still_In_Room
+   if _Visit_Length > 1 then goto __Flicker
 
-   ; make noise and flicker ghost before spawning in a new room
    gosub __Spawn_Ghosts bank1
    _Distance_to_Ghost = 255
    gosub __Set_Room_Layout bank3
    return
 
+__Flicker
+   gosub __Play_Disappear_SFX bank2
+
 __Still_In_Room
    if (_Game_Timer & _Ghost_Speed_Mask) then return
 
    if _Bit2_Wand_Lock{2} then goto __Choose_To_Chase
-   if _Game_Level > 3 then goto __Choose_To_Chase
+   if _Game_Level > 4 then goto __Choose_To_Chase
 
    if _Ghost_Timer > 0 then goto __Keep_Moving
 
@@ -814,10 +799,10 @@ __Keep_Moving
    if _Ghost_Direction = 3 then _Ghost_x = _Ghost_x + 1 : goto __Bounce_Out_Of_Corner
 
 __Bounce_Out_Of_Corner
-   if _Ghost_x < 20 then _Ghost_x = 20 : _Ghost_Direction = 3 : _Ghost_Timer = 10
-   if _Ghost_x > 140 then _Ghost_x = 140 : _Ghost_Direction = 2 : _Ghost_Timer = 10
-   if _Ghost_y < 15 then _Ghost_y = 15 : _Ghost_Direction = 1 : _Ghost_Timer = 10
-   if _Ghost_y > 89 then _Ghost_y = 89 : _Ghost_Direction = 0 : _Ghost_Timer = 10
+   if _Ghost_x < 20 then _Ghost_x = 20 : _Ghost_Direction = 3 : _Ghost_Timer = 25
+   if _Ghost_x > 140 then _Ghost_x = 140 : _Ghost_Direction = 2 : _Ghost_Timer = 25
+   if _Ghost_y < 15 then _Ghost_y = 15 : _Ghost_Direction = 1 : _Ghost_Timer = 25
+   if _Ghost_y > 89 then _Ghost_y = 89 : _Ghost_Direction = 0 : _Ghost_Timer = 25
 
    player0x = _Ghost_x : player0y = _Ghost_y
    return
@@ -929,6 +914,29 @@ end
    255
 end
 
+   data disappear_sfx
+   4,12,15,2
+   8,14,0,2
+   8,12,16,2
+   6,6,2,2
+   6,12,16,2
+   6,6,2,2
+   8,14,0,2
+   8,12,16,2
+   8,6,2,2
+   6,12,15,2
+   6,12,16,2
+   6,6,2,2
+   6,12,16,2
+   4,12,15,2
+   4,12,16,2
+   4,12,15,2
+   4,14,0,2
+   4,12,16,2
+   2,12,16,2
+   255
+end
+
 __Play_Slimed_SFX
    _SFX_Dur = _SFX_Dur - 1
    if _SFX_Dur > 0 then return
@@ -980,6 +988,23 @@ __Play_Overheat_SFX
    _SFX_Dur = overheat_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
    return
 
+__Play_Disappear_SFX
+   _SFX_Dur = _SFX_Dur - 1
+   if _SFX_Dur > 0 then return
+
+   _SFX_Vol = disappear_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   if _SFX_Vol = 255 then _SFX_Dur = 1 : _SFX_Index = 0 : AUDV0 = 0 : return
+
+   _SFX_Ch = disappear_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   _SFX_Frq = disappear_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+
+   AUDV1 = _SFX_Vol
+   AUDC1 = _SFX_Ch
+   AUDF1 = _SFX_Frq
+
+   _SFX_Dur = disappear_sfx[_SFX_Index] : _SFX_Index = _SFX_Index + 1
+   return
+
    ;***************************************************************
    ;***************************************************************     
    bank 3
@@ -1000,7 +1025,7 @@ __Play_Overheat_SFX
      2, 13, 12, 13, 13, 11, 11, 13, 12, 5
      2, 11, 13, 11, 12, 13, 12, 11, 13, 5
      2, 13, 11, 12, 11, 12, 13, 12, 11, 5
-     3,  8,  8,  8,  8,  9,  8,  8,  8, 6
+     3,  8,  8,  8,  9,  8,  8,  8,  8, 6
 end
 
 __Set_Room_Layout
@@ -1636,5 +1661,4 @@ __Right_to_Left
 
 __End_Title
    AUDV0 = 0
-   score = 1000
    goto __End_Theme bank1
