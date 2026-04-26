@@ -19,7 +19,6 @@
 0.__Extract_Loop         d262              (R )
 0.__Fade_Loop            9701              (R )
 0.__Fire_The_Wand        9731              (R )
-0.__Flicker              b31f              (R )
 0.__Game_Credits         f8e7              (R )
 0.__Game_Over_Loop       9abc              (R )
 0.__Ghost_Caught         98ef              (R )
@@ -38,6 +37,7 @@
 0.__Layout_Room_7        d451              (R )
 0.__Layout_Room_8        d48e              (R )
 0.__Layout_Room_9        d4cb              (R )
+0.__Leaving              b31f              (R )
 0.__Left_to_Right        fa7e              (R )
 0.__Level_Change         99bf              (R )
 0.__Lose_A_Life          9a58              (R )
@@ -1298,8 +1298,8 @@ f                        00d9              (R )
 F                        00d9                  
 FASTFETCH                0000 ????         (R )
 font                     0000 ????         (R )
-G                        00da                  
 g                        00da              (R )
+G                        00da                  
 game                     9100              (R )
 GhostbustersTheme        00a5              (R )
 GhostbustersTheme_begin  f632              (R )
@@ -1935,8 +1935,8 @@ write_RAM                f000
 WSYNC                    0002              (R )
 x                        00eb              (R )
 X                        00eb                  
-y                        00ec              (R )
 Y                        00ec                  
+y                        00ec              (R )
 z                        00ed              (R )
 Z                        00ed                  
 --- End of Symbol List.

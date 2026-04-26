@@ -2471,9 +2471,9 @@
     467  11f6
     468  11f6		       a9 01		      LDA	#1
     469  11f8		       85 bc		      STA	_GB_Dur
-    470  11fa				   .L081		;;line 139;;  _Game_Level = 1
+    470  11fa				   .L081		;;line 139;;  _Game_Level = 5
     471  11fa
-    472  11fa		       a9 01		      LDA	#1
+    472  11fa		       a9 05		      LDA	#5
     473  11fc		       85 ca		      STA	_Game_Level
     474  11fe				   .L082		;;line 140;;  gosub __Level_Change
     475  11fe
@@ -4563,7 +4563,7 @@
    2559  19cf				   .__Reset_Level_Variables
    2560  19cf							;;line 501;; __Reset_Level_Variables
    2561  19cf
-   2562  19cf				   .L0282		;;line 502;;  if _Game_Level = 1 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 20  :	_Timer_Mask = 15  :  _Flee_Range = 10
+   2562  19cf				   .L0282		;;line 502;;  if _Game_Level = 1 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 12  :	_Timer_Mask = 15  :  _Flee_Range = 10
    2563  19cf
    2564  19cf		       a5 ca		      LDA	_Game_Level
    2565  19d1		       c9 01		      CMP	#1
@@ -4571,14 +4571,14 @@
    2567  19d5				   .condpart77
    2568  19d5		       a9 01		      LDA	#1
    2569  19d7		       85 cd		      STA	_Ghost_Speed_Mask
-   2570  19d9		       a9 14		      LDA	#20
+   2570  19d9		       a9 0c		      LDA	#12
    2571  19db		       85 ce		      STA	_Visit_Length
    2572  19dd		       a9 0f		      LDA	#15
    2573  19df		       85 cf		      STA	_Timer_Mask
    2574  19e1		       a9 0a		      LDA	#10
    2575  19e3		       85 d1		      STA	_Flee_Range
    2576  19e5				   .skipL0282
-   2577  19e5				   .L0283		;;line 503;;  if _Game_Level = 2 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 15  :	_Timer_Mask = 7  :  _Flee_Range = 20
+   2577  19e5				   .L0283		;;line 503;;  if _Game_Level = 2 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 10  :	_Timer_Mask = 7  :  _Flee_Range = 20
    2578  19e5
    2579  19e5		       a5 ca		      LDA	_Game_Level
    2580  19e7		       c9 02		      CMP	#2
@@ -4586,14 +4586,14 @@
    2582  19eb				   .condpart78
    2583  19eb		       a9 01		      LDA	#1
    2584  19ed		       85 cd		      STA	_Ghost_Speed_Mask
-   2585  19ef		       a9 0f		      LDA	#15
+   2585  19ef		       a9 0a		      LDA	#10
    2586  19f1		       85 ce		      STA	_Visit_Length
    2587  19f3		       a9 07		      LDA	#7
    2588  19f5		       85 cf		      STA	_Timer_Mask
    2589  19f7		       a9 14		      LDA	#20
    2590  19f9		       85 d1		      STA	_Flee_Range
    2591  19fb				   .skipL0283
-   2592  19fb				   .L0284		;;line 504;;  if _Game_Level = 3 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 10  :	_Timer_Mask = 3  :  _Flee_Range = 30
+   2592  19fb				   .L0284		;;line 504;;  if _Game_Level = 3 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 8  :  _Timer_Mask = 3	:  _Flee_Range = 30
    2593  19fb
    2594  19fb		       a5 ca		      LDA	_Game_Level
    2595  19fd		       c9 03		      CMP	#3
@@ -4601,14 +4601,14 @@
    2597  1a01				   .condpart79
    2598  1a01		       a9 01		      LDA	#1
    2599  1a03		       85 cd		      STA	_Ghost_Speed_Mask
-   2600  1a05		       a9 0a		      LDA	#10
+   2600  1a05		       a9 08		      LDA	#8
    2601  1a07		       85 ce		      STA	_Visit_Length
    2602  1a09		       a9 03		      LDA	#3
    2603  1a0b		       85 cf		      STA	_Timer_Mask
    2604  1a0d		       a9 1e		      LDA	#30
    2605  1a0f		       85 d1		      STA	_Flee_Range
    2606  1a11				   .skipL0284
-   2607  1a11				   .L0285		;;line 505;;  if _Game_Level = 4 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 10  :	_Timer_Mask = 1  :  _Flee_Range = 40
+   2607  1a11				   .L0285		;;line 505;;  if _Game_Level = 4 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 5  :  _Timer_Mask = 1	:  _Flee_Range = 40
    2608  1a11
    2609  1a11		       a5 ca		      LDA	_Game_Level
    2610  1a13		       c9 04		      CMP	#4
@@ -4616,14 +4616,14 @@
    2612  1a17				   .condpart80
    2613  1a17		       a9 01		      LDA	#1
    2614  1a19		       85 cd		      STA	_Ghost_Speed_Mask
-   2615  1a1b		       a9 0a		      LDA	#10
+   2615  1a1b		       a9 05		      LDA	#5
    2616  1a1d		       85 ce		      STA	_Visit_Length
    2617  1a1f		       a9 01		      LDA	#1
    2618  1a21		       85 cf		      STA	_Timer_Mask
    2619  1a23		       a9 28		      LDA	#40
    2620  1a25		       85 d1		      STA	_Flee_Range
    2621  1a27				   .skipL0285
-   2622  1a27				   .L0286		;;line 506;;  if _Game_Level = 5 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 5  :  _Timer_Mask = 0
+   2622  1a27				   .L0286		;;line 506;;  if _Game_Level = 5 then _Ghost_Speed_Mask = 1  :  _Visit_Length = 4  :  _Timer_Mask = 0
    2623  1a27
    2624  1a27		       a5 ca		      LDA	_Game_Level
    2625  1a29		       c9 05		      CMP	#5
@@ -4631,12 +4631,12 @@
    2627  1a2d				   .condpart81
    2628  1a2d		       a9 01		      LDA	#1
    2629  1a2f		       85 cd		      STA	_Ghost_Speed_Mask
-   2630  1a31		       a9 05		      LDA	#5
+   2630  1a31		       a9 04		      LDA	#4
    2631  1a33		       85 ce		      STA	_Visit_Length
    2632  1a35		       a9 00		      LDA	#0
    2633  1a37		       85 cf		      STA	_Timer_Mask
    2634  1a39				   .skipL0286
-   2635  1a39				   .L0287		;;line 507;;  if _Game_Level = 6 then _Ghost_Speed_Mask = 0  :  _Visit_Length = 5  :  _Timer_Mask = 0
+   2635  1a39				   .L0287		;;line 507;;  if _Game_Level = 6 then _Ghost_Speed_Mask = 0  :  _Visit_Length = 3  :  _Timer_Mask = 0
    2636  1a39
    2637  1a39		       a5 ca		      LDA	_Game_Level
    2638  1a3b		       c9 06		      CMP	#6
@@ -4644,7 +4644,7 @@
    2640  1a3f				   .condpart82
    2641  1a3f		       a9 00		      LDA	#0
    2642  1a41		       85 cd		      STA	_Ghost_Speed_Mask
-   2643  1a43		       a9 05		      LDA	#5
+   2643  1a43		       a9 03		      LDA	#3
    2644  1a45		       85 ce		      STA	_Visit_Length
    2645  1a47		       a9 00		      LDA	#0
    2646  1a49		       85 cf		      STA	_Timer_Mask
@@ -6296,13 +6296,13 @@
    3781  22d2		       4c 37 b3 	      jmp	.__Still_In_Room
    3782  22d5
    3783  22d5				   .skipL0371
-   3784  22d5				   .L0372		;;line 741;;  if _Visit_Length  >  1 then goto __Flicker
+   3784  22d5				   .L0372		;;line 741;;  if _Visit_Length  >  1 then goto __Leaving
    3785  22d5
    3786  22d5		       a9 01		      LDA	#1
    3787  22d7		       c5 ce		      CMP	_Visit_Length
    3788  22d9		       b0 03		      BCS	.skipL0372
    3789  22db				   .condpart131
-   3790  22db		       4c 1f b3 	      jmp	.__Flicker
+   3790  22db		       4c 1f b3 	      jmp	.__Leaving
    3791  22de
    3792  22de				   .skipL0372
    3793  22de				   .
@@ -6360,8 +6360,8 @@
    3845  231f				   .
    3846  231f							;;line 747;;
    3847  231f
-   3848  231f				   .__Flicker
-   3849  231f							;;line 748;; __Flicker
+   3848  231f				   .__Leaving
+   3849  231f							;;line 748;; __Leaving
    3850  231f
    3851  231f				   .L0377		;;line 749;;  gosub __Play_Disappear_SFX bank2
    3852  231f
@@ -12626,9 +12626,9 @@
    8860  4989
    8861  4989		       a9 02		      LDA	#$02
    8862  498b		       85 a3		      STA	scorecolor
-   8863  498d				   .L0566		;;line 1568;;	COLUP0 = $0E
+   8863  498d				   .L0566		;;line 1568;;	COLUP0 = $D4
    8864  498d
-   8865  498d		       a9 0e		      LDA	#$0E
+   8865  498d		       a9 d4		      LDA	#$D4
    8866  498f		       85 06		      STA	COLUP0
    8867  4991				   .
    8868  4991							;;line 1569;;

@@ -136,7 +136,7 @@ __Start_Restart
    _SFX_Dur = 1
    _SFX_Index = 0
    _GB_Dur = 1
-   _Game_Level = 1
+   _Game_Level = 0
    gosub __Level_Change
    pfscore1 = %10101010 ; 4 lives
    pfscorecolor = $0E
@@ -190,9 +190,6 @@ __Start_Turn
    _Bit4_Trap_Active{4} = 0
    gosub __Ghost_Sprite bank2
    gosub __Spawn_Ghosts
-
-   _Ghost1_Room = 84
-
 
    _Game_Timer = 0
       player1color:
@@ -499,12 +496,12 @@ __Level_Change
    _Game_Level = _Game_Level + 1
    if _Game_Level > 6 then _Game_Level = 6
 __Reset_Level_Variables
-   if _Game_Level = 1 then _Ghost_Speed_Mask = 1 : _Visit_Length = 20 : _Timer_Mask = 15 : _Flee_Range = 10
-   if _Game_Level = 2 then _Ghost_Speed_Mask = 1 : _Visit_Length = 15 : _Timer_Mask = 7  : _Flee_Range = 20
-   if _Game_Level = 3 then _Ghost_Speed_Mask = 1 : _Visit_Length = 10 : _Timer_Mask = 3  : _Flee_Range = 30
-   if _Game_Level = 4 then _Ghost_Speed_Mask = 1 : _Visit_Length = 10 : _Timer_Mask = 1  : _Flee_Range = 40
-   if _Game_Level = 5 then _Ghost_Speed_Mask = 1 : _Visit_Length = 5 : _Timer_Mask = 0 
-   if _Game_Level = 6 then _Ghost_Speed_Mask = 0 : _Visit_Length = 5 : _Timer_Mask = 0
+   if _Game_Level = 1 then _Ghost_Speed_Mask = 1 : _Visit_Length = 12 : _Timer_Mask = 15 : _Flee_Range = 10
+   if _Game_Level = 2 then _Ghost_Speed_Mask = 1 : _Visit_Length = 10 : _Timer_Mask = 7  : _Flee_Range = 20
+   if _Game_Level = 3 then _Ghost_Speed_Mask = 1 : _Visit_Length = 8 : _Timer_Mask = 3  : _Flee_Range = 30
+   if _Game_Level = 4 then _Ghost_Speed_Mask = 1 : _Visit_Length = 5 : _Timer_Mask = 1  : _Flee_Range = 40
+   if _Game_Level = 5 then _Ghost_Speed_Mask = 1 : _Visit_Length = 4 : _Timer_Mask = 0 
+   if _Game_Level = 6 then _Ghost_Speed_Mask = 0 : _Visit_Length = 3 : _Timer_Mask = 0
    return
    
    ;***************************************************************
@@ -738,14 +735,14 @@ __Not_Stunned
    _Room_Counter = _Room_Counter + 1
    if _Room_Counter = 60 then _Visit_Length = _Visit_Length - 1 : _Room_Counter = 0
    if _Visit_Length > 2 then goto __Still_In_Room
-   if _Visit_Length > 1 then goto __Flicker
+   if _Visit_Length > 1 then goto __Leaving
 
    gosub __Spawn_Ghosts bank1
    _Distance_to_Ghost = 255
    gosub __Set_Room_Layout bank3
    return
 
-__Flicker
+__Leaving
    gosub __Play_Disappear_SFX bank2
 
 __Still_In_Room
@@ -1565,7 +1562,7 @@ __Title_Loop
 end
    pfscorecolor = $02
    scorecolor = $02
-   COLUP0 = $0E 
+   COLUP0 = $D4
 
    gosub __Title_Screen
 
